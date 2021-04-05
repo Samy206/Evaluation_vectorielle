@@ -29,3 +29,5 @@ Les fichiers modifiés :
 NB: Pour changer la fonction : main.cpp l.29 à l.32
     Pour changer v0 et le nb de vecteurs : main.cpp l.50 à l.52
     (cin ne fonctionnait pas j'ai du faire comme ça mais c'est un premier jet)
+    
+//plus tard j'essaierais d'implementer un zoom dans le graph
