@@ -108,7 +108,7 @@ void Liste::add_vecteur(Vecteur vecteur)
 
 
 //Test de QPAINTER pour le graph 2D (useless mais on en garde une trace)//
-//Si vous voulez regarder ce que cela donne: enlever le commentaire dans mainwindow.h de la methode paintevent l.19//
+//Si vous voulez regarder ce que cela donne: enlever le commentaire dans mainwindow.h de la methode paintevent l.21//
 //enlever le commentaire egalement l.113 (ici) et mettre en commentaire w.setcentralwindow puis tt ce qui ne touche pas a w (dans main.cpp) //
 /*void MainWindow::paintEvent(QPaintEvent *event)
 {
