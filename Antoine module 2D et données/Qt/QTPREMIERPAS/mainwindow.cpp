@@ -141,7 +141,7 @@ void Liste::add_vecteur(Vecteur vecteur)
     Axes[2].setX(100);   Axes[3].setX(1500);  //AXE X
     Axes[2].setY(1100);   Axes[3].setY(1100); painter.drawLine(Axes[2],Axes[3]);
 
-    for( int i = 1; i < 10; i++)  //Les calculs avec des doubles >1 deconne...
+    for( int i = 1; i < 10; i++)  //Les calculs avec des doubles <1 deconne...
     {
         painter.drawLine( (100+((maxX/10)*i)*5.57768924) , 1095 , (100+((maxX/10)*i)*5.57768924) , 1105 ); //X
         painter.drawLine( 95 , (1100-((maxY/10)*i)*0.6863418) , 105 , (1100-((maxY/10)*i)*0.6863418) ); //Y
