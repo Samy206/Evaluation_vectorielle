@@ -24,3 +24,8 @@ Les fichiers modifiés :
       - Remplissage de la Serie de point pour le graphique et du tableau en parcourant la <class List> liste,
       - Changement graphique du graph,
       - Affichage de la MainWindow et du QTableWidget.
+
+
+NB: Pour changer la fonction : main.cpp l.29 à l.32
+    Pour changer v0 et le nb de vecteurs : main.cpp l.50 à l.52
+    (cin ne fonctionnait pas j'ai du faire comme ça mais c'est un premier jet)
