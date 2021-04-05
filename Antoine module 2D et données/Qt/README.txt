@@ -7,7 +7,7 @@ Les fichiers modifiés :
 
   - mainwindow.h :
       - Ajout de la class Vecteur,
-      - Ajout de la class List.
+      - Ajout de la class List.  (pour simuler la sortie du module calcul vecteur, me manque la sortie calcul stat)
   
   - mainwindow.cpp :
       - Ajout des méthodes de la class Vecteur,
