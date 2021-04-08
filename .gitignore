@@ -30,3 +30,7 @@
 *.exe
 *.out
 *.app
+
+headers/mes_vecteurs.h
+src/mes_vecteurs.cc
+src/Main.c
