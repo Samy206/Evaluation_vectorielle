@@ -1,13 +1,13 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "../headers/liste_vecteurs.h"
+#include "vecteurs.c"
 
-Liste_vecteur *  initialisation_liste()
+void initialisation_liste(Liste_vecteur * liste)
 {
-    Liste_vecteur * liste = malloc(sizeof(Liste_vecteur));
-    liste->premier = NULL;
+    liste = malloc(sizeof(Liste_vecteur));
     liste->taille = 0;
-    return liste;
+    liste->premier = NULL;
 };
 
 
@@ -17,8 +17,10 @@ void push_liste(Liste_vecteur * liste,Vector vec)
     nouveau->vecteur = vec;
     nouveau->suivant = NULL;
 
-    if(liste->taille = 0)
+    if(liste->premier == NULL)
+    {
         liste->premier = nouveau;
+    }
 
     else
     {
@@ -29,12 +31,13 @@ void push_liste(Liste_vecteur * liste,Vector vec)
 
         tmp->suivant = nouveau;
     }
+
     liste->taille++;
 };
 
 Vector top_liste(Liste_vecteur * liste)
 {
-    Vector * tmp = liste->premier;
+    element * tmp = liste->premier;
 
     while(tmp->suivant != NULL)
         tmp = tmp->suivant;
@@ -44,15 +47,32 @@ Vector top_liste(Liste_vecteur * liste)
 
 void pop_liste(Liste_vecteur * liste)
 {
-    Vector * tmp1 = liste->premier;
 
-    while(tmp1->suivant->suivant != NULL)
-        tmp1 = tmp1->suivant;
+    if(liste->premier == NULL || liste->taille == 0)
+    {
+        printf("liste vide\n");
+        return;
+    }
 
-    element * tmp2 = tmp1->suivant;
-    tmp1->suivant = NULL;
-    free_vector(tmp2->vecteur);
-    liste->taille--;
+    else if (liste->taille == 1 || liste->premier == NULL)
+    {
+        //free_vector(liste->premier->vecteur);
+        liste->premier = NULL;
+        liste->taille--;
+
+    }
+
+    else
+    {
+        element * tmp1 = liste->premier;
+        while(tmp1->suivant->suivant != NULL)
+            tmp1 = tmp1->suivant;
+
+        element * tmp2 = tmp1->suivant;
+        tmp1->suivant = NULL;
+        //free_vector(tmp2->vecteur);
+        liste->taille--;
+    }
 };
 
 
@@ -60,7 +80,7 @@ Vector consultation_liste(Liste_vecteur * liste, int indice)
 {
     element * tmp = liste->premier;
 
-    for(int i = 0 ; i <= indice ; i++)
+    for(int i = 0 ; i < indice ; i++)
         tmp = tmp->suivant;
 
     return tmp->vecteur;
@@ -68,9 +88,8 @@ Vector consultation_liste(Liste_vecteur * liste, int indice)
 
 void free_liste(Liste_vecteur * liste)
 {
-
-    while(liste.taille != 0)
+    while(liste->taille != 0 || liste->premier != NULL )
         pop_liste(liste);
 
-    free(liste);
+    //free(liste);
 };
