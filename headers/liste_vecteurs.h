@@ -1,7 +1,7 @@
-#include "vecteurs.h"
+#ifndef H_LISTE_VECTEURS
+#define H_LISTE_VECTEURS
 
-#ifndef LISTE_VECTEURS
-#define LISTE_VECTEURS
+#include "vecteurs.h"
 
 typedef struct element        //Brique de la liste appelée "element" : Un vecteur et un pointeur vers le suivant
 {
@@ -10,14 +10,15 @@ typedef struct element        //Brique de la liste appelée "element" : Un vecte
 }
 element;
 
-typedef struct liste          //Liste à proprement parler
+
+typedef struct Liste_vecteur          //Liste à proprement parler
 {
     element * premier;
     int taille;
 }
 Liste_vecteur;
 
-void initialisation_liste(Liste_vecteur * liste);                //initialisation
+Liste_vecteur* initialisation_liste(Vector vec);                //initialisation
 
 void push_liste(Liste_vecteur * liste, Vector vec);              //Ajout d'un vecteur à la liste
 Vector top_liste(Liste_vecteur * liste);                         //Consultation du dernier vecteur ajouté
@@ -26,5 +27,6 @@ Vector consultation_liste(Liste_vecteur * liste, int indice);    //Consultation 
 void free_liste(Liste_vecteur* liste);                            //Libération de la mémoire allouée
 
 
+void calcul_suite_vecteurs(Liste_vecteur * liste, char **chaine);
 
 #endif
