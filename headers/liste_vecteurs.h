@@ -18,7 +18,7 @@ typedef struct Liste_vecteur          //Liste à proprement parler
 }
 Liste_vecteur;
 
-Liste_vecteur* initialisation_liste(Vector vec);                //initialisation
+Liste_vecteur* initialisation_liste(Vector *  vec);              //initialisation
 
 void push_liste(Liste_vecteur * liste, Vector vec);              //Ajout d'un vecteur à la liste
 Vector top_liste(Liste_vecteur * liste);                         //Consultation du dernier vecteur ajouté

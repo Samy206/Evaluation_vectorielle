@@ -1,15 +1,17 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "vecteurs.h"
+#include "../headers/vecteurs.h"
 
 // Initialisation d'un vecteur :
 int vector_init(Vector* v, size_t dimension)
 {
+
 	v->tableau = malloc(sizeof(double) * dimension);
 	if(!v->tableau) return -1;
 	
 	v->taille = dimension;
 	v->nb_element = 0;
+	return 0;
 }
 
 // Ajout element :

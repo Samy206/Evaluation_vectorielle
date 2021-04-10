@@ -1,18 +1,18 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "liste_vecteurs.h"
+#include "../headers/liste_vecteurs.h"
 
-
-Liste_vecteur* initialisation_liste(Vector vec)
+Liste_vecteur* initialisation_liste(Vector * vec)
 {
 	Liste_vecteur * liste = malloc(sizeof(Liste_vecteur));
 	element * nouveau = malloc(sizeof(element));
 	
-	nouveau->vecteur = vec;
+	nouveau->vecteur = *vec;
 	nouveau->suivant = NULL;
 	
 	liste->taille = 1;
 	liste->premier = nouveau;
+	return liste;
 }
 
 void push_liste(Liste_vecteur * liste, Vector vec)
@@ -48,7 +48,7 @@ void pop_liste(Liste_vecteur * liste)
 		printf("Liste vide \n");
 		return;
 	}
-	else if (liste->taille == 1 || liste->premier == NULL)
+	else if (liste->taille == 1 )
 	{
 		free_vector(liste->premier->vecteur);
         liste->premier = NULL;
@@ -69,14 +69,29 @@ void pop_liste(Liste_vecteur * liste)
 	}
 }
 
-void free_liste(Liste_vecteur * liste)
+Vector consultation_liste(Liste_vecteur * liste, int indice)
 {
-	while(liste->taille != 0 || liste->premier != NULL )
-        pop_liste(liste);
-}
+    if (liste == NULL || indice >= liste->taille) exit(EXIT_FAILURE);
 
+    element * tmp = liste->premier;
 
+    for(int i = 0 ; i < indice ; i++)
+        tmp = tmp->suivant;
 
+    return tmp->vecteur;
+};
+
+Vector top_liste(Liste_vecteur * liste)
+{
+    if (liste == NULL ) exit(EXIT_FAILURE);
+
+    element * tmp = liste->premier;
+
+    while(tmp->suivant != NULL)
+        tmp = tmp->suivant;
+
+    return tmp->vecteur;
+};
 
 void afficherListe(Liste_vecteur * liste)
 {
@@ -87,7 +102,7 @@ void afficherListe(Liste_vecteur * liste)
 
     while (actuel != NULL)
     {
-		printf(" (");
+		printf(" ( ");
 		for(int i=0; (size_t)i<actuel->vecteur.taille; ++i)
 		{
 			printf("%f  ", actuel->vecteur.tableau[i]);
@@ -98,7 +113,11 @@ void afficherListe(Liste_vecteur * liste)
 	
 }
 
-
+void free_liste(Liste_vecteur * liste)
+{
+	while(liste->premier != NULL )
+        pop_liste(liste);
+}
 
 
 
