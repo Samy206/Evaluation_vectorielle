@@ -26,11 +26,13 @@ void addvectwindow::Validate()
 
    name = ui->lineEdit_name->text().toStdString();
 
+    state = 1;
     close();
 }
 
 void addvectwindow::Cancel()
 {
+    state = 0;
     close(); //end of the window
 }
 

@@ -30,11 +30,13 @@ void addfunctwindow::Validate()
      }
 
     name = ui->lineEdit_name->text().toStdString();
+    state = 1;
      close(); //end of the window
 }
 
 void addfunctwindow::Cancel()
 {
+    state = 0;
     close(); //end of the window
 }
 

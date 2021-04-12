@@ -17,8 +17,8 @@ MainWindow::MainWindow(QWidget *parent)
     QObject::connect(ui->Button_save, SIGNAL(clicked()), this, SLOT(makesave()));
     QObject::connect(ui->Button_addvect, SIGNAL(clicked()), this, SLOT(makeadd_vect()));
     QObject::connect(ui->Button_addfunct, SIGNAL(clicked()), this, SLOT(makeadd_funct()));
-    QObject::connect(ui->Button_erase_funct, SIGNAL(clicked()), this, SLOT(makeerase()));
-    QObject::connect(ui->Button_erase_vect, SIGNAL(clicked()), this, SLOT(makeerase()));
+    QObject::connect(ui->Button_erase_funct, SIGNAL(clicked()), this, SLOT(makeerase_funct()));
+    QObject::connect(ui->Button_erase_vect, SIGNAL(clicked()), this, SLOT(makeerase_vect()));
     QObject::connect(ui->Button_excute, SIGNAL(clicked()), this, SLOT(makeexecute()));
 }
 
@@ -42,18 +42,20 @@ void MainWindow::makeadd_vect()
     secwind.setModal(true);
     secwind.exec();
 
-    vector<double> vect = secwind.getvectinit();
-    string componant = secwind.name;
-    componant += " = (";
-    for (int i = 0; i < (int)vect.size(); i++) {
-       componant+= std::to_string(vect[i]);
-       componant += ",";
-    }
-    componant.pop_back();
-    componant += ")";
+    if(secwind.state == 1)
+    {
+        vector<double> vect = secwind.getvectinit();
+        string componant = secwind.name;
+        componant += " = (";
+        for (int i = 0; i < (int)vect.size(); i++) {
+        componant+= std::to_string(vect[i]);
+        componant += ",";
+        }
+        componant.pop_back();
+        componant += ")";
 
-    ui->listWidget_vect->addItem(QString::fromStdString(componant));
-    //Recuperation de la saisie dans l'objet addvectwindow pour actualisé la QlisteeWidget_vect
+        ui->listWidget_vect->addItem(QString::fromStdString(componant));  //Recuperation de la saisie dans l'objet addvectwindow pour actualisé la QlisteeWidget_vect
+    }
 
 }
 
@@ -63,30 +65,42 @@ void MainWindow::makeadd_funct()
     secwind.setModal(true);
     secwind.exec();
 
-    vector<string> funct = secwind.getfunct();
-    string componant = secwind.name;
-    componant += "() = (";
-    for (int i = 0; i < (int)funct.size(); i++) {
-       componant+= funct[i];
-       componant += ";";
-    }
-    componant.pop_back();
-    componant += ")";
+    if(secwind.state == 1)
+    {
+        vector<string> funct = secwind.getfunct();
+        string componant = secwind.name;
+        componant += "() = (";
+        for (int i = 0; i < (int)funct.size(); i++) {
+        componant+= funct[i];
+        componant += ";";
+        }
+        componant.pop_back();
+        componant += ")";
 
-    ui->listWidget_funct->addItem(QString::fromStdString(componant));
-    //Recuperation de la saisie dans l'objet addfunctwindow pour actualisé la QlisteeWidget_funct
+        ui->listWidget_funct->addItem(QString::fromStdString(componant));  //Recuperation de la saisie dans l'objet addfunctwindow pour actualisé la QlisteeWidget_funct
+    }
 }
 
-void MainWindow::makeerase()
+void MainWindow::makeerase_funct()
 {
-    //Recuperation de quel bouton erase a été cliqué (vect ou funct)
-    //Recuperation de la selection de la liste (vect ou funct)
-    //Suppresion de la selection dans la liste (vect ou funct)
+    QListWidgetItem *it = ui->listWidget_funct->takeItem(ui->listWidget_funct->currentRow()); //Take the selected item and delete it
+    delete it;
+}
+
+void MainWindow::makeerase_vect()
+{
+    QListWidgetItem *it = ui->listWidget_vect->takeItem(ui->listWidget_vect->currentRow());  //Take the selected item and delete it
+    delete it;
 }
 
 void MainWindow::makesave()
 {
-    //sauvegarde du choix du vecteur et de la fonction et du nombre de vecteur
+    //test les dimmensions
+    // save the choice of the vector and the function and the number of vectors
+    vect_init = ui->listWidget_vect->currentItem()->text().toStdString();
+    funct = ui->listWidget_funct->currentItem()->text().toStdString();
+    nbr_vect = ui->SpinBox_nbr_vect->value();
+
     savewindow secwind(this);
     secwind.setModal(true);
     secwind.exec();
@@ -94,7 +108,12 @@ void MainWindow::makesave()
 
 void MainWindow::makeexecute()
 {
-    //sauvegarde du choix du vecteur et de la fonction et du nombre de vecteur
+    //test les dimensions
+    // save the choice of the vector and the function and the number of vectors
+    vect_init = ui->listWidget_vect->currentItem()->text().toStdString();
+    funct = ui->listWidget_funct->currentItem()->text().toStdString();
+    nbr_vect = ui->SpinBox_nbr_vect->value();
+
     executewindow secwind(this);
     secwind.setModal(true);
     secwind.exec();

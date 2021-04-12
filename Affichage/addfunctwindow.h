@@ -15,6 +15,7 @@ public:
     explicit addfunctwindow(QWidget *parent = nullptr);
     ~addfunctwindow();
      std::string name;
+     int state; //To know if the window end with the validate button(1) or cancel button(0)
     int nbr_dim;
     std::vector<std::string> getfunct();
 

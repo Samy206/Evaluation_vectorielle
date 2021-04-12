@@ -25,7 +25,8 @@ public slots:
     void makesave();
     void makeadd_vect();
     void makeadd_funct();
-    void makeerase();
+    void makeerase_funct();
+    void makeerase_vect();
     void makeexecute();
 
 private:

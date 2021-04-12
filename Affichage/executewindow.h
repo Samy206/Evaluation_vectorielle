@@ -2,7 +2,8 @@
 #define EXECUTEWINDOW_H
 
 #include <QDialog>
-#include <iostream>
+#include "iostream"
+#include "mainwindow.h"
 using namespace std;
 
 
@@ -15,8 +16,9 @@ class executewindow : public QDialog
     Q_OBJECT
 
 public:
-    explicit executewindow(QWidget *parent = nullptr);
+    explicit executewindow(MainWindow *dad, QWidget *parent = nullptr);
     ~executewindow();
+    int state; //To know if the window end with the validate button(1) or cancel button(0)
     int statistic[6]; //statistic wanted
     string departur;
     string funct;

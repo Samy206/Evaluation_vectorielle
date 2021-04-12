@@ -15,6 +15,7 @@ class addvectwindow : public QDialog
 public:
     explicit addvectwindow(QWidget *parent = nullptr);
     ~addvectwindow();
+    int state; //To know if the window end with the validate button(1) or cancel button(0)
     int nbr_dim;
     std::string name;
     std::vector<double> getvectinit();

@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include "iostream"
+#include "mainwindow.h"
 using namespace std;
 
 namespace Ui {
@@ -14,12 +15,12 @@ class savewindow : public QDialog
     Q_OBJECT
 
 public:
-    explicit savewindow(QWidget *parent = nullptr);
+    explicit savewindow(MainWindow *dad, QWidget *parent = nullptr);
     ~savewindow();
+    int state; //To know if the window end with the validate button(1) or cancel button(0)
     string vect_init;
     string funct;
     int nbr_vect;
-    string departur;
 
 public slots:
     void Validate(); //Button for validation
