@@ -180,7 +180,7 @@ int stat_string_parser(char * string,char ** tableau)
             }
         }
     }
-    printf("string : %s, tableau : %s, cmp : %d\n",string,tableau[4],cmp);
+
 
     return cmp;
 };
@@ -189,7 +189,6 @@ int generation_fic_postscript(Gestion_ES * gestionnaire, char * filename)
 {
     strcat(gestionnaire->fic_post,filename);
     strcat(gestionnaire->fic_post,".ps");
-    printf("path ps : %s\n",gestionnaire->fic_post);
 
     FILE * file ;
     file = fopen(gestionnaire->fic_post, "w");

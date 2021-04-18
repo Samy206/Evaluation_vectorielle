@@ -2,45 +2,47 @@
 
 statistiques init_statistiques(statistiques stat, size_t nb_dim, int* statistiques_demandes)
 {
-    stat.statistiques_demandees = malloc(6 * sizeof(int));
-    for(int i = 0 ; i < 6 ; i++)
+    stat.statistiques_demandees = malloc(6*sizeof(int));
+
+    for(int i=0;i<6;i++)
     {
-       stat.statistiques_demandees[i] = statistiques_demandes[i];
+        stat.statistiques_demandees[i] = statistiques_demandes[i];
     }
 
-	if(statistiques_demandes[0])
-		stat.min_d = malloc(nb_dim* sizeof(double));
-	else
-		stat.min_d = NULL;
-	
-	if(statistiques_demandes[1])
-		stat.max_d = malloc(nb_dim* sizeof(double));
-	else
-		stat.max_d = NULL;
-	
-	if(statistiques_demandes[2])
-		stat.moy_d = malloc(nb_dim* sizeof(double));
-	else
-		stat.moy_d = NULL;
+    if(statistiques_demandes[0])
+        stat.min_d = malloc(nb_dim* sizeof(double));
+    else
+        stat.min_d = NULL;
 
-	
-	if(statistiques_demandes[3])
-		stat.var_d = malloc(nb_dim* sizeof(double));
-	else
-		stat.var_d = NULL;
-	
-	if(statistiques_demandes[4])
-		stat.ect_d = malloc(nb_dim* sizeof(double));
-	else
-		stat.ect_d = NULL;
-	
-	if(statistiques_demandes[5])
-		stat.atc_d = malloc(nb_dim* sizeof(double));
-	else
-		stat.atc_d = NULL;
+    if(statistiques_demandes[1])
+        stat.max_d = malloc(nb_dim* sizeof(double));
+    else
+        stat.max_d = NULL;
 
-	return stat;
+    if(statistiques_demandes[2] || statistiques_demandes[3] || statistiques_demandes[4] || statistiques_demandes[5])
+        stat.moy_d = malloc(nb_dim* sizeof(double));
+    else
+        stat.moy_d = NULL;
+
+
+    if(statistiques_demandes[3] || statistiques_demandes[4] || statistiques_demandes[5])
+        stat.var_d = malloc(nb_dim* sizeof(double));
+    else
+        stat.var_d = NULL;
+
+    if(statistiques_demandes[4] || statistiques_demandes[5])
+        stat.ect_d = malloc(nb_dim* sizeof(double));
+    else
+        stat.ect_d = NULL;
+
+    if(statistiques_demandes[5])
+        stat.atc_d = malloc(nb_dim* sizeof(double));
+    else
+        stat.atc_d = NULL;
+
+    return stat;
 }
+
 
 statistiques free_statistiques(statistiques stat)
 {
@@ -171,9 +173,7 @@ statistiques variance(statistiques stat, Liste_vecteur* vecteurs)
 			stat.var_d[i] += pow(dim - stat.moy_d[i],2);
 		}
 	}
-	
-	printf("var avant div %.16f\n", stat.var_n );
-	printf("Diviseur %d \n",vecteurs->taille);
+
 	stat.var_n = stat.var_n/vecteurs->taille;
 	
 	for(int i = 0; i<nb_dim; i++)
@@ -229,7 +229,7 @@ statistiques calcul_auto_correlation(statistiques stat, Liste_vecteur* vecteurs,
 
 statistiques calcul_des_statistiques(int* statistiques_demandes, Liste_vecteur* vecteurs)
 {
-	statistiques stat;
+	statistiques stat ;
 	stat = init_statistiques(stat,consultation_liste(vecteurs, 0).taille, statistiques_demandes);
 
 	if(statistiques_demandes[0])
