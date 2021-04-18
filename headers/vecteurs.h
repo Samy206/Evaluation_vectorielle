@@ -20,6 +20,9 @@ void free_vector(Vector v);
 int calcul_dimension(char *parametres);
 double* recupere_composantes(int dimension, char *p);
 
+//
+char * to_string_vec(Vector v);
+
 // pour le c, on utilise atof() pour convertir un char* en float
 // 44 = ,
 // 41 = )

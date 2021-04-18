@@ -13,6 +13,8 @@ double calcul_norme(Vector v);
 
 typedef struct stat
 {
+    int * statistiques_demandees;
+
 	double min_n;
 	double *min_d;	
  	double max_n;
@@ -24,6 +26,7 @@ typedef struct stat
 	double ect_n;
 	double *ect_d;
 	double *atc_d;
+
 } statistiques;
 
 statistiques init_statistiques(statistiques stat, size_t nb_dim, int* statistiques_demandes);
@@ -54,4 +57,5 @@ statistiques ecart_type(statistiques stat, Liste_vecteur* vecteurs);
 statistiques calcul_auto_correlation(statistiques stat, Liste_vecteur* vecteurs, int decallage);
 //Calcul le coefficient d'autocorrélation de nos vecteur sur tous les axes.
 
+char * to_string(statistiques stat);
 #endif

@@ -72,3 +72,23 @@ double* recupere_composantes(int dimension, char *p)
 	}
 	return T;
 }
+
+char * to_string_vec(Vector v)
+{
+    char * string = malloc(75*sizeof(char));
+    memset(string,0,75*sizeof(char));
+
+    sprintf(string,"( ");
+    for(int i = 0 ; i < v.taille ; i++)
+    {
+        if(i != (v.taille - 1) )
+        {
+           sprintf(string,"%s %f ;",string,v.tableau[i]);
+        }
+        else
+        {
+           sprintf(string,"%s %f )",string,v.tableau[i]);
+        }
+    }
+    return string;
+}

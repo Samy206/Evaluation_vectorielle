@@ -2,6 +2,12 @@
 
 statistiques init_statistiques(statistiques stat, size_t nb_dim, int* statistiques_demandes)
 {
+    stat.statistiques_demandees = malloc(6 * sizeof(int));
+    for(int i = 0 ; i < 6 ; i++)
+    {
+       stat.statistiques_demandees[i] = statistiques_demandes[i];
+    }
+
 	if(statistiques_demandes[0])
 		stat.min_d = malloc(nb_dim* sizeof(double));
 	else
@@ -38,6 +44,7 @@ statistiques init_statistiques(statistiques stat, size_t nb_dim, int* statistiqu
 
 statistiques free_statistiques(statistiques stat)
 {
+    free(stat.statistiques_demandees);
 	if(stat.min_d != NULL)
 		free(stat.min_d);
 	
@@ -129,16 +136,16 @@ statistiques moyenne(statistiques stat, Liste_vecteur* vecteurs)
 	for(int w = 0; w<vecteurs->taille; w++)
 	{
 		stat.moy_n += calcul_norme(consultation_liste(vecteurs,w));
-		
+
 		for(int i = 0; i<nb_dim; i++)
 		{
 			double dim = consultation_liste(vecteurs,w).tableau[i];
 			stat.moy_d[i] += dim;
 		}
 	}
-	
+
 	stat.moy_n = stat.moy_n/vecteurs->taille;
-	
+
 	for(int i = 0; i<nb_dim; i++)
 	{
 		stat.moy_d[i] = stat.moy_d[i]/vecteurs->taille;
@@ -227,21 +234,47 @@ statistiques calcul_des_statistiques(int* statistiques_demandes, Liste_vecteur* 
 
 	if(statistiques_demandes[0])
 		stat = minimum(stat, vecteurs);
-	
+
 	if(statistiques_demandes[1])
 		stat = maximum(stat, vecteurs);
-	
+
 	if(statistiques_demandes[2] || statistiques_demandes[3] || statistiques_demandes[4] || statistiques_demandes[5])
 		stat = moyenne(stat, vecteurs);
 
 	if(statistiques_demandes[3] || statistiques_demandes[4] || statistiques_demandes[5])
 		stat = variance(stat, vecteurs);
-	
+
 	if(statistiques_demandes[4] || statistiques_demandes[5])
 		stat = ecart_type(stat, vecteurs);
 	
 	if(statistiques_demandes[5])
 		stat = calcul_auto_correlation(stat, vecteurs, statistiques_demandes[5]);
-	
+
 	return stat;
 }
+
+char * to_string(statistiques stat)
+{
+    char * string = malloc(68*sizeof(char));
+    memset(string,0, 68*sizeof(char));
+
+    if(stat.statistiques_demandees[0])
+    	strcat(string,"Minimum");
+
+    if(stat.statistiques_demandees[1])
+    	strcat(string,"|Maximum");
+
+    if(stat.statistiques_demandees[2] || stat.statistiques_demandees[3] || stat.statistiques_demandees[4] || stat.statistiques_demandees[5])
+    	strcat(string,"|Average");
+
+    if(stat.statistiques_demandees[3] || stat.statistiques_demandees[4] || stat.statistiques_demandees[5])
+    	strcat(string,"|Variance");
+
+    if(stat.statistiques_demandees[4] || stat.statistiques_demandees[5])
+    	strcat(string,"|Standard deviation");
+
+    if(stat.statistiques_demandees[5])
+    	strcat(string,"|Autocorrelation");
+
+    return string;
+};
