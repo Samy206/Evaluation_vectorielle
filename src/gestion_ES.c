@@ -155,16 +155,24 @@ int stat_string_parser(char * string,char ** tableau)
 
     for(int i = 0 ; i < strlen(string) ; i++)
     {
+        printf("c %d : %c\n",i,string[i]);
         if(i == 0)
         {
-            tableau[cmp] = malloc(20 * sizeof(char));
-            memset(tableau[cmp],0,20);
-            tableau[cmp][j] = string[i];
-            j++;
+            if(string[i] == '|')
+            {
+                tableau[cmp] = malloc(20 * sizeof(char));
+                memset(tableau[cmp],0,20);
+            }
+            else
+            {
+                tableau[cmp] = malloc(20 * sizeof(char));
+                memset(tableau[cmp],0,20);
+                tableau[cmp][j] = string[i];
+                j++;
+            }
         }
         else
         {
-
             if(string[i] == '|')
             {
                 cmp++;
@@ -181,7 +189,7 @@ int stat_string_parser(char * string,char ** tableau)
         }
     }
 
-
+    printf("string [%s]\n",tableau[0]);
     return cmp;
 };
 
@@ -228,6 +236,7 @@ int generation_fic_postscript(Gestion_ES * gestionnaire, char * filename)
 
                 else
                     vrai_nb_stats += (dimension + 1);
+
             }
 
             else
@@ -328,7 +337,6 @@ int generation_fic_postscript(Gestion_ES * gestionnaire, char * filename)
                 }
                 else if(strcmp(tableau_string[j],"Standard deviation") == 0)
                 {
-                    printf("entered standart deviation\n");
                     fprintf(file , "%f %f moveto\n"
                                    "(%s _n) show\n"
                                    "%f %f moveto\n"
@@ -355,6 +363,7 @@ int generation_fic_postscript(Gestion_ES * gestionnaire, char * filename)
                 }
                 else if(strcmp(tableau_string[j],"Average") == 0)
                     {
+                        printf("wtf dude\n");
                         fprintf(file , "%f %f moveto\n"
                                        "(%s _n) show\n"
                                        "%f %f moveto\n"
@@ -382,19 +391,20 @@ int generation_fic_postscript(Gestion_ES * gestionnaire, char * filename)
 
                 }
         }
+        printf("vrai_nb_stats = %d\n",vrai_nb_stats);
         largeur = 650 / vrai_nb_stats;
         y = y - (largeur/ 2);
         if(i == 0)
         {
             fprintf(file,"/Helvetica %f selectfont\n",
-                           largeur/2);
+                           largeur/4);
         }
     }
 
 
 
     x = 50; y = 650;
-    for(int i = 0 ; i < (vrai_nb_stats-1) ; i++)
+    for(int i = 0 ; i < (vrai_nb_stats) ; i++)
     {
         draw_table_postscript(file,x,y,largeur);
         y = y - largeur;

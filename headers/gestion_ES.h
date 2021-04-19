@@ -22,15 +22,13 @@ Gestion_ES * initialisation_ES(char * fct, Liste_vecteur * liste, statistiques *
 int generation_fic_gnuplot(Gestion_ES * gestionnaire, char *file_name);    //génération fichier gnuplot ( écriture coordonnées )
 
 int generation_fic_postscript(Gestion_ES * gestionnaire, char * filename); //génération fichier postscript ( écriture statistiques )
-int draw_table_postscript(FILE * file,int x, int y, int largeur);
-int stat_string_parser(char * string,char ** tableau);
+int draw_table_postscript(FILE * file,int x, int y, int largeur);          //Dessin de chaque partie du tableau
+int stat_string_parser(char * string,char ** tableau);                     //Récupération des stats à affichier
 
-//Liste_vecteur * chargement_fichier(char * fichier);       //Lecture de coordonnées des vecteurs en chargement
-//double * string_parser(char * entiers);                   //Transformation des lignes lues en tableau de double
+Liste_vecteur * chargement_fichier(char * fichier);       //Lecture de coordonnées des vecteurs en chargement
+double * string_parser(char * entiers);                   //Transformation des lignes lues en tableau de double
 
-//void free_gestionnaire_es(Gestion_ES * gestionnaire)      //Libération de la mémoire
-
-
+void free_gestionnaire_es(Gestion_ES * gestionnaire)      //Libération de la mémoire
 
 #endif
 
