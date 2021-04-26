@@ -18,14 +18,14 @@ typedef struct Liste_vecteur          //Liste à proprement parler
 }
 Liste_vecteur;
 
-Liste_vecteur* initialisation_liste(Vector *  vec);              //initialisation
+Liste_vecteur* initialisation_liste(Vector  vec);              //initialisation
 
 void push_liste(Liste_vecteur * liste, Vector vec);              //Ajout d'un vecteur à la liste
 Vector top_liste(Liste_vecteur * liste);                         //Consultation du dernier vecteur ajouté
 void pop_liste(Liste_vecteur * liste);                           //Suppression du dernier élément ajouté
 Vector consultation_liste(Liste_vecteur * liste, int indice);    //Consultation d'un vecteur dans la liste
 void free_liste(Liste_vecteur* liste);                            //Libération de la mémoire allouée
-
+void afficherListe(Liste_vecteur * liste);
 
 // initialisation des variables globales :
 void initialisation_noms_composantes(char* noms, int taille_vecteur);
@@ -40,7 +40,7 @@ Vector calcul_vecteur(Vector v_precedent, char **chaine);									// calcul le p
 void calcul_suite_vecteurs(Liste_vecteur * liste, char **chaine, int taille_liste_max);			// calcul récursivement jusqu'a taille_liste_max
 
 
-Liste_vecteur* fonction_principale(char **chaine, double *val_initiales, int taille_vecteur, int nb_fct, int nb_vec_max, char *noms_compo);
+Liste_vecteur* fonction_principale(char **chaine, char *val_initiales, int taille_vecteur, int nb_fct, int nb_vec_max, char *noms_compo);
 
 
 

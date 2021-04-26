@@ -24,12 +24,12 @@ char **T2;		// tableau contenant chaque inconnue pour chaque fonction
 char *nom_composantes; 	// nom des variables pour chaque dimension d'un vecteur
 
 
-Liste_vecteur* initialisation_liste(Vector * vec)
+Liste_vecteur* initialisation_liste(Vector vec)
 {
 	Liste_vecteur * liste = malloc(sizeof(Liste_vecteur));
 	element * nouveau = malloc(sizeof(element));
 	
-	nouveau->vecteur = *vec;
+	nouveau->vecteur = vec;
 	nouveau->suivant = NULL;
 	
 	liste->taille = 1;
@@ -344,7 +344,7 @@ void initialisation_noms_composantes(char *noms, int taille_vecteur)
 	}
 }
 
-Liste_vecteur* fonction_principale(char **chaine, double *val_initiales, int taille_vecteur, int nb_fct, int nb_vec_max, char *noms)
+Liste_vecteur* fonction_principale(char **chaine, char *val_initiales, int taille_vecteur, int nb_fct, int nb_vec_max, char *noms)
 {
 	// initialisation des variables globales :
 	nb_fonctions = nb_fct;
@@ -354,6 +354,7 @@ Liste_vecteur* fonction_principale(char **chaine, double *val_initiales, int tai
 	
 	// Déclaration du vecteur initial :
 	Vector v_user;
+	double * val_ini = recupere_composantes(taille_vecteur, val_initiales);
 	
 	// Initialisation du vecteur initial :
 	vector_init(&v_user, taille_vecteur);
@@ -361,7 +362,7 @@ Liste_vecteur* fonction_principale(char **chaine, double *val_initiales, int tai
 	for(int i=0; i < taille_vecteur; ++i)
 	{
 		// on remplit le vecteur :
-		vector_push_back(&v_user, val_initiales[i]);
+		vector_push_back(&v_user, val_ini[i]);
 	}
 	
 	// Liste :

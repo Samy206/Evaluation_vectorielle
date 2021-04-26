@@ -47,7 +47,7 @@ int calcul_dimension(char *parametres)
 	return dimension;
 }
 
-//
+// transforme une chaine de caractère en un tableau de double 
 double* recupere_composantes(int dimension, char *p)
 {
 	double * T = malloc(sizeof(double) * dimension);
