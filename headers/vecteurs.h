@@ -19,7 +19,7 @@ void free_vector(Vector v);
 //
 int calcul_dimension(char *parametres);
 double* recupere_composantes(int dimension, char *p);
-
+char** recupere_fonctions_ver2(int nb_fct, char *p);
 //
 char * to_string_vec(Vector v);
 
@@ -27,6 +27,6 @@ char * to_string_vec(Vector v);
 // 44 = ,
 // 41 = )
 // 46 = .
-
+// 59 = ;
 
 #endif

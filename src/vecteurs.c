@@ -73,6 +73,54 @@ double* recupere_composantes(int dimension, char *p)
     return T;
 }
 
+// décomposition d'un char * en char ** :
+char** recupere_fonctions_ver2(int nb_fct, char *p)
+{
+	int * tableau = malloc(sizeof(int) * nb_fct); //
+	int nb_caracteres = 0, index_t = 0, index_msg = 0, j = 0;
+	for(int i=1; i<strlen(p); ++i)
+	{
+		if(p[i] == 59 || i == (strlen(p)-1))
+		{
+			tableau[index_t] = nb_caracteres;
+			index_t++;
+			nb_caracteres = 0;
+		}
+		else
+		{
+			nb_caracteres++;
+		}
+	}
+	//
+	char ** tableau_fct = malloc(sizeof(char*) * nb_fct);
+	for(int i = 0; i<nb_fct; ++i)
+	{
+		tableau_fct[i] = malloc(sizeof(char) * tableau[i]);
+	}
+	char msg[100];
+	for(int i=1; i<strlen(p)-1; ++i)
+	{
+		
+		if(p[i] == 59)
+		{
+			memcpy(tableau_fct[j], msg, tableau[j]);
+			memset(&msg[0], 0, sizeof(msg));
+			index_msg = 0;
+			j++;
+		}
+		else
+		{
+			msg[index_msg] = p[i];
+			index_msg++;
+		}
+	}
+	memcpy(tableau_fct[j], msg, tableau[j]);
+	memset(&msg[0], 0, sizeof(msg));
+	
+	free(tableau);
+	return tableau_fct;
+}
+
 char * to_string_vec(Vector v)
 {
     char * string = malloc(75*sizeof(char));

@@ -602,12 +602,15 @@ void initialisation_noms_composantes(char *noms, int taille_vecteur)
     }
 }
 
-Liste_vecteur* fonction_principale(char **chaine, char *val_initiales, int taille_vecteur, int nb_fct, int nb_vec_max, char *noms)
+Liste_vecteur* fonction_principale(char *chaine, char *val_initiales, int taille_vecteur, int nb_fct, int nb_vec_max, char *noms)
 {
     // initialisation des variables globales :
     nb_fonctions = nb_fct;
-    T1 = retourne_nombre_inconnues(chaine);
-    T2 = retourne_tableau_inconnues(chaine);
+    // init du tableau des fonctions (char **) :
+    char ** chaine_fct = recupere_fonctions_ver2(nb_fonctions, chaine);
+    //
+    T1 = retourne_nombre_inconnues(chaine_fct);
+    T2 = retourne_tableau_inconnues(chaine_fct);
     initialisation_noms_composantes(noms, taille_vecteur);
 
     // Déclaration du vecteur initial :
@@ -625,7 +628,7 @@ Liste_vecteur* fonction_principale(char **chaine, char *val_initiales, int taill
 
     // Liste :
     Liste_vecteur * maliste = initialisation_liste(v_user);
-    calcul_suite_vecteurs(maliste, chaine, nb_vec_max);		// calcul
+    calcul_suite_vecteurs(maliste, chaine_fct, nb_vec_max);		// calcul
 
 
     // libération de la mémoire des variables globales :
@@ -636,6 +639,11 @@ Liste_vecteur* fonction_principale(char **chaine, char *val_initiales, int taill
     }
     free(T2);
     free(nom_composantes);
-
+	// free du tableau des fonctions :
+	for(int i=0; i<nb_fonctions; ++i)
+	{
+		free(chaine_fct[i]);
+	}
+	free(chaine_fct);
     return maliste;
 }

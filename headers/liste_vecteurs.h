@@ -42,7 +42,7 @@ Vector calcul_vecteur(Vector v_precedent, char **chaine);									// calcul le p
 void calcul_suite_vecteurs(Liste_vecteur * liste, char **chaine, int taille_liste_max);			// calcul récursivement jusqu'a taille_liste_max
 
 
-Liste_vecteur* fonction_principale(char **chaine, char *val_initiales, int taille_vecteur, int nb_fct, int nb_vec_max, char *noms_compo);
+Liste_vecteur* fonction_principale(char *chaine, char *val_initiales, int taille_vecteur, int nb_fct, int nb_vec_max, char *noms_compo);
 >>>>>>> afb96b8f4a44d1a8c5a896d7bf9cb7e7d206bbb5
 
 // initialisation des variables globales :
@@ -61,7 +61,7 @@ Vector calcul_vecteur(Vector v_precedent, char **chaine);									// calcul le p
 void calcul_suite_vecteurs(Liste_vecteur * liste, char **chaine, int taille_liste_max);			// calcul récursivement jusqu'a taille_liste_max
 
 
-Liste_vecteur* fonction_principale(char **chaine, char *val_initiales, int taille_vecteur, int nb_fct, int nb_vec_max, char *noms_compo);
+Liste_vecteur* fonction_principale(char *chaine, char *val_initiales, int taille_vecteur, int nb_fct, int nb_vec_max, char *noms_compo);
 
 
 
