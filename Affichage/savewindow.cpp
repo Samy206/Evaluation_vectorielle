@@ -61,6 +61,7 @@ void savewindow::Validate()
     }
 
     //Departure choice
+    char *departur;
     if((ui->checkBox_v0->isChecked() && !ui->LineEdit_Name_2->text().isEmpty()) || (!ui->checkBox_v0->isChecked() && ui->LineEdit_Name_2->text().isEmpty()))
     {
         QMessageBox::critical(this, "Entry error", "You must choose only one departure.");
@@ -69,13 +70,21 @@ void savewindow::Validate()
     if(ui->checkBox_v0->isChecked())
     {
         string dep = "(0,0)";
-        char *departur;
         departur = new char [dep.size()+1];
         strcpy(departur, dep.c_str() );
     }
     if(!ui->LineEdit_Name_2->text().isEmpty())
     {
         //tester si c'est bien ecrit + l'ajouter dans une varible char*
+        std::string temp = ui->LineEdit_Name_2->text().toStdString();
+        for (int i = 0; i < (int)temp.length(); i++)
+             if (isdigit(temp[i]) == false && temp[i] != '.')
+             {
+                  QMessageBox::critical(this, "Entry error", "The number can only containe integer");
+                  return;
+             }
+
+
     }
 
     //Appel de la fonction de calcul de liste de vecteur

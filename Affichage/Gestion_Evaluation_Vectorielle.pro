@@ -11,25 +11,34 @@ CONFIG += c++11
 SOURCES += \
     addfunctwindow.cpp \
     addvectwindow.cpp \
+    display_4d.cpp \
     displaywindow.cpp \
     executewindow.cpp \
+    liste_vecteurs.c \
     loadwindow.cpp \
     main.cpp \
     mainwindow.cpp \
-    savewindow.cpp
+    savewindow.cpp \
+    tinyexpr.c \
+    vecteurs.c
 
 HEADERS += \
     addfunctwindow.h \
     addvectwindow.h \
+    display_4d.h \
     displaywindow.h \
     executewindow.h \
+    liste_vecteurs.h \
     loadwindow.h \
     mainwindow.h \
-    savewindow.h
+    savewindow.h \
+    tinyexpr.h \
+    vecteurs.h
 
 FORMS += \
     addfunctwindow.ui \
     addvectwindow.ui \
+    display_4d.ui \
     displaywindow.ui \
     executewindow.ui \
     loadwindow.ui \

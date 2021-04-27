@@ -1,6 +1,7 @@
 #include "addfunctwindow.h"
 #include "ui_addfunctwindow.h"
 #include "iostream"
+#include "QMessageBox"
 
 addfunctwindow::addfunctwindow(QWidget *parent) :
     QDialog(parent),
@@ -12,7 +13,7 @@ addfunctwindow::addfunctwindow(QWidget *parent) :
     QObject::connect(ui->Button_cancel, SIGNAL(clicked()), this, SLOT(Cancel()));
     QObject::connect(ui->Button_pi, SIGNAL(clicked()), this, SLOT(Pi()));
     QObject::connect(ui->Button_racine, SIGNAL(clicked()), this, SLOT(Rc()));
-    QObject::connect(ui->Button_sum, SIGNAL(clicked()), this, SLOT(sum()));
+    QObject::connect(ui->Button_mod, SIGNAL(clicked()), this, SLOT(mod()));
     QObject::connect(ui->Button_valide, SIGNAL(clicked()), this, SLOT(Validate()));
 }
 
@@ -25,8 +26,7 @@ void addfunctwindow::Validate()
 {
     //Test de validé Pas finir pas un operateur sqrt() ne peux pas etre vide...
     for (int i = 0; i < nbr_dim; i++) {
-        funct.push_back(ui->tableWidget_funct->item(i,0)->text().toStdString()); //recuperation des données saisies dans l'objet addvectwindow
-        //std::cout << funct[i] << std::endl;
+        funct.push_back(ui->tableWidget_funct->item(i,0)->text().toLower().toStdString()); //recuperation des données saisies dans l'objet addvectwindow
      }
 
     name = ui->lineEdit_name->text().toStdString();
@@ -43,6 +43,11 @@ void addfunctwindow::Cancel()
 void addfunctwindow::Pi()
 {
     int pos = ui->tableWidget_funct->currentRow();
+    if(pos == -1)
+    {
+        QMessageBox::critical(this, "Entry error", "Please select a row before clic on");
+        return;
+    }
     std::string expr;
     if(ui->tableWidget_funct->item(pos,0)->text().isEmpty())
     {
@@ -56,14 +61,35 @@ void addfunctwindow::Pi()
     ui->tableWidget_funct->setItem(pos,0,new QTableWidgetItem(QString::fromStdString(expr)));
 }
 
-void addfunctwindow::sum()
+void addfunctwindow::mod()
 {
-    //Ecrit "sum(...)"
+    int pos = ui->tableWidget_funct->currentRow();
+    if(pos == -1)
+    {
+        QMessageBox::critical(this, "Entry error", "Please select a row before clic on");
+        return;
+    }
+    std::string expr;
+    if(ui->tableWidget_funct->item(pos,0)->text().isEmpty())
+    {
+        expr = "mod()";
+    }
+    else
+    {
+        expr = ui->tableWidget_funct->item(pos,0)->text().toStdString();
+        expr.operator+=("mod()");
+    }
+    ui->tableWidget_funct->setItem(pos,0,new QTableWidgetItem(QString::fromStdString(expr)));
 }
 
 void addfunctwindow::Rc()
 {
     int pos = ui->tableWidget_funct->currentRow();
+    if(pos == -1)
+    {
+        QMessageBox::critical(this, "Entry error", "Please select a row before clic on");
+        return;
+    }
     std::string expr;
     if(ui->tableWidget_funct->item(pos,0)->text().isEmpty())
     {
@@ -79,11 +105,17 @@ void addfunctwindow::Rc()
 
 void addfunctwindow::Validate1()
 {    nbr_dim = ui->spinBox->value();     //Recuperation du nombre de dimension vvoulu
+     if(nbr_dim == 0)
+     {
+         QMessageBox::critical(this, "Entry error", "The number of dimension can't be 0");
+         return;
+     }
      ui->spinBox->setEnabled(false);
      ui->Button_valide1->setEnabled(false);
      ui->Button_valide->setEnabled(true);
+     ui->lineEdit_name->setEnabled(true);
      ui->Button_pi->setEnabled(true);
-     ui->Button_sum->setEnabled(true);
+     ui->Button_mod->setEnabled(true);
      ui->Button_racine->setEnabled(true);
      ui->Button_cancel->setEnabled(true);
      ui->tableWidget_funct->setEnabled(true);

@@ -25,7 +25,7 @@
     </property>
     <item>
      <property name="text">
-      <string>V0 = (10,5)</string>
+      <string>V0 = (5.00000,2.00000)</string>
      </property>
     </item>
    </widget>
@@ -58,7 +58,12 @@
     </item>
     <item>
      <property name="text">
-      <string>G(x,y) = 4x - 9y</string>
+      <string>G(x,y) = 4x;-9y</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>W(x,y) = (5*x+1;pow(y,2))</string>
      </property>
     </item>
    </widget>

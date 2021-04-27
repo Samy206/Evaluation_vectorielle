@@ -1,6 +1,7 @@
 #include "addvectwindow.h"
 #include "ui_addvectwindow.h"
 #include "iostream"
+#include "QMessageBox"
 
 addvectwindow::addvectwindow(QWidget *parent) :
     QDialog(parent),
@@ -21,9 +22,24 @@ addvectwindow::~addvectwindow()
 void addvectwindow::Validate()
 {
    for (int i = 0; i < nbr_dim; i++) {
+
+       std::string temp = ui->tableWidget_vect->item(i,0)->text().toStdString();
+       for (int i = 0; i < (int)temp.length(); i++)
+            if (isdigit(temp[i]) == false && temp[i] != '.')
+            {
+                 QMessageBox::critical(this, "Entry error", "The number can only containe integer");
+
+                 return;
+            }
        vect_init.push_back(ui->tableWidget_vect->item(i,0)->text().toDouble()); //recuperation des données saisies dans l'objet addvectwindow
     }
 
+   if(ui->lineEdit_name->text().isEmpty())
+   {
+       QMessageBox::critical(this, "Entry error", "Missing name for your vector.");
+       vect_init.clear();
+       return;
+   }
    name = ui->lineEdit_name->text().toStdString();
 
     state = 1;
@@ -40,8 +56,14 @@ void addvectwindow::Cancel()
 void addvectwindow::Validate1()
 {
     nbr_dim = ui->spinBox->value();     //Recuperation du nombre de dimension vvoulu
+    if(nbr_dim == 0)
+    {
+        QMessageBox::critical(this, "Entry error", "The number of dimension can't be 0");
+        return;
+    }
     ui->spinBox->setEnabled(false);
     ui->Button_valide1->setEnabled(false);
+    ui->lineEdit_name->setEnabled(true);
     ui->Button_valide_2->setEnabled(true);
     ui->Button_cancel_2->setEnabled(true);
     ui->tableWidget_vect->setEnabled(true);

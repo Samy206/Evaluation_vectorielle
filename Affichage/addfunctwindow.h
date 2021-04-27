@@ -24,7 +24,7 @@ public slots:
     void Cancel();  // Button for cancel
     void Validate1();  // Button for 1st button valide
     void Pi();  // Button for pi
-    void sum();  // Button for sum
+    void mod();  // Button for mod
     void Rc();  // Button for racine carre
 
 private:

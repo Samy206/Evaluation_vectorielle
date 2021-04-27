@@ -5,6 +5,10 @@
 #include "addfunctwindow.h"
 #include "addvectwindow.h"
 #include "executewindow.h"
+#include "QMessageBox"
+
+//possible variable
+char carac[26] = {'x','y','z','a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w'};
 
 using namespace std;
 MainWindow::MainWindow(QWidget *parent)
@@ -27,6 +31,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+
 void MainWindow::makeload()
 {
     loadwindow secwind;
@@ -48,8 +53,10 @@ void MainWindow::makeadd_vect()
         string componant = secwind.name;
         componant += " = (";
         for (int i = 0; i < (int)vect.size(); i++) {
-        componant+= std::to_string(vect[i]);
-        componant += ",";
+            std::string tmp = std::to_string(vect[i]);
+            tmp.pop_back();
+            componant+= tmp;
+            componant += ",";
         }
         componant.pop_back();
         componant += ")";
@@ -64,12 +71,18 @@ void MainWindow::makeadd_funct()
     addfunctwindow secwind;
     secwind.setModal(true);
     secwind.exec();
-
+    //recuperer les noms des dimensions
     if(secwind.state == 1)
     {
         vector<string> funct = secwind.getfunct();
         string componant = secwind.name;
-        componant += "() = (";
+        componant += '(';
+        for (int i = 0; i < secwind.nbr_dim; i++) {
+            componant += carac[i];
+            componant += ',';
+        }
+        componant.pop_back();
+        componant += ") = (";
         for (int i = 0; i < (int)funct.size(); i++) {
         componant+= funct[i];
         componant += ";";
@@ -108,10 +121,35 @@ void MainWindow::makesave()
 
 void MainWindow::makeexecute()
 {
-    //test les dimensions
+
     // save the choice of the vector and the function and the number of vectors
     vect_init = ui->listWidget_vect->currentItem()->text().toStdString();
     funct = ui->listWidget_funct->currentItem()->text().toStdString();
+
+    //get the number of dimension of the selected vector
+    int nbr_dim_vect = 0;
+    for (int i = 0; i < (int)vect_init.size(); i++) {
+        if(vect_init[i] == ',')
+            nbr_dim_vect++;
+    }
+    nbr_dim_vect++;
+
+    //get the number of dimension of the selected function
+    int nbr_dim_funct = 0;
+    int i =0;
+    while (funct[i] != '=') {
+        if(funct[i] == ',')
+            nbr_dim_funct++;
+        i++;
+    }
+    nbr_dim_funct++;
+
+    if(nbr_dim_funct > nbr_dim_vect)
+    {
+        QMessageBox::critical(this, "Selection error", "The dimension number of the function must be less than or equal to that of the vector");
+        return;
+    }
+
     nbr_vect = ui->SpinBox_nbr_vect->value();
 
     executewindow secwind(this);

@@ -534,7 +534,7 @@
     <bool>false</bool>
    </property>
   </widget>
-  <widget class="QPushButton" name="Button_sum">
+  <widget class="QPushButton" name="Button_mod">
    <property name="enabled">
     <bool>false</bool>
    </property>
@@ -547,7 +547,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>∑</string>
+    <string>mod</string>
    </property>
   </widget>
   <widget class="QPushButton" name="Button_cancel">
@@ -1090,52 +1090,52 @@
    </item>
    <item row="1" column="0">
     <property name="text">
-     <string> </string>
+     <string/>
     </property>
    </item>
    <item row="2" column="0">
     <property name="text">
-     <string> </string>
+     <string/>
     </property>
    </item>
    <item row="3" column="0">
     <property name="text">
-     <string> </string>
+     <string/>
     </property>
    </item>
    <item row="4" column="0">
     <property name="text">
-     <string> </string>
+     <string/>
     </property>
    </item>
    <item row="5" column="0">
     <property name="text">
-     <string> </string>
+     <string/>
     </property>
    </item>
    <item row="6" column="0">
     <property name="text">
-     <string> </string>
+     <string/>
     </property>
    </item>
    <item row="7" column="0">
     <property name="text">
-     <string> </string>
+     <string/>
     </property>
    </item>
    <item row="8" column="0">
     <property name="text">
-     <string> </string>
+     <string/>
     </property>
    </item>
    <item row="9" column="0">
     <property name="text">
-     <string> </string>
+     <string/>
     </property>
    </item>
    <item row="10" column="0">
     <property name="text">
-     <string> </string>
+     <string/>
     </property>
    </item>
   </widget>
@@ -1612,6 +1612,9 @@ p, li { white-space: pre-wrap; }
    </property>
   </widget>
   <widget class="QLineEdit" name="lineEdit_name">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="geometry">
     <rect>
      <x>260</x>
