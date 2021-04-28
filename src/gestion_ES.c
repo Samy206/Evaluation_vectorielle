@@ -11,6 +11,8 @@
 #endif
 #include "../headers/gestion_ES.h"
 
+
+
 void initialisation_ES(Gestion_ES * gestionnaire,char * fct, Liste_vecteur * liste, statistiques * stats)
 {
     if(fct != NULL) {
@@ -219,6 +221,19 @@ int stat_string_parser(char * string,char ** tableau)
     return cmp;
 };
 
+char index_to_char(int index)
+{
+    switch (index) {
+        case 0 :
+            return 'x';
+        case 1 :
+            return 'y';
+        case 2 :
+            return 'z';
+        default :
+            return ((char) (94 + index));
+    }
+}
 int generation_fic_postscript(Gestion_ES * gestionnaire, char * filename)
 {
     strcat(gestionnaire->fic_post,filename);
@@ -273,11 +288,11 @@ int generation_fic_postscript(Gestion_ES * gestionnaire, char * filename)
                     for(int k = 0 ; k < dimension ; k++)
                     {
                         fprintf(file , "%f %f moveto\n"
-                                       "(%s %d) show\n"
+                                       "(%s_%c) show\n"
                                        "%f %f moveto\n"
                                        "(%f) show\n",
                                        x, y,
-                                       tableau_string[j],k,
+                                       tableau_string[j], index_to_char(k),
                                        x + 250, y,
                                        gestionnaire->stats->atc_d[k]
                                );
@@ -298,11 +313,11 @@ int generation_fic_postscript(Gestion_ES * gestionnaire, char * filename)
                     for(int k = 0 ; k < dimension ; k++)
                     {
                         fprintf(file , "%f %f moveto\n"
-                                       "(%s %d) show\n"
+                                       "(%s_%c) show\n"
                                        "%f %f moveto\n"
                                        "(%f) show\n",
                                        x, y,
-                                       tableau_string[j],k,
+                                       tableau_string[j], index_to_char(k),
                                        x + 250, y,
                                        gestionnaire->stats->max_d[k]
                                );
@@ -313,7 +328,7 @@ int generation_fic_postscript(Gestion_ES * gestionnaire, char * filename)
                 else if(strcmp(tableau_string[j],"Minimum") == 0)
                 {
                     fprintf(file , "%f %f moveto\n"
-                                   "(%s _n) show\n"
+                                   "(%s_n) show\n"
                                    "%f %f moveto\n"
                                    "(%f) show\n",
                                    x, y,
@@ -325,11 +340,11 @@ int generation_fic_postscript(Gestion_ES * gestionnaire, char * filename)
                     for(int k = 0 ; k < dimension ; k++)
                     {
                         fprintf(file , "%f %f moveto\n"
-                                       "(%s %d) show\n"
+                                       "(%s_%c) show\n"
                                        "%f %f moveto\n"
                                        "(%f) show\n",
                                        x, y,
-                                       tableau_string[j],k,
+                                       tableau_string[j], index_to_char(k),
                                        x + 250, y,
                                        gestionnaire->stats->min_d[k]
                                );
@@ -339,7 +354,7 @@ int generation_fic_postscript(Gestion_ES * gestionnaire, char * filename)
                 else if(strcmp(tableau_string[j],"Variance") == 0)
                 {
                     fprintf(file , "%f %f moveto\n"
-                                   "(%s _n) show\n"
+                                   "(%s_n) show\n"
                                    "%f %f moveto\n"
                                    "(%f) show\n",
                                    x, y,
@@ -351,11 +366,11 @@ int generation_fic_postscript(Gestion_ES * gestionnaire, char * filename)
                     for(int k = 0 ; k < dimension ; k++)
                     {
                         fprintf(file , "%f %f moveto\n"
-                                       "(%s %d) show\n"
+                                       "(%s_%c) show\n"
                                        "%f %f moveto\n"
                                        "(%f) show\n",
                                        x, y,
-                                       tableau_string[j],k,
+                                       tableau_string[j], index_to_char(k),
                                        x + 250, y,
                                        gestionnaire->stats->var_d[k]
                                );
@@ -365,7 +380,7 @@ int generation_fic_postscript(Gestion_ES * gestionnaire, char * filename)
                 else if(strcmp(tableau_string[j],"Standard deviation") == 0)
                 {
                     fprintf(file , "%f %f moveto\n"
-                                   "(%s _n) show\n"
+                                   "(%s_n) show\n"
                                    "%f %f moveto\n"
                                    "(%f) show\n",
                                    x, y,
@@ -377,11 +392,11 @@ int generation_fic_postscript(Gestion_ES * gestionnaire, char * filename)
                     for(int k = 0 ; k < dimension ; k++)
                     {
                         fprintf(file , "%f %f moveto\n"
-                                       "(%s %d) show\n"
+                                       "(%s_%c) show\n"
                                        "%f %f moveto\n"
                                        "(%f) show\n",
                                        x, y,
-                                       tableau_string[j],k,
+                                       tableau_string[j], index_to_char(k),
                                        x + 250, y,
                                        gestionnaire->stats->ect_d[k]
                                );
@@ -391,7 +406,7 @@ int generation_fic_postscript(Gestion_ES * gestionnaire, char * filename)
                 else if(strcmp(tableau_string[j],"Average") == 0)
                     {
                         fprintf(file , "%f %f moveto\n"
-                                       "(%s _n) show\n"
+                                       "(%s_n) show\n"
                                        "%f %f moveto\n"
                                        "(%f) show\n",
                                        x, y,
@@ -403,11 +418,11 @@ int generation_fic_postscript(Gestion_ES * gestionnaire, char * filename)
                         for(int k = 0 ; k < dimension ; k++)
                         {
                             fprintf(file , "%f %f moveto\n"
-                                           "(%s %d) show\n"
+                                           "(%s_%c) show\n"
                                            "%f %f moveto\n"
                                            "(%f) show\n",
                                            x, y,
-                                           tableau_string[j],k,
+                                           tableau_string[j], index_to_char(k),
                                            x + 250, y,
                                            gestionnaire->stats->moy_d[k]
                                    );
@@ -429,7 +444,7 @@ int generation_fic_postscript(Gestion_ES * gestionnaire, char * filename)
 
 
     x = 50; y = 600;
-    for(int i = 0 ; i < (vrai_nb_stats) ; i++)
+    for(int i = 0 ; i < (vrai_nb_stats - 1) ; i++)
     {
         draw_table_postscript(file,x,y,largeur);
         y = y - largeur;
