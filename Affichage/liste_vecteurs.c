@@ -336,7 +336,17 @@ void calcul_suite_vecteurs(Liste_vecteur * liste, char **chaine, int taille_list
 	}
 }
 
+Vector consultation_liste(Liste_vecteur * liste, int indice)
+{
+    if (liste == NULL || indice >= liste->taille) exit(EXIT_FAILURE);
 
+    element * tmp = liste->premier;
+
+    for(int i = 0 ; i < indice ; i++)
+        tmp = tmp->suivant;
+
+    return tmp->vecteur;
+};
 
 void initialisation_noms_composantes(char *noms, int taille_vecteur)
 {

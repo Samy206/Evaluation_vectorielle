@@ -28,22 +28,30 @@ executewindow::~executewindow()
 void executewindow::Validate()
 {
     //Choice of the statistics
-    int stat[6];
+    for (int i = 0; i < 6; i++) {
+        statistic[i] = false;
+    }
+
+    //std::cout << "bonjour" << std::endl;
+
     if(ui->CheckBox_Minimum->isChecked())
-     stat[0] = true;
+    {
+     statistic[0] = true;
+     //std::cout << "coché" << std::endl;
+    }
     if(ui->CheckBox_Maximum->isChecked())
-     stat[1] = true;
+     statistic[1] = true;
     if(ui->CheckBox_Moyenne->isChecked())
-     stat[2] = true;
+     statistic[2] = true;
     if(ui->CheckBox_Variance->isChecked())
-     stat[3] = true;
+     statistic[3] = true;
     if(ui->CheckBox_Ecarttype->isChecked())
-     stat[4] = true;
+     statistic[4] = true;
     if(ui->CheckBox_Autocor->isChecked())
     {
         int shift = ui->lineEdit->text().toInt();
         if((shift > (-1*nbr_vect)) && (shift < nbr_vect) && (shift != 0))
-            stat[5] = shift;
+            statistic[5] = shift;
         else
         {
             QMessageBox::critical(this, "Entry error", "The shift must be between [-nbr_vect; 0 [and] 0; nbr_vect].");
@@ -52,6 +60,8 @@ void executewindow::Validate()
     }
 
     //Recuperation du choix du vecteur de depart (test du nombre de dimension)
+
+
 
     //Creation de la nouvelle fenetre bloquante avec comme paramettre un objet contenant les infos
     displaywindow secwind(this);

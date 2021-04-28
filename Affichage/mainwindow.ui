@@ -58,7 +58,7 @@
     </item>
     <item>
      <property name="text">
-      <string>G(x,y) = 4x;-9y</string>
+      <string>G(x,y) = (4*x;-2*y)</string>
      </property>
     </item>
     <item>

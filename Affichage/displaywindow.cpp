@@ -2,6 +2,7 @@
 #include "ui_displaywindow.h"
 extern "C" {
 #include "liste_vecteurs.h"
+#include "statistiques.h"
 }
 
 //possible variable
@@ -13,11 +14,9 @@ displaywindow::displaywindow(executewindow *toto, QWidget *parent) :
 {
     ui->setupUi(this);
 
-
-    //toto->vect_init =  "p = (1.00000,2.00000)";
+    //get the vector in the good shape and type
     string vect_init2 = "";
     for (int i = 0; i < (int)toto->vect_init.length(); i++) {
-        //std::cout << toto->vect_init[i] << std::endl;
         if(toto->vect_init[i] == '(')
         {
             while (toto->vect_init[i] != ')') {
@@ -37,9 +36,7 @@ displaywindow::displaywindow(executewindow *toto, QWidget *parent) :
             nbr_dim_vect++;
     }
     nbr_dim_vect++;
-    //std::cout << nbr_dim_vect << std::endl;
 
-    //toto->funct = "f(x,y) = x+y;y*2";
     //get the number of dimension of the selected function
     int nbr_dim_funct = 0;
     int i =0;
@@ -50,6 +47,7 @@ displaywindow::displaywindow(executewindow *toto, QWidget *parent) :
     }
     nbr_dim_funct++;
 
+    //get the functon in the good shape and type
     string function = "";
     for (int i = 0; i < (int)toto->funct.length() ; i++ ) {
         if(toto->funct[i] == '=')
@@ -63,7 +61,6 @@ displaywindow::displaywindow(executewindow *toto, QWidget *parent) :
             break;
         }
     }
-    //function.push_back(')');
     char funct[function.length()+1];
     strcpy(funct, function.c_str());
     std::cout << funct << std::endl;
@@ -81,8 +78,12 @@ displaywindow::displaywindow(executewindow *toto, QWidget *parent) :
     afficherListe(vectors);
 
     std::cout << "fin" << std::endl;
-    //toto->statistic
-    //Appel de la fonction de calcul des statistiques avec le tableau de int
+
+    statistiques statistiquee = calcul_des_statistiques(toto->statistic,vectors);  //Appel de la fonction de calcul des statistiques avec le tableau de int
+    affichage(statistiquee,nbr_dim_vect);
+
+    std::cout << "" << std::endl;
+
     //Appel de la fonction affichage 2D ou 3D suvant le nombre de dimension du vecteur initial
 }
 

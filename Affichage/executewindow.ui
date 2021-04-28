@@ -1442,6 +1442,9 @@ p, li { white-space: pre-wrap; }
      <property name="text">
       <string>Minimum</string>
      </property>
+     <property name="checked">
+      <bool>false</bool>
+     </property>
     </widget>
     <widget class="QCheckBox" name="CheckBox_Moyenne">
      <property name="geometry">
@@ -1618,6 +1621,22 @@ p, li { white-space: pre-wrap; }
     <hint type="destinationlabel">
      <x>370</x>
      <y>190</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>CheckBox_Minimum</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>CheckBox_Minimum</receiver>
+   <slot>setChecked(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>134</x>
+     <y>110</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>122</x>
+     <y>120</y>
     </hint>
    </hints>
   </connection>

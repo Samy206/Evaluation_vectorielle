@@ -19,6 +19,7 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     savewindow.cpp \
+    statistiques.c \
     tinyexpr.c \
     vecteurs.c
 
@@ -32,6 +33,7 @@ HEADERS += \
     loadwindow.h \
     mainwindow.h \
     savewindow.h \
+    statistiques.h \
     tinyexpr.h \
     vecteurs.h
 
