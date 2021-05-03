@@ -35,19 +35,18 @@ void initialisation_ES(Gestion_ES * gestionnaire,char * fct, Liste_vecteur * lis
 
 int generation_script_gnuplot(Gestion_ES * gestionnaire, char* filename)
 {
-    int dimension = gestionnaire->liste->premier->vecteur.taille;
+    int dimension = gestionnaire->liste->premier->vecteur.taille;                //Récupération du nombre de dimensions
     if(dimension > 3)
     {
         printf("Les vecteurs dépassent les trois dimensions, il est donc impossible d'afficher un graphique\n");
         return dimension;
     }
-
     strcat(gestionnaire->script_gnup,filename);
-    strcat(gestionnaire->script_gnup,".p");
+    strcat(gestionnaire->script_gnup,".p");                                     //Formation du chemin absolu du script
 
     FILE * file = fopen(gestionnaire->script_gnup,"w");
     if(!file)return -1;
-
+                                                                                //Écriture du script
     if(dimension == 1)
         printf("Les vecteurs ont une caractéristiques d'une seule dimension, il est donc impossible d'afficher un graphique\n");
 
@@ -57,8 +56,8 @@ int generation_script_gnuplot(Gestion_ES * gestionnaire, char* filename)
     else
         fprintf(file,"splot %c%s%c using 1:2:3 with lines\n",'"',gestionnaire->fic_gnup,'"');
 
+    fclose(file);
     return 0;
-
 }
 
 int generation_fic_gnuplot(Gestion_ES * gestionnaire, char * filename)
@@ -247,7 +246,7 @@ int generation_fic_postscript(Gestion_ES * gestionnaire, char * filename)
     fprintf(file,"newpath\n"
                  "/Helvetica 20 selectfont\n"
                  "30 750 moveto\n"
-                 "(%s) show\n"
+                 "(F(x) = ( %s) ) show\n"
                  "30 700 moveto\n"
                  "(V_0 = %s) show\n"
                  "30 650 moveto\n"
@@ -437,7 +436,7 @@ int generation_fic_postscript(Gestion_ES * gestionnaire, char * filename)
         if(i == 0)
         {
             fprintf(file,"/Helvetica %f selectfont\n",
-                           largeur/4);
+                           largeur/2);
         }
     }
 

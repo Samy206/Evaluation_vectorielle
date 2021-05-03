@@ -21,8 +21,9 @@ Gestion_ES;
 
 void initialisation_ES(Gestion_ES * gestionnaire,char * fct, Liste_vecteur * liste, statistiques * stats);
 
-int generation_fic_gnuplot(Gestion_ES * gestionnaire, char *file_name);    //génération fichier gnuplot ( écriture coordonnées )
-int generation_script_gnuplot(Gestion_ES * gestionnaire, char* file_name);
+int generation_script_gnuplot(Gestion_ES * gestionnaire, char* file_name); //Génération script lancement de gnuplot
+int generation_fic_gnuplot(Gestion_ES * gestionnaire, char *file_name);    //Génération fichier de coordonnées gnup
+
 
 
 int generation_fic_postscript(Gestion_ES * gestionnaire, char * filename); //génération fichier postscript ( écriture statistiques )

@@ -27,7 +27,7 @@ void pop_liste(Liste_vecteur * liste);                           		//Suppression
 Vector consultation_liste(Liste_vecteur * liste, int indice);    		//Consultation d'un vecteur dans la liste
 void free_liste(Liste_vecteur* liste);                            		//Libération de la mémoire allouée
 void afficherListe(Liste_vecteur * liste);
-
+Vector consultation_liste(Liste_vecteur * liste, int index);
 
 // initialisation des variables globales :
 void initialisation_noms_composantes(char* noms, int taille_vecteur);

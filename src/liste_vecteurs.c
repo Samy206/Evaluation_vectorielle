@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "liste_vecteurs.h"
-#include "tinyexpr.h"
+#include "../headers/liste_vecteurs.h"
+#include "../headers/tinyexpr.h"
 
 #define nb_lettres 26
 
@@ -83,6 +83,19 @@ Vector top_liste(Liste_vecteur * liste)
     return tmp->vecteur;
 };
 
+
+Vector consultation_liste(Liste_vecteur * liste, int index)
+{
+    if (liste == NULL ) exit(EXIT_FAILURE);
+
+    element * tmp = liste->premier;
+
+    for(int i = 0 ; i < index ; i++)
+    {
+        tmp = tmp->suivant;
+    }
+    return tmp->vecteur;
+};
 // suppression 
 void pop_liste(Liste_vecteur * liste)
 {
