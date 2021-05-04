@@ -4,6 +4,8 @@
 #include <QDialog>
 #include "iostream"
 #include "mainwindow.h"
+#include "statistiques.h"
+#include "liste_vecteurs.h"
 using namespace std;
 
 
@@ -24,6 +26,10 @@ public:
     string funct;
     string vect_init;
     int nbr_vect;
+    statistiques statist;
+    Liste_vecteur * list;
+    int nbr_dim_vecteur;
+
 
 
 public slots:

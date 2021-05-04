@@ -31,6 +31,12 @@ void savewindow::Validate()
         return;
     }
     QString qname = ui->LineEdit_Name->text();
+    if(qname.contains('\\'))
+    {
+        QMessageBox::critical(this, "Entry error", "Forbiden symbol.");
+        return;
+    }
+
     char* name;
     string fname = qname.toStdString();
     name = new char [fname.size()+1];
@@ -78,7 +84,7 @@ void savewindow::Validate()
         //tester si c'est bien ecrit + l'ajouter dans une varible char*
         std::string temp = ui->LineEdit_Name_2->text().toStdString();
         for (int i = 0; i < (int)temp.length(); i++)
-             if (isdigit(temp[i]) == false && temp[i] != '.')
+             if (isdigit(temp[i]) == false && (temp[i] != '.' || temp[i] != ',' || temp[i] != '(' || temp[i] != ')'))
              {
                   QMessageBox::critical(this, "Entry error", "The number can only containe integer");
                   return;

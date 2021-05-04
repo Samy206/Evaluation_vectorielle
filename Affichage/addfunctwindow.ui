@@ -6,12 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>566</width>
+    <width>498</width>
     <height>399</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Add Function Window</string>
   </property>
   <widget class="QPushButton" name="Button_pi">
    <property name="enabled">
@@ -1060,11 +1060,6 @@
    </row>
    <row>
     <property name="text">
-     <string>E =</string>
-    </property>
-   </row>
-   <row>
-    <property name="text">
      <string>F =</string>
     </property>
    </row>
@@ -1085,7 +1080,7 @@
    </column>
    <item row="0" column="0">
     <property name="text">
-     <string>5x+3</string>
+     <string>5*x+3</string>
     </property>
    </item>
    <item row="1" column="0">
@@ -1129,11 +1124,6 @@
     </property>
    </item>
    <item row="9" column="0">
-    <property name="text">
-     <string/>
-    </property>
-   </item>
-   <item row="10" column="0">
     <property name="text">
      <string/>
     </property>

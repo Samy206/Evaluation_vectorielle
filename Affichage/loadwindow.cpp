@@ -19,7 +19,9 @@ loadwindow::~loadwindow()
 
 void loadwindow::Validate()
 {
-    QString path = ui->LineEdit_location->text();
+    std::string path = ui->LineEdit_location->text().toStdString();
+    char chemin[path.length()+1];
+    strcpy(chemin, path.c_str());
 
     //Appel de la fonction load du module GES
     //enregistrement du vecteur et de la fonction

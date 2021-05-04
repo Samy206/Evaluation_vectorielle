@@ -28,6 +28,16 @@
       <string>V0 = (5.00000,2.00000)</string>
      </property>
     </item>
+    <item>
+     <property name="text">
+      <string>U = (14.00000,3.33450)</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>W = (7.00000,2.00000,22.00000,1.00000)</string>
+     </property>
+    </item>
    </widget>
    <widget class="QPushButton" name="Button_excute">
     <property name="geometry">
@@ -53,7 +63,7 @@
     </property>
     <item>
      <property name="text">
-      <string>F(x) = x+8</string>
+      <string>F(x) = (x+8)</string>
      </property>
     </item>
     <item>
@@ -64,6 +74,11 @@
     <item>
      <property name="text">
       <string>W(x,y) = (5*x+1;pow(y,2))</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>F(x,y,z,a) = (x+1;y*2;z-x;a*-1)</string>
      </property>
     </item>
    </widget>

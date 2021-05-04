@@ -38,6 +38,8 @@ void MainWindow::makeload()
     secwind.setModal(true);
     secwind.exec();
 
+    string vect = secwind.vecteur;
+    string funct = secwind.funct;
     //Recuperation du contenu de l'objet loadwindow pour actualiser les listes
 }
 
@@ -71,7 +73,7 @@ void MainWindow::makeadd_funct()
     addfunctwindow secwind;
     secwind.setModal(true);
     secwind.exec();
-    //recuperer les noms des dimensions
+
     if(secwind.state == 1)
     {
         vector<string> funct = secwind.getfunct();
@@ -108,10 +110,34 @@ void MainWindow::makeerase_vect()
 
 void MainWindow::makesave()
 {
-    //test les dimmensions
     // save the choice of the vector and the function and the number of vectors
     vect_init = ui->listWidget_vect->currentItem()->text().toStdString();
     funct = ui->listWidget_funct->currentItem()->text().toStdString();
+
+    //get the number of dimension of the selected vector
+    int nbr_dim_vect = 0;
+    for (int i = 0; i < (int)vect_init.size(); i++) {
+        if(vect_init[i] == ',')
+            nbr_dim_vect++;
+    }
+    nbr_dim_vect++;
+
+    //get the number of dimension of the selected function
+    int nbr_dim_funct = 0;
+    int i =0;
+    while (funct[i] != '=') {
+        if(funct[i] == ',')
+            nbr_dim_funct++;
+        i++;
+    }
+    nbr_dim_funct++;
+
+    if(nbr_dim_funct > nbr_dim_vect)
+    {
+        QMessageBox::critical(this, "Selection error", "The dimension number of the function must be less than or equal to that of the vector");
+        return;
+    }
+
     nbr_vect = ui->SpinBox_nbr_vect->value();
 
     savewindow secwind(this);

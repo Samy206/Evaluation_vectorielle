@@ -3,6 +3,15 @@
 #include "displaywindow.h"
 #include "mainwindow.h"
 #include "QMessageBox"
+#include "display_4d.h"
+
+extern "C" {
+#include "liste_vecteurs.h"
+#include "statistiques.h"
+}
+
+//possible variable
+char carc[26] = {'x','y','z','a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w'};
 
 executewindow::executewindow(MainWindow *dad , QWidget *parent) :
     QDialog(parent),
@@ -61,10 +70,85 @@ void executewindow::Validate()
 
     //Recuperation du choix du vecteur de depart (test du nombre de dimension)
 
+    //get the vector in the good shape and type
+    string vect_init2 = "";
+    for (int i = 0; i < (int)vect_init.length(); i++) {
+        if(vect_init[i] == '(')
+        {
+            while (vect_init[i] != ')') {
+                vect_init2+= vect_init[i];
+                i++;
+            }
+        }
+    }
+    vect_init2.push_back(')');
+    const char * vecteurinitial = vect_init2.c_str();
+    std::cout << vecteurinitial << std::endl;
+
+    //get the number of dimension of the selected vector
+    int nbr_dim_vect = 0;
+    for (int i = 0; i < (int)vect_init.size(); i++) {
+        if(vect_init[i] == ',')
+            nbr_dim_vect++;
+    }
+    nbr_dim_vect++;
+    nbr_dim_vecteur = nbr_dim_vect;
+
+    //get the number of dimension of the selected function
+    int nbr_dim_funct = 0;
+    int i =0;
+    while (funct[i] != '=') {
+        if(funct[i] == ',')
+            nbr_dim_funct++;
+        i++;
+    }
+    nbr_dim_funct++;
+
+    //get the functon in the good shape and type
+    string function = "";
+    for (int i = 0; i < (int)funct.length() ; i++ ) {
+        if(funct[i] == '=')
+        {
+            i = i+2;
+            while(i < (int)funct.length())
+            {
+                function += funct[i];
+                i++;
+            }
+            break;
+        }
+    }
+    char funct[function.length()+1];
+    strcpy(funct, function.c_str());
+    std::cout << funct << std::endl;
+
+    //Get the name of all the variable
+    string variablestring = "";
+    for (int i = 0; i < nbr_dim_funct; i++) {
+        variablestring[i] = carc[i];
+    }
+    char variable[variablestring.length()+1];
+    strcpy(variable, variablestring.c_str());
+    std::cout << variable << std::endl;
+
+    list = fonction_principale(funct,vecteurinitial,nbr_dim_vect,nbr_dim_funct,nbr_vect,variable); // Appel de la fonction de calcul de liste de vecteur avec le nombre de vecteur, le vecteur initial et la fonction
+    afficherListe(list);
+
+    std::cout << "fin" << std::endl;
+
+    statist = calcul_des_statistiques(statistic,list);  //Appel de la fonction de calcul des statistiques avec le tableau de int
+    affichage(statist,nbr_dim_vect);
+
+    std::cout << "" << std::endl;
 
 
-    //Creation de la nouvelle fenetre bloquante avec comme paramettre un objet contenant les infos
+
+    /*//Creation de la nouvelle fenetre bloquante avec comme paramettre un objet contenant les infos
     displaywindow secwind(this);
+    secwind.setModal(true);
+    secwind.exec();*/
+
+    display_4D secwind(this);
     secwind.setModal(true);
     secwind.exec();
 

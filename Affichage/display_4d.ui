@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Display 4D+</string>
   </property>
   <widget class="QListWidget" name="listWidget">
    <property name="geometry">
@@ -22,11 +22,6 @@
      <height>301</height>
     </rect>
    </property>
-   <item>
-    <property name="text">
-     <string>V0 = (0,0,0,0,0)</string>
-    </property>
-   </item>
   </widget>
   <widget class="QTextBrowser" name="Display_stat_2">
    <property name="geometry">
@@ -57,11 +52,6 @@ p, li { white-space: pre-wrap; }
      <height>301</height>
     </rect>
    </property>
-   <item>
-    <property name="text">
-     <string>Max = 18,9</string>
-    </property>
-   </item>
   </widget>
  </widget>
  <resources/>

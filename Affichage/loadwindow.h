@@ -14,6 +14,8 @@ class loadwindow : public QDialog
 public:
     explicit loadwindow(QWidget *parent = nullptr);
     ~loadwindow();
+    std::string vecteur;
+    std::string funct;
 
 public slots:
     void Validate(); //Button for validation

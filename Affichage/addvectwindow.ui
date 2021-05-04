@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Add Vector Window</string>
   </property>
   <widget class="QTableWidget" name="tableWidget_vect">
    <property name="enabled">
@@ -45,6 +45,11 @@
    </row>
    <row>
     <property name="text">
+     <string>A =</string>
+    </property>
+   </row>
+   <row>
+    <property name="text">
      <string>B =</string>
     </property>
    </row>
@@ -60,12 +65,92 @@
    </row>
    <row>
     <property name="text">
-     <string>E = </string>
+     <string>F =</string>
     </property>
    </row>
    <row>
     <property name="text">
-     <string>F =</string>
+     <string>G =</string>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string>H =</string>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string>I = </string>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string>J =</string>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string>K =</string>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string>L =</string>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string>M =</string>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string>N =</string>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string>O = </string>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string>P =</string>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string>Q =</string>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string>R =</string>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string>S =</string>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string>T = </string>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string>U =</string>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string>V =</string>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string>W =</string>
     </property>
    </row>
    <column>

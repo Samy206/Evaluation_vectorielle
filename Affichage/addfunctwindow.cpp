@@ -2,6 +2,16 @@
 #include "ui_addfunctwindow.h"
 #include "iostream"
 #include "QMessageBox"
+#include "liste_vecteurs.h"
+
+double TT[25] = {0};
+te_variable varss[] = { {"x", &TT[0]}, {"y", &TT[1]}, {"z", &TT[2]}, {"a", &TT[3]},
+                           {"b", &TT[4]}, {"c", &TT[5]}, {"d", &TT[6]}, {"e", &TT[7]}, {"f", &TT[8]},
+                           {"g", &TT[9]}, {"h", &TT[10]}, {"i", &TT[11]}, {"j", &TT[12]}, {"k", &TT[13]},
+                           {"l", &TT[14]}, {"m", &TT[15]}, {"n", &TT[16]}, {"o", &TT[17]}, {"p", &TT[18]},
+                           {"q", &TT[19]}, {"r", &TT[20]}, {"s", &TT[21]}, {"t", &TT[22]}, {"u", &TT[23]},
+                           {"v", &TT[24]}
+                     };
 
 addfunctwindow::addfunctwindow(QWidget *parent) :
     QDialog(parent),
@@ -24,14 +34,26 @@ addfunctwindow::~addfunctwindow()
 
 void addfunctwindow::Validate()
 {
-    //Test de validé Pas finir pas un operateur sqrt() ne peux pas etre vide...
-    for (int i = 0; i < nbr_dim; i++) {
+
+    int err2;
+
+    for (int i = 0; i < nbr_dim; i++)
+    {
+        //validity test
+        te_expr * expr_2 = te_compile(ui->tableWidget_funct->item(i,0)->text().toLower().toStdString().c_str(), varss, nbr_dim, &err2);
+        if(!expr_2)
+        {
+            QString error = "Error in this component " + ui->tableWidget_funct->item(i,0)->text().toLower();
+            QMessageBox::critical(this, "Entry error", error);
+            funct.clear();
+            return;
+        }
+
         funct.push_back(ui->tableWidget_funct->item(i,0)->text().toLower().toStdString()); //recuperation des données saisies dans l'objet addvectwindow
      }
-
     name = ui->lineEdit_name->text().toStdString();
     state = 1;
-     close(); //end of the window
+    close(); //end of the window
 }
 
 void addfunctwindow::Cancel()

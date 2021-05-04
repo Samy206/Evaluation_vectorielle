@@ -16,9 +16,9 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-    string funct;
-    int nbr_vect;
-    string vect_init;
+    string funct;   //Selected Function
+    int nbr_vect;   //Selected nbr_vect
+    string vect_init;   //Selected Vector
 
 public slots:
     void makeload();
