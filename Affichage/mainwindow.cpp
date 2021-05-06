@@ -16,6 +16,9 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    setWindowFlags(Qt::Window
+        | Qt::WindowContextHelpButtonHint
+        | Qt::WindowCloseButtonHint);
 
     QObject::connect(ui->Button_load, SIGNAL(clicked()), this, SLOT(makeload()));
     QObject::connect(ui->Button_save, SIGNAL(clicked()), this, SLOT(makesave()));
@@ -110,7 +113,13 @@ void MainWindow::makeerase_vect()
 
 void MainWindow::makesave()
 {
+
     // save the choice of the vector and the function and the number of vectors
+    if(ui->listWidget_vect->selectedItems().size() == 0 || ui->listWidget_funct->selectedItems().size() == 0)
+    {
+        QMessageBox::critical(this, "Selection error", "You must select one vector and one function !");
+        return;
+    }
     vect_init = ui->listWidget_vect->currentItem()->text().toStdString();
     funct = ui->listWidget_funct->currentItem()->text().toStdString();
 
@@ -134,7 +143,7 @@ void MainWindow::makesave()
 
     if(nbr_dim_funct > nbr_dim_vect)
     {
-        QMessageBox::critical(this, "Selection error", "The dimension number of the function must be less than or equal to that of the vector");
+        QMessageBox::critical(this, "Selection error", "The dimension number of the function must be less than or equal to that of the vector.");
         return;
     }
 
@@ -143,12 +152,20 @@ void MainWindow::makesave()
     savewindow secwind(this);
     secwind.setModal(true);
     secwind.exec();
+
+
+    cout << "end" << endl;
 }
 
 void MainWindow::makeexecute()
 {
 
     // save the choice of the vector and the function and the number of vectors
+    if(ui->listWidget_vect->selectedItems().size() == 0 || ui->listWidget_funct->selectedItems().size() == 0)
+    {
+        QMessageBox::critical(this, "Selection error", "You must select one vector and one function !");
+        return;
+    }
     vect_init = ui->listWidget_vect->currentItem()->text().toStdString();
     funct = ui->listWidget_funct->currentItem()->text().toStdString();
 

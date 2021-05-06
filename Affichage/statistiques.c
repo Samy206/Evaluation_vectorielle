@@ -253,10 +253,9 @@ statistiques calcul_des_statistiques(int* statistiques_demandes, Liste_vecteur* 
 	return stat;
 }
 
-char * to_string(statistiques stat)
+char * to_string(statistiques stat, char * string)
 {
-    char * string = malloc(68*sizeof(char));
-    memset(string,0, 68*sizeof(char));
+
 
     if(stat.statistiques_demandees[0])
     	strcat(string,"Minimum");
@@ -284,44 +283,44 @@ void affichage(statistiques stat, size_t n)
     if(stat.statistiques_demandees[0])
     {
         printf("Norme minimal:%.16f \n", stat.min_n);
-        for(int i=0; i<n; i++)
+        for(int i=0; i<(int)n; i++)
             printf("Minimal sur dim%d :%.16f |",i, stat.min_d[i]);
         printf("\n");
     }
     if(stat.statistiques_demandees[1])
     {
         printf("Norme max:%.16f \n", stat.max_n);
-        for(int i=0; i<n; i++)
+        for(int i=0; i<(int)n; i++)
             printf("Max sur dim%d :%.16f |",i, stat.max_d[i]);
         printf("\n");
     }
     if(stat.statistiques_demandees[2])
     {
         printf("Norme moy:%.16f \n", stat.moy_n);
-        for(int i=0; i<n; i++)
+        for(int i=0; i<(int)n; i++)
             printf("Moyenne sur dim%d :%.16f |",i, stat.moy_d[i]);
         printf("\n");
     }
     if(stat.statistiques_demandees[3])
     {
         printf("Variance Norme:%lf \n", stat.var_n);
-        for(int i=0; i<n; i++)
+        for(int i=0; i<(int)n; i++)
             printf("Variance sur dim%d :%.16f |",i, stat.var_d[i]);
         printf("\n");
     }
     if(stat.statistiques_demandees[4])
     {
         printf("Ecart-type Norme:%.16f \n", stat.ect_n);
-        for(int i=0; i<n; i++)
+        for(int i=0; i<(int)n; i++)
             printf("Ecart-type sur dim%d :%.16f |",i, stat.ect_d[i]);
         printf("\n");
     }
     if(stat.statistiques_demandees[5])
     {
-        for(int i=0; i<n; i++)
+        for(int i=0; i<(int)n; i++)
             printf("Auto-correlation sur dim%d :%.16f |",i, stat.atc_d[i]);
         printf("\n");
 
     }
-    printf("%s\n",to_string(stat));
+   //to_string(stat),string);
 }

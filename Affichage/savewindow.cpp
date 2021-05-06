@@ -1,6 +1,15 @@
 #include "savewindow.h"
 #include "ui_savewindow.h"
 #include <QMessageBox>
+extern "C" {
+#include "liste_vecteurs.h"
+#include "statistiques.h"
+#include "gestion_ES.h"
+}
+
+
+//possible variable
+char carcact[26] = {'x','y','z','a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w'};
 
 savewindow::savewindow(MainWindow *dad,QWidget *parent) :
     QDialog(parent),
@@ -42,29 +51,96 @@ void savewindow::Validate()
     name = new char [fname.size()+1];
     strcpy(name, fname.c_str() );
 
+    int statistic[6];
     //Choice of the statistics
-    int stat[6];
+    for (int i = 0; i < 6; i++) {
+        statistic[i] = false;
+    }
+
     if(ui->CheckBox_Minimum->isChecked())
-     stat[0] = true;
+    {
+     statistic[0] = true;
+    }
     if(ui->CheckBox_Maximum->isChecked())
-     stat[1] = true;
+     statistic[1] = true;
     if(ui->CheckBox_Moyenne->isChecked())
-     stat[2] = true;
+     statistic[2] = true;
     if(ui->CheckBox_Variance->isChecked())
-     stat[3] = true;
+     statistic[3] = true;
     if(ui->CheckBox_Ecarttype->isChecked())
-     stat[4] = true;
+     statistic[4] = true;
     if(ui->CheckBox_Autocor->isChecked())
     {
         int shift = ui->lineEdit->text().toInt();
         if((shift > (-1*nbr_vect)) && (shift < nbr_vect) && (shift != 0))
-            stat[5] = shift;
+            statistic[5] = shift;
         else
         {
             QMessageBox::critical(this, "Entry error", "The shift must be between [-nbr_vect; 0 [and] 0; nbr_vect].");
             return;
         }
     }
+
+    //get the vector in the good shape and type
+    string vect_init2 = "";
+    for (int i = 0; i < (int)vect_init.length(); i++) {
+        if(vect_init[i] == '(')
+        {
+            while (vect_init[i] != ')') {
+                vect_init2+= vect_init[i];
+                i++;
+            }
+        }
+    }
+    vect_init2.push_back(')');
+    char vecteurinitial[vect_init2.length()+1];
+    strcpy(vecteurinitial, vect_init2.c_str());
+    std::cout << vecteurinitial << std::endl;
+
+    //get the number of dimension of the selected vector
+    int nbr_dim_vect = 0;
+    for (int i = 0; i < (int)vect_init.size(); i++) {
+        if(vect_init[i] == ',')
+            nbr_dim_vect++;
+    }
+    nbr_dim_vect++;
+
+    //get the number of dimension of the selected function
+    int nbr_dim_funct = 0;
+    int i =0;
+    while (funct[i] != '=') {
+        if(funct[i] == ',')
+            nbr_dim_funct++;
+        i++;
+    }
+    nbr_dim_funct++;
+
+    //get the functon in the good shape and type
+    string function = "";
+    for (int i = 0; i < (int)funct.length() ; i++ ) {
+        if(funct[i] == '=')
+        {
+            i = i+2;
+            while(i < (int)funct.length())
+            {
+                function += funct[i];
+                i++;
+            }
+            break;
+        }
+    }
+    char funct[function.length()+1];
+    strcpy(funct, function.c_str());
+    std::cout << funct << std::endl;
+
+    //Get the name of all the variable
+    string variablestring = "";
+    for (int i = 0; i < nbr_dim_funct; i++) {
+        variablestring[i] = carcact[i];
+    }
+    char variable[variablestring.length()+1];
+    strcpy(variable, variablestring.c_str());
+    std::cout << variable << std::endl;
 
     //Departure choice
     char *departur;
@@ -84,20 +160,46 @@ void savewindow::Validate()
         //tester si c'est bien ecrit + l'ajouter dans une varible char*
         std::string temp = ui->LineEdit_Name_2->text().toStdString();
         for (int i = 0; i < (int)temp.length(); i++)
-             if (isdigit(temp[i]) == false && (temp[i] != '.' || temp[i] != ',' || temp[i] != '(' || temp[i] != ')'))
+             if (isdigit(temp[i]) == false && temp[i] != ',')
              {
                   QMessageBox::critical(this, "Entry error", "The number can only containe integer");
                   return;
              }
-
-
+        int nbr_dim_vecteur = 0;
+        for (int i = 0; i < (int)temp.size(); i++) {
+            if(temp[i] == ',')
+                nbr_dim_vecteur++;
+        }
+        nbr_dim_vecteur++;
+        if(nbr_dim_vecteur < nbr_dim_vect)
+        {
+            QMessageBox::critical(this, "Entry error", "The departure vector cannot have less dimension than the initial vector.");
+            return;
+        }
+        string dep = "(";
+        dep+=temp;
+        dep.push_back(')');
     }
 
-    //Appel de la fonction de calcul de liste de vecteur
-    //Appel de la fonction de calcul des statistiques
-    //Appel de la fonction save du module GES
+    Liste_vecteur *list = fonction_principale(funct,vecteurinitial,nbr_dim_vect,nbr_dim_funct,nbr_vect,variable); // Appel de la fonction de calcul de liste de vecteur avec le nombre de vecteur, le vecteur initial et la fonction
+    afficherListe(list);
 
-    state = 1;
+
+    statistiques statist = calcul_des_statistiques(statistic,list);  //Appel de la fonction de calcul des statistiques avec le tableau de int
+    affichage(statist,nbr_dim_vect);
+
+
+    //Appel de la fonction save du module GES
+    Gestion_ES *ges = initialisation_ES(funct);
+
+    generation_fic_gnuplot(ges,name,list);
+
+    generation_script_gnuplot(ges,name,list);
+
+    generation_fic_postscript(ges,name,list,statist);
+
+    std::cout << "fin" << std::endl;
+    //state = 1;
     close();
 }
 

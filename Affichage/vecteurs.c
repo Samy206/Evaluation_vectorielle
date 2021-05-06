@@ -126,16 +126,16 @@ char * to_string_vec(Vector v)
     char * string = malloc(75*sizeof(char));
     memset(string,0,75*sizeof(char));
 
-    sprintf(string,"( ");
+    strcat(string,"( ");
     for(int i = 0 ; i < (int)v.taille ; i++)
     {
         if(i != (int)(v.taille - 1) )
         {
-            sprintf(string,"%s %f ;",string,v.tableau[i]);
+            sprintf(string + strlen(string),"%f ;",v.tableau[i]);
         }
         else
         {
-            sprintf(string,"%s %f )",string,v.tableau[i]);
+            sprintf(string + strlen(string),"%f )",v.tableau[i]);
         }
     }
     return string;

@@ -13,6 +13,9 @@
   <property name="windowTitle">
    <string>ExecuteWindow</string>
   </property>
+  <property name="whatsThis">
+   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;First, you need to select which statistics you want.&lt;/p&gt;&lt;p&gt;Next, you need your departure.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+  </property>
   <widget class="QPushButton" name="Button_valide">
    <property name="geometry">
     <rect>

@@ -14,6 +14,7 @@ SOURCES += \
     display_4d.cpp \
     displaywindow.cpp \
     executewindow.cpp \
+    gestion_ES.c \
     liste_vecteurs.c \
     loadwindow.cpp \
     main.cpp \
@@ -29,6 +30,7 @@ HEADERS += \
     display_4d.h \
     displaywindow.h \
     executewindow.h \
+    gestion_ES.h \
     liste_vecteurs.h \
     loadwindow.h \
     mainwindow.h \

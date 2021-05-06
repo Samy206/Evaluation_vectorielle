@@ -219,13 +219,13 @@ int* retourne_nombre_inconnues(char **chaine)
 		}
 		else
 		{
-			for(int j=0; j<strlen(chaine[i]); ++j)
+            for(int j=0; j<(int)strlen(chaine[i]); ++j)
 			{
                 if ( (j == 0) && (!est_une_lettre(chaine[i][j+1], 0, nb_lettres)) )
 				{
                     if (est_une_lettre(chaine[i][j], 0, nb_lettres)) t[i]++;
 				}
-                else if ((j < index) && (!est_une_lettre(chaine[i][j-1], 0, nb_lettres) && !est_une_lettre(chaine[i][j+1], 0, nb_lettres)))
+                else if ((j < (int)index) && (!est_une_lettre(chaine[i][j-1], 0, nb_lettres) && !est_une_lettre(chaine[i][j+1], 0, nb_lettres)))
 				{
                     if (est_une_lettre(chaine[i][j], 0, nb_lettres)) t[i]++;
 				}
@@ -254,7 +254,7 @@ char** retourne_tableau_inconnues(char **chaine)
 		if(strlen(chaine[i]) == 1) msg[0] = chaine[i][0];
 		else
 		{
-			for(int j=0; j<strlen(chaine[i]); ++j)
+            for(int j=0; j<(int)strlen(chaine[i]); ++j)
 			{
 				if ( (j == 0) && (!est_une_lettre(chaine[i][j+1], 0, nb_lettres)) )
 				{
@@ -264,7 +264,7 @@ char** retourne_tableau_inconnues(char **chaine)
 						k++;
 					}
 				}
-				else if ( (j < index) && (!est_une_lettre(chaine[i][j-1], 0, nb_lettres)) && (!est_une_lettre(chaine[i][j+1], 0, nb_lettres)) )
+                else if ( (j < (int)index) && (!est_une_lettre(chaine[i][j-1], 0, nb_lettres)) && (!est_une_lettre(chaine[i][j+1], 0, nb_lettres)) )
 					if (est_une_lettre(chaine[i][j], 0, nb_lettres))
 					{
 						msg[k] = chaine[i][j];
@@ -295,7 +295,7 @@ Vector calcul_vecteur(Vector v_precedent, char **chaine)
 	vector_init(&v_suivant, v_precedent.taille);
 
 	int err2;
-	for(int i=0; i<v_precedent.taille; ++i)
+    for(int i=0; i<(int)v_precedent.taille; ++i)
 	{
 		te_expr * expr_2 = te_compile(chaine[i], vars, 25, &err2);
 		//
@@ -304,7 +304,7 @@ Vector calcul_vecteur(Vector v_precedent, char **chaine)
 			// on charge les inconnues :
 			for(int j=0; j<T1[i]; ++j)
 			{
-				for(int k=0; k<v_precedent.taille; ++k)
+                for(int k=0; k<(int)v_precedent.taille; ++k)
 				{
 					if(T2[i][j] == nom_composantes[k]) 
 					{
@@ -395,11 +395,11 @@ Liste_vecteur* fonction_principale(const char *chaine, const char *val_initiales
 	free(nom_composantes);
 	
 	// free du tableau des fonctions :
-	for(int i=0; i<nb_fonctions; ++i)
+    for(int i=0; i<nb_fonctions; ++i)
 	{
 		free(chaine_fct[i]);
 	}
-	free(chaine_fct);
+    free(chaine_fct);
 	
 	return maliste;
 }

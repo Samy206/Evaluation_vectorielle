@@ -41,12 +41,9 @@ void executewindow::Validate()
         statistic[i] = false;
     }
 
-    //std::cout << "bonjour" << std::endl;
-
     if(ui->CheckBox_Minimum->isChecked())
     {
      statistic[0] = true;
-     //std::cout << "coché" << std::endl;
     }
     if(ui->CheckBox_Maximum->isChecked())
      statistic[1] = true;
