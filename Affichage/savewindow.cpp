@@ -190,13 +190,16 @@ void savewindow::Validate()
 
 
     //Appel de la fonction save du module GES
-    Gestion_ES *ges = initialisation_ES(funct);
+    Gestion_ES ges ;
+    initialisation_ES(&ges,funct,list,&statist);
 
-    generation_fic_gnuplot(ges,name,list);
+    generation_fic_gnuplot(&ges,name);
 
-    generation_script_gnuplot(ges,name,list);
+    generation_script_gnuplot(&ges,name);
 
-    generation_fic_postscript(ges,name,list,statist);
+    generation_fic_postscript(&ges,name);
+
+    free_gestionnaire_es(&ges);
 
     std::cout << "fin" << std::endl;
     close();

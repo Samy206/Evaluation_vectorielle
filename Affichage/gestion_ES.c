@@ -43,7 +43,7 @@ int generation_fic_gnuplot(Gestion_ES * gestionnaire, char * filename)
     int taille_vec = gestionnaire->liste->premier->vecteur.taille;
     if(taille_vec > 3 || taille_vec == 1)
     {
-        printf("Les vecteurs n'ont pas un nombre de dimensions satifaisant les caractéristiques d'affichage gnuplot : une dimension ou plus de trois\n")
+        printf("Les vecteurs n'ont pas un nombre de dimensions satifaisant les caractéristiques d'affichage gnuplot : une dimension ou plus de trois\n");
         return taille_vec;
     }
     //Génération du chemin absolu du fichier de coordonnées
@@ -153,7 +153,7 @@ int generation_script_gnuplot(Gestion_ES * gestionnaire, char* filename)
     int dimension = gestionnaire->liste->premier->vecteur.taille;
     if(dimension > 3 || dimension == 1)
     {
-        printf("Les vecteurs n'ont pas un nombre de dimensions satifaisant les caractéristiques d'affichage gnuplot : une dimension ou plus de trois\n")
+        printf("Les vecteurs n'ont pas un nombre de dimensions satifaisant les caractéristiques d'affichage gnuplot : une dimension ou plus de trois\n");
         return dimension;
     }
 
