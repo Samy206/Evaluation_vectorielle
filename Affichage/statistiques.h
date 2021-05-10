@@ -62,7 +62,7 @@ statistiques calcul_auto_correlation(statistiques stat, Liste_vecteur* vecteurs,
 //Calcul le coefficient d'autocorrélation de nos vecteur sur tous les axes.
 
 void affichage(statistiques stat, size_t n);
-char * to_string(statistiques stat, char * string);
+void to_string(statistiques stat, char * string);
 
 #ifdef __cplusplus
 }
