@@ -1,7 +1,8 @@
 #include "statistiques.h"
 
-statistiques init_statistiques(statistiques stat, size_t nb_dim, int* statistiques_demandes)
+statistiques init_statistiques(size_t nb_dim, int* statistiques_demandes)
 {
+    statistiques stat;
     stat.statistiques_demandees = malloc(6*sizeof(int));
 
     for(int i=0;i<6;i++)
@@ -223,7 +224,7 @@ statistiques calcul_auto_correlation(statistiques stat, Liste_vecteur* vecteurs,
 statistiques calcul_des_statistiques(int* statistiques_demandes, Liste_vecteur* vecteurs)
 {
 	statistiques stat ;
-	stat = init_statistiques(stat,consultation_liste(vecteurs, 0).taille, statistiques_demandes);
+	stat = init_statistiques(consultation_liste(vecteurs, 0).taille, statistiques_demandes);
 
 	stat = minimum(stat, vecteurs);
 	stat = maximum(stat, vecteurs);

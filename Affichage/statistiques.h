@@ -33,7 +33,7 @@ typedef struct statis
 
 } statistiques;
 
-statistiques init_statistiques(statistiques stat, size_t nb_dim, int* statistiques_demandes);
+statistiques init_statistiques(size_t nb_dim, int* statistiques_demandes);
 //les différent tableau sont alloué pour n dimention
 //Pour les différent tableau de double: case 0 dimention 1; case 1 dimention 2; etc...
 
