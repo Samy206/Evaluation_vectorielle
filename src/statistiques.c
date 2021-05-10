@@ -8,16 +8,9 @@ statistiques init_statistiques(statistiques stat, size_t nb_dim, int* statistiqu
     {
         stat.statistiques_demandees[i] = statistiques_demandes[i];
     }
-
-    if(statistiques_demandes[0])
-        stat.min_d = malloc(nb_dim* sizeof(double));
-    else
-        stat.min_d = NULL;
-
-    if(statistiques_demandes[1])
-        stat.max_d = malloc(nb_dim* sizeof(double));
-    else
-        stat.max_d = NULL;
+    
+    stat.min_d = malloc(nb_dim* sizeof(double));
+   	stat.max_d = malloc(nb_dim* sizeof(double));
 
     if(statistiques_demandes[2] || statistiques_demandes[3] || statistiques_demandes[4] || statistiques_demandes[5])
         stat.moy_d = malloc(nb_dim* sizeof(double));
@@ -232,11 +225,8 @@ statistiques calcul_des_statistiques(int* statistiques_demandes, Liste_vecteur* 
 	statistiques stat ;
 	stat = init_statistiques(stat,consultation_liste(vecteurs, 0).taille, statistiques_demandes);
 
-	if(statistiques_demandes[0])
-		stat = minimum(stat, vecteurs);
-
-	if(statistiques_demandes[1])
-		stat = maximum(stat, vecteurs);
+	stat = minimum(stat, vecteurs);
+	stat = maximum(stat, vecteurs);
 
 	if(statistiques_demandes[2] || statistiques_demandes[3] || statistiques_demandes[4] || statistiques_demandes[5])
 		stat = moyenne(stat, vecteurs);
