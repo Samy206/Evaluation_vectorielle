@@ -199,7 +199,6 @@ void savewindow::Validate()
     generation_fic_postscript(ges,name,list,statist);
 
     std::cout << "fin" << std::endl;
-    //state = 1;
     close();
 }
 

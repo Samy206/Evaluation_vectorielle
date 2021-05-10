@@ -11,6 +11,7 @@ display_4D::display_4D(executewindow *wind, QWidget *parent) :
 {
     ui->setupUi(this);
 
+    ui->Display_stat_2->setText(QString::fromStdString(wind->funct));
     int n = wind->nbr_dim_vecteur;
     if(wind->statist.statistiques_demandees[0])
     {

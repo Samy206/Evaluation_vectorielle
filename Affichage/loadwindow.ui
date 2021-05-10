@@ -10,6 +10,18 @@
     <height>152</height>
    </rect>
   </property>
+  <property name="minimumSize">
+   <size>
+    <width>417</width>
+    <height>152</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>417</width>
+    <height>152</height>
+   </size>
+  </property>
   <property name="windowTitle">
    <string>Load file</string>
   </property>
