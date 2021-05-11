@@ -1,8 +1,8 @@
 #ifndef DISPLAYWINDOW_H
 #define DISPLAYWINDOW_H
-#include "executewindow.h"
+#include "Headers/executewindow.h"
 #include <QDialog>
-#include "statistiques.h"
+#include "Headers/statistiques.h"
 
 namespace Ui {
 class displaywindow;

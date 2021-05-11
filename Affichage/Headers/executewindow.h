@@ -3,9 +3,9 @@
 
 #include <QDialog>
 #include "iostream"
-#include "mainwindow.h"
-#include "statistiques.h"
-#include "liste_vecteurs.h"
+#include "Headers/mainwindow.h"
+#include "Headers/statistiques.h"
+#include "Headers/liste_vecteurs.h"
 using namespace std;
 
 

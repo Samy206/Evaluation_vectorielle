@@ -1,8 +1,8 @@
-#include "addfunctwindow.h"
+#include "Headers/addfunctwindow.h"
 #include "ui_addfunctwindow.h"
 #include "iostream"
 #include "QMessageBox"
-#include "liste_vecteurs.h"
+#include "Headers/liste_vecteurs.h"
 
 double TT[25] = {0};
 te_variable varss[] = { {"x", &TT[0]}, {"y", &TT[1]}, {"z", &TT[2]}, {"a", &TT[3]},
@@ -51,6 +51,12 @@ void addfunctwindow::Validate()
 
         funct.push_back(ui->tableWidget_funct->item(i,0)->text().toLower().toStdString()); //recuperation des données saisies dans l'objet addvectwindow
      }
+    if(ui->lineEdit_name->text().isEmpty())
+    {
+        QMessageBox::critical(this, "Entry error", "Missing name for your vector.");
+        funct.clear();
+        return;
+    }
     name = ui->lineEdit_name->text().toStdString();
     state = 1;
     close(); //end of the window

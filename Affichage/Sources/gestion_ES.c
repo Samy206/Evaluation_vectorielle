@@ -10,7 +10,7 @@
 #include <unistd.h>
 #define GetCurrentDir getcwd
 #endif
-#include "gestion_ES.h"
+#include "Headers/gestion_ES.h"
 
 
 void initialisation_ES(Gestion_ES * gestionnaire,char * fct, Liste_vecteur * liste, statistiques * stats)

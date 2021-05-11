@@ -1,9 +1,9 @@
 #ifndef GESTION_ES
 #define GESTION_ES
 
-#include "liste_vecteurs.h"
-#include "statistiques.h"
-#include "vecteurs.h"
+#include "Headers/liste_vecteurs.h"
+#include "Headers/statistiques.h"
+#include "Headers/vecteurs.h"
 #include <string.h>
 
 typedef struct gestion_es

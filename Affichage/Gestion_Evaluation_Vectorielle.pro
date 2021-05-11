@@ -9,45 +9,45 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    addfunctwindow.cpp \
-    addvectwindow.cpp \
-    display_4d.cpp \
-    displaywindow.cpp \
-    executewindow.cpp \
-    gestion_ES.c \
-    liste_vecteurs.c \
-    loadwindow.cpp \
-    main.cpp \
-    mainwindow.cpp \
-    savewindow.cpp \
-    statistiques.c \
-    tinyexpr.c \
-    vecteurs.c
+    Sources\addfunctwindow.cpp \
+    Sources\addvectwindow.cpp \
+    Sources\display_4d.cpp \
+    Sources\displaywindow.cpp \
+    Sources\executewindow.cpp \
+    Sources\gestion_ES.c \
+    Sources\liste_vecteurs.c \
+    Sources\loadwindow.cpp \
+    Sources\main.cpp \
+    Sources\mainwindow.cpp \
+    Sources\savewindow.cpp \
+    Sources\statistiques.c \
+    Sources\tinyexpr.c \
+    Sources\vecteurs.c
 
 HEADERS += \
-    addfunctwindow.h \
-    addvectwindow.h \
-    display_4d.h \
-    displaywindow.h \
-    executewindow.h \
-    gestion_ES.h \
-    liste_vecteurs.h \
-    loadwindow.h \
-    mainwindow.h \
-    savewindow.h \
-    statistiques.h \
-    tinyexpr.h \
-    vecteurs.h
+    Headers\addfunctwindow.h \
+    Headers\addvectwindow.h \
+    Headers\display_4d.h \
+    Headers\displaywindow.h \
+    Headers\executewindow.h \
+    Headers\gestion_ES.h \
+    Headers\liste_vecteurs.h \
+    Headers\loadwindow.h \
+    Headers\mainwindow.h \
+    Headers\savewindow.h \
+    Headers\statistiques.h \
+    Headers\tinyexpr.h \
+    Headers\vecteurs.h
 
 FORMS += \
-    addfunctwindow.ui \
-    addvectwindow.ui \
-    display_4d.ui \
-    displaywindow.ui \
-    executewindow.ui \
-    loadwindow.ui \
-    mainwindow.ui \
-    savewindow.ui
+    Forms\addfunctwindow.ui \
+    Forms\addvectwindow.ui \
+    Forms\display_4d.ui \
+    Forms\displaywindow.ui \
+    Forms\executewindow.ui \
+    Forms\loadwindow.ui \
+    Forms\mainwindow.ui \
+    Forms\savewindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

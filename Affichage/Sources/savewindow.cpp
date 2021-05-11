@@ -1,10 +1,10 @@
-#include "savewindow.h"
+#include "Headers/savewindow.h"
 #include "ui_savewindow.h"
 #include <QMessageBox>
 extern "C" {
-#include "liste_vecteurs.h"
-#include "statistiques.h"
-#include "gestion_ES.h"
+#include "Headers/liste_vecteurs.h"
+#include "Headers/statistiques.h"
+#include "Headers/gestion_ES.h"
 }
 
 

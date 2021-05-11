@@ -5,8 +5,8 @@
 extern "C" {
 #endif
 
-#include "liste_vecteurs.h"
-#include "vecteurs.h"
+#include "Headers/liste_vecteurs.h"
+#include "Headers/vecteurs.h"
 
 #include <stdio.h>
 #include <stdlib.h>
