@@ -47,7 +47,7 @@ def Affichage3D_equations(self):
 
     # boucle pour l'ajout des vecteurs dans la liste d'affichage
     for i in range(0, len(liste_equations)):
-        print(liste_equations[i])
+        #print(liste_equations[i])
         # conversion de la valeur de la liste en item QListWidgetItem
         item_temp = QListWidgetItem(liste_equations[i].replace('\n',''))
         # ajout de l'item dans la liste
@@ -72,7 +72,7 @@ def Affichage3D_equations(self):
     # making label multi line
     label.setWordWrap(True)
 
-
+"""
 def Affichage3D_vecteurs(self):
     # creating a QListWidget
     list_widget = QListWidget(self)
@@ -90,7 +90,7 @@ def Affichage3D_vecteurs(self):
 
     # boucle pour l'ajout des vecteurs dans la liste d'affichage
     for i in range(0, len(liste_vecteurs)):
-        print(liste_vecteurs[i])
+        #print(liste_vecteurs[i])
         if i%3==0:
             # conversion de la valeur de la liste en item QListWidgetItem
             item_temp = QListWidgetItem("X: "+liste_vecteurs[i].replace('\n','')+" Y: "+liste_vecteurs[i+1].replace('\n','')+" Z: "+liste_vecteurs[i+2].replace('\n',''))
@@ -115,7 +115,7 @@ def Affichage3D_vecteurs(self):
 
     # making label multi line
     label.setWordWrap(True)
-      
+"""      
 def Affichage3D_donnees_statistiques(self):
     # creating a QListWidget
     list_widget = QListWidget(self)
@@ -127,11 +127,9 @@ def Affichage3D_donnees_statistiques(self):
     temp_filename = "Transfert_donnees_statistiques_API.txt"
     temp_name_file = open(temp_filename, 'r')
     liste_donnees_statistiques = temp_name_file.readlines()
-    #print (liste_donnees_statistiques)
 
     # boucle pour l'ajout des vecteurs dans la liste d'affichage
     for i in range(0, len(liste_donnees_statistiques)):
-        print(liste_donnees_statistiques[i])
         # conversion de la valeur de la liste en item QListWidgetItem
         item_temp = QListWidgetItem(liste_donnees_statistiques[i].replace('\n',''))
         # ajout de l'item dans la liste
@@ -160,9 +158,62 @@ class AppForm(QMainWindow):
         QMainWindow.__init__(self, parent)
         self.setWindowTitle('Affichage 3D')
 
-        self.create_main_frame()
+        #début main frame
+        self.main_frame = QWidget()
+        
+        # Create the mpl Figure and FigCanvas objects. 
+        # 5x4 inches, 100 dots-per-inch
+        #
+        self.dpi = 100
+        self.fig = Figure((5.0, 4.0), dpi=self.dpi)
+        self.canvas = FigureCanvas(self.fig)
+        self.canvas.setParent(self.main_frame)
+        
+        # Since we have only one plot, we can use add_axes 
+        # instead of add_subplot, but then the subplot
+        # configuration tool in the navigation toolbar wouldn't
+        # work.
+        #
+        self.axes = self.fig.add_subplot(111, projection = '3d')
 
-        self.textbox.setText('-1')
+        # Other GUI controls
+        # 
+        self.textbox = QLineEdit()
+        self.textbox.setMinimumWidth(200)
+        self.textbox.editingFinished.connect(self.on_draw)
+        
+        self.draw_button = QPushButton("&Draw")
+        self.draw_button.clicked.connect(self.on_draw)
+        
+        self.grid_cb = QCheckBox("Show &Grid")
+        self.grid_cb.setChecked(False)
+        self.grid_cb.stateChanged.connect(self.on_draw)
+        
+        self.label_vecteur = QtWidgets.QLabel()
+        self.label_vecteur.setText("non updated")
+        #
+        # Layout with box sizers
+        # 
+        hbox = QHBoxLayout()
+        
+        for w in [  self.textbox, self.draw_button, self.grid_cb, self.label_vecteur]:
+            hbox.addWidget(w)
+            hbox.setAlignment(w, Qt.AlignVCenter)
+        
+        vbox = QVBoxLayout()
+        vbox.addWidget(self.canvas)
+        vbox.addLayout(hbox)
+        
+        self.main_frame.setLayout(vbox)
+        self.setCentralWidget(self.main_frame)
+
+        # fonctions d'affichage du module
+        Affichage3D_donnees_statistiques(self)
+        #Affichage3D_vecteurs(self)
+        Affichage3D_equations(self)
+        #end main frame
+
+        self.textbox.setText('0')
         self.on_draw()
     
     def on_draw(self):
@@ -240,66 +291,48 @@ class AppForm(QMainWindow):
         
         self.canvas.draw()
 
+        # liste vecteurs
+        # creating a QListWidget
+        list_widget = QListWidget(self)
 
-    
-    def create_main_frame(self):
-        self.main_frame = QWidget()
+        # setting geometry to it
+        list_widget.setGeometry(10, 20,150, 170)
         
-        # Create the mpl Figure and FigCanvas objects. 
-        # 5x4 inches, 100 dots-per-inch
-        #
-        self.dpi = 100
-        self.fig = Figure((5.0, 4.0), dpi=self.dpi)
-        self.canvas = FigureCanvas(self.fig)
-        self.canvas.setParent(self.main_frame)
-        
-        # Since we have only one plot, we can use add_axes 
-        # instead of add_subplot, but then the subplot
-        # configuration tool in the navigation toolbar wouldn't
-        # work.
-        #
-        self.axes = self.fig.add_subplot(111, projection = '3d')
+        # opening and extracting values from 'Transfert_liste_vecteurs.txt'
+        temp_filename = "Transfert_liste_vecteurs.txt"
+        temp_name_file = open(temp_filename, 'r')
+        liste_vecteurs = temp_name_file.readlines()
+        for i in range(0,len(liste_vecteurs)):
+            liste_vecteurs[i] = liste_vecteurs[i].replace('\n','')
 
-        # Other GUI controls
-        # 
-        self.textbox = QLineEdit()
-        self.textbox.setMinimumWidth(200)
-        self.textbox.editingFinished.connect(self.on_draw)
-        
-        self.draw_button = QPushButton("&Draw")
-        self.draw_button.clicked.connect(self.on_draw)
-        
-        self.grid_cb = QCheckBox("Show &Grid")
-        self.grid_cb.setChecked(False)
-        self.grid_cb.stateChanged.connect(self.on_draw)
-        
-        self.label_vecteur = QtWidgets.QLabel()
-        self.label_vecteur.setText("non updated")
-        #
-        # Layout with box sizers
-        # 
-        hbox = QHBoxLayout()
-        
-        for w in [  self.textbox, self.draw_button, self.grid_cb, self.label_vecteur]:
-            hbox.addWidget(w)
-            hbox.setAlignment(w, Qt.AlignVCenter)
-        
-        vbox = QVBoxLayout()
-        vbox.addWidget(self.canvas)
-        vbox.addLayout(hbox)
-        
-        self.main_frame.setLayout(vbox)
-        self.setCentralWidget(self.main_frame)
+        # boucle pour l'ajout des vecteurs dans la liste d'affichage
+        for i in range(0, len(liste_vecteurs)):
+            #print(liste_vecteurs[i])
+            if i%3==0:
+                # conversion de la valeur de la liste en item QListWidgetItem
+                item_temp = QListWidgetItem("X: "+liste_vecteurs[i].replace('\n','')+" Y: "+liste_vecteurs[i+1].replace('\n','')+" Z: "+liste_vecteurs[i+2].replace('\n',''))
+                # ajout de l'item dans la liste
+                list_widget.addItem(item_temp)
 
-        # fonctions d'affichage du module
-        Affichage3D_donnees_statistiques(self)
-        Affichage3D_vecteurs(self)
-        Affichage3D_equations(self)
+        # ajout d'une scroll bar
+        scroll_bar = QScrollBar(self)
 
-def main():
-    app = QApplication(sys.argv)
-    form = AppForm()
-    form.show()
-    app.exec_()
+        # setting style sheet to the scroll bar
+        scroll_bar.setStyleSheet("background : lightgreen;")
 
-main()
+        # setting vertical scroll bar to it
+        list_widget.setVerticalScrollBar(scroll_bar)
+
+        # creating a label
+        label = QLabel("Liste des vecteurs: ", self)
+
+        # setting geometry to the label
+        label.setGeometry(10, 5, 150, 10)
+
+        # making label multi line
+        label.setWordWrap(True)
+
+app = QApplication(sys.argv)
+form = AppForm()
+form.show()
+app.exec_()
