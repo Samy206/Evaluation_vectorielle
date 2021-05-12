@@ -1,8 +1,12 @@
 #ifndef STATISTIQUES
 #define STATISTIQUES
 
-#include "liste_vecteurs.h"
-#include "vecteurs.h"
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+#include "Headers/liste_vecteurs.h"
+#include "Headers/vecteurs.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -11,7 +15,7 @@
 double calcul_norme(Vector v);
 //calcul la norme d'un vecteur
 
-typedef struct stat
+typedef struct statis
 {
     int * statistiques_demandees;
 
@@ -29,7 +33,7 @@ typedef struct stat
 
 } statistiques;
 
-statistiques init_statistiques(statistiques stat, size_t nb_dim, int* statistiques_demandes);
+statistiques init_statistiques(size_t nb_dim, int* statistiques_demandes);
 //les différent tableau sont alloué pour n dimention
 //Pour les différent tableau de double: case 0 dimention 1; case 1 dimention 2; etc...
 
@@ -57,5 +61,11 @@ statistiques ecart_type(statistiques stat, Liste_vecteur* vecteurs);
 statistiques calcul_auto_correlation(statistiques stat, Liste_vecteur* vecteurs, int decallage);
 //Calcul le coefficient d'autocorrélation de nos vecteur sur tous les axes.
 
-char * to_string(statistiques stat);
+void affichage(statistiques stat, size_t n);
+void to_string(statistiques stat, char * string);
+
+#ifdef __cplusplus
+}
+#endif
+
 #endif
