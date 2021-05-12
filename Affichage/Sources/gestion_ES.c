@@ -10,7 +10,7 @@
 #include <unistd.h>
 #define GetCurrentDir getcwd
 #endif
-#include "Headers/gestion_ES.h"
+#include "../Headers/gestion_ES.h"
 
 
 void initialisation_ES(Gestion_ES * gestionnaire,char * fct, Liste_vecteur * liste, statistiques * stats)
@@ -25,9 +25,12 @@ void initialisation_ES(Gestion_ES * gestionnaire,char * fct, Liste_vecteur * lis
     gestionnaire->liste = liste;
     gestionnaire->stats = stats;
 
-    gestionnaire->fic_gnup = GetCurrentDir(NULL, 0);
-    gestionnaire->fic_post= GetCurrentDir(NULL, 0);
-    gestionnaire->script_gnup= GetCurrentDir(NULL, 0);
+    gestionnaire->fic_gnup = malloc(200 * sizeof(char));
+    gestionnaire->fic_post = malloc(200 * sizeof(char));
+    gestionnaire->script_gnup = malloc(200 * sizeof(char));
+    GetCurrentDir(gestionnaire->fic_gnup,200 );
+    GetCurrentDir(gestionnaire->fic_post,200 );
+    GetCurrentDir(gestionnaire->script_gnup,200 );
 
     strcat(gestionnaire->fic_gnup,"/ressources/");
     strcat(gestionnaire->fic_post,"/ressources/");
@@ -507,6 +510,7 @@ int generation_fic_postscript(Gestion_ES * gestionnaire, char * filename)
 
         /*Calcul de la largeur en fonction du nombre de case à dessiner*/
         largeur = 600 / vrai_nb_stats;
+        fprintf(file,"/Helvetica 15 selectfont\n");
         y = y - (largeur/ 2);
     }
 
