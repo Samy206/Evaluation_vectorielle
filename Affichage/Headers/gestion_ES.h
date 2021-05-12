@@ -1,9 +1,11 @@
 #ifndef GESTION_ES
 #define GESTION_ES
-
-#include "Headers/liste_vecteurs.h"
-#include "Headers/statistiques.h"
-#include "Headers/vecteurs.h"
+#ifdef __cplusplus
+extern "C" {
+#endif
+#include "../Headers/liste_vecteurs.h"
+#include "../Headers/statistiques.h"
+#include "../Headers/vecteurs.h"
 #include <string.h>
 
 typedef struct gestion_es
@@ -16,7 +18,7 @@ typedef struct gestion_es
                                                    des vecteurs*/
     char * fic_post;                            //Chemin absolu du fichier contenant le script postscript affichant les statistiques
 }
-        Gestion_ES;
+Gestion_ES;
 
 
 void initialisation_ES(Gestion_ES * gestionnaire,char * fct, Liste_vecteur * liste, statistiques * stats);
@@ -37,4 +39,7 @@ double * string_parser(char * entiers);                   //Transformation des l
 
 void free_gestionnaire_es(Gestion_ES * gestionnaire);      //Libération de la mémoire
 
+#ifdef __cplusplus
+}
+#endif
 #endif
