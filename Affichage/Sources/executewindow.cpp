@@ -101,6 +101,8 @@ void executewindow::Validate()
     }
     nbr_dim_funct++;
 
+
+
     //get the functon in the good shape and type
     string function = "";
     for (int i = 0; i < (int)funct.length() ; i++ ) {
@@ -115,13 +117,23 @@ void executewindow::Validate()
             break;
         }
     }
+    if(nbr_dim_vect > nbr_dim_funct)
+    {
+        function.pop_back();
+        for (int i = nbr_dim_funct; i < nbr_dim_vect; i++ ) {
+          function.append(";");
+          function.push_back(carc[i]);
+          nbr_dim_funct++;
+        }
+        function.push_back(')');
+    }
     char funct[function.length()+1];
     strcpy(funct, function.c_str());
     std::cout << funct << std::endl;
 
     //Get the name of all the variable
     string variablestring = "";
-    for (int i = 0; i < nbr_dim_funct; i++) {
+    for (int i = 0; i < nbr_dim_vect; i++) {
         variablestring[i] = carc[i];
     }
     char variable[variablestring.length()+1];
