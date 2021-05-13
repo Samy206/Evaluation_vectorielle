@@ -1574,7 +1574,7 @@ p, li { white-space: pre-wrap; }
      <string/>
     </property>
     <property name="placeholderText">
-     <string>(-1,8)</string>
+     <string>-1,8</string>
     </property>
     <property name="clearButtonEnabled">
      <bool>false</bool>

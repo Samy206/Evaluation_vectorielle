@@ -65,7 +65,6 @@ void executewindow::Validate()
         }
     }
 
-    //Recuperation du choix du vecteur de depart (test du nombre de dimension)
 
     //get the vector in the good shape and type
     string vect_init2 = "";
@@ -101,7 +100,44 @@ void executewindow::Validate()
     }
     nbr_dim_funct++;
 
-
+    //Departure choice
+    if((ui->checkBox_v0->isChecked() && !ui->LineEdit_Name->text().isEmpty()) || (!ui->checkBox_v0->isChecked() && ui->LineEdit_Name->text().isEmpty()))
+    {
+        QMessageBox::critical(this, "Entry error", "You must choose only one departure.");
+        return;
+    }
+    if(ui->checkBox_v0->isChecked())
+    {
+        string dep = "(0,0)";
+        departur = dep;
+    }
+    if(!ui->LineEdit_Name->text().isEmpty())
+    {
+        //tester si c'est bien ecrit + l'ajouter dans une varible char*
+        std::string temp = ui->LineEdit_Name->text().toStdString();
+        for (int i = 0; i < (int)temp.length(); i++)
+             if (isdigit(temp[i]) == false && temp[i] != ',' && temp[i] != '-')
+             {
+                  QMessageBox::critical(this, "Entry error", "The number can only containe integer");
+                  return;
+             }
+        int nbr_dim_vecteur_departure = 0;
+        for (int i = 0; i < (int)temp.size(); i++) {
+            if(temp[i] == ',')
+                nbr_dim_vecteur_departure++;
+        }
+        nbr_dim_vecteur_departure++;
+        if(nbr_dim_vecteur_departure < nbr_dim_vect)
+        {
+            QMessageBox::critical(this, "Entry error", "The departure vector cannot have less dimension than the initial vector.");
+            return;
+        }
+        string dep = "(";
+        dep+=temp;
+        dep.push_back(')');
+        departur = dep;
+    }
+    std::cout << "vecteur departure : " << departur << std::endl;
 
     //get the functon in the good shape and type
     string function = "";
