@@ -1,6 +1,7 @@
-#include "Headers/addvectwindow.h"
+#include "../Headers/addvectwindow.h"
 #include "ui_addvectwindow.h"
-#include "iostream"
+#include <iostream>
+#include <string>
 #include "QMessageBox"
 
 addvectwindow::addvectwindow(QWidget *parent) :
@@ -21,21 +22,24 @@ addvectwindow::~addvectwindow()
 
 void addvectwindow::Validate()
 {
-   for (int i = 0; i < nbr_dim; i++) {
-
+    int size;
+    double number;
+    std::string::size_type sz;
+   for (int i = 0; i < nbr_dim; i++)
+   {
        std::string temp = ui->tableWidget_vect->item(i,0)->text().toStdString();
-       for (int i = 0; i < (int)temp.length(); i++)
-            if (isdigit(temp[i]) == false && temp[i] != '.')
-            {
-                 QMessageBox::critical(this, "Entry error", "The number can only containe integer");
+       size = temp.length();
+       for (int j = 0; j < size; j++)
+       {
+           if (isdigit(temp[j]) != true && temp[j] !=',' && temp[j] != '.')
+           {
+               QMessageBox::critical(this, "Entry error", "The number can only contain integer");
 
-                 return;
-            }
-       std::cout << temp << std::endl;
-       //temp.replace(temp.begin(), temp.end(), ',', '.');
-
-       vect_init.push_back(std::stod(temp)); //recuperation des données saisies dans l'objet addvectwindow
-
+               return;
+           }
+       }
+       number = std::stod(temp,&sz);
+       vect_init.push_back(number); //recuperation des données saisies dans l'objet addvectwindow
     }
 
    if(ui->lineEdit_name->text().isEmpty())

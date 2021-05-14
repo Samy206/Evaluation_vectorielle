@@ -15,15 +15,15 @@ set(CMAKE_AUTORCC ON)
 include_directories(Affichage/Headers)
 
 add_executable(Evalutation_vectorielle
-        src/addfunctwindow.ui
-        src/addvectwindow.ui
-        src/datawindow.ui
-        src/display_4d.ui
-        src/displaywindow.ui
-        src/executewindow.ui
-        src/loadwindow.ui
-        src/mainwindow.ui
-        src/savewindow.ui
+        Sources/addfunctwindow.ui
+        Sources/addvectwindow.ui
+        Sources/datawindow.ui
+        Sources/display_4d.ui
+        Sources/displaywindow.ui
+        Sources/executewindow.ui
+        Sources/loadwindow.ui
+        Sources/mainwindow.ui
+        Sources/savewindow.ui
         Headers/addfunctwindow.h
         Headers/addvectwindow.h
         Headers/datawindow.h
@@ -38,21 +38,21 @@ add_executable(Evalutation_vectorielle
         Headers/statistiques.h
         Headers/tinyexpr.h
         Headers/vecteurs.h
-        src/addfunctwindow.cpp
-        src/addvectwindow.cpp
-        src/datawindow.cpp
-        src/display_4d.cpp
-        src/displaywindow.cpp
-        src/executewindow.cpp
-        src/gestion_ES.c
-        src/liste_vecteurs.c
-        src/loadwindow.cpp
-        src/main.cpp
-        src/mainwindow.cpp
-        src/savewindow.cpp
-        src/statistiques.c
-        src/tinyexpr.c
-        src/vecteurs.c)
+        Sources/addfunctwindow.cpp
+        Sources/addvectwindow.cpp
+        Sources/datawindow.cpp
+        Sources/display_4d.cpp
+        Sources/displaywindow.cpp
+        Sources/executewindow.cpp
+        Sources/gestion_ES.c
+        Sources/liste_vecteurs.c
+        Sources/loadwindow.cpp
+        Sources/main.cpp
+        Sources/mainwindow.cpp
+        Sources/savewindow.cpp
+        Sources/statistiques.c
+        Sources/tinyexpr.c
+        Sources/vecteurs.c)
 
 target_link_libraries(${PROJECT_NAME}
 
