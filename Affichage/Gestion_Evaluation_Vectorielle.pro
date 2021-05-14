@@ -25,29 +25,29 @@ SOURCES += \
     Sources/vecteurs.c
 
 HEADERS += \
-    ../Headers/addfunctwindow.h \
-    ../Headers/addvectwindow.h \
-    ../Headers/display_4d.h \
-    ../Headers/displaywindow.h \
-    ../Headers/executewindow.h \
-    ../Headers/gestion_ES.h \
-    ../Headers/liste_vecteurs.h \
-    ../Headers/loadwindow.h \
-    ../Headers/mainwindow.h \
-    ../Headers/savewindow.h \
-    ../Headers/statistiques.h \
-    ../Headers/tinyexpr.h \
-    ../Headers/vecteurs.h
+    Headers/addfunctwindow.h \
+    Headers/addvectwindow.h \
+    Headers/display_4d.h \
+    Headers/displaywindow.h \
+    Headers/executewindow.h \
+    Headers/gestion_ES.h \
+    Headers/liste_vecteurs.h \
+    Headers/loadwindow.h \
+    Headers/mainwindow.h \
+    Headers/savewindow.h \
+    Headers/statistiques.h \
+    Headers/tinyexpr.h \
+    Headers/vecteurs.h
 
 FORMS += \
-    Forms/addfunctwindow.ui \
-    Forms/addvectwindow.ui \
-    Forms/display_4d.ui \
-    Forms/displaywindow.ui \
-    Forms/executewindow.ui \
-    Forms/loadwindow.ui \
-    Forms/mainwindow.ui \
-    Forms/savewindow.ui
+    Sources/addfunctwindow.ui \
+    Sources/addvectwindow.ui \
+    Sources/display_4d.ui \
+    Sources/displaywindow.ui \
+    Sources/executewindow.ui \
+    Sources/loadwindow.ui \
+    Sources/mainwindow.ui \
+    Sources/savewindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

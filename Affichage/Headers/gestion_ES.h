@@ -3,9 +3,9 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-#include "../../Headers/liste_vecteurs.h"
-#include "../../Headers/statistiques.h"
-#include "../../Headers/vecteurs.h"
+#include "../Headers/liste_vecteurs.h"
+#include "../Headers/statistiques.h"
+#include "../Headers/vecteurs.h"
 #include <string.h>
 
 typedef struct gestion_es
@@ -27,7 +27,7 @@ int generation_fic_gnuplot(Gestion_ES * gestionnaire, char *file_name);    //Gé
 
 int generation_script_gnuplot(Gestion_ES * gestionnaire, char* file_name); //Génération script lancement de gnuplot
 void * launch_gnup_script_darwin(void * filename); /*Lancement du script gnuplot afin de générer un graphe sous format png sur linux et MAC*/
-//void * launch_gnup_script_windows(void * filename); /*Lancement du script gnuplot afin de générer un graphe sous format png sur windows*/
+void * launch_gnup_script_windows(void * filename); /*Lancement du script gnuplot afin de générer un graphe sous format png sur windows*/
 
 int generation_fic_postscript(Gestion_ES * gestionnaire, char * filename); //génération fichier postscript ( écriture statistiques )
 int draw_table_postscript(FILE * file,int x, int y, int largeur);          //Dessin de chaque partie du tableau
