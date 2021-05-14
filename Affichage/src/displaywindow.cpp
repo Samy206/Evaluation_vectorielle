@@ -1,9 +1,9 @@
-#include "Headers/displaywindow.h"
+#include "../Headers/displaywindow.h"
 #include "ui_displaywindow.h"
-#include "Headers/display_4d.h"
+#include "../Headers/display_4d.h"
 extern "C" {
-#include "Headers/liste_vecteurs.h"
-#include "Headers/statistiques.h"
+#include "../Headers/liste_vecteurs.h"
+#include "../Headers/statistiques.h"
 }
 
 displaywindow::displaywindow(executewindow *toto, QWidget *parent) :

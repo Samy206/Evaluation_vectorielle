@@ -1,4 +1,4 @@
-#include "Headers/statistiques.h"
+#include "../Headers/statistiques.h"
 
 statistiques init_statistiques(size_t nb_dim, int* statistiques_demandes)
 {

@@ -1,7 +1,7 @@
-#include "Headers/display_4d.h"
+#include "../Headers/display_4d.h"
 #include "ui_display_4d.h"
-#include "Headers/statistiques.h"
-#include "Headers/displaywindow.h"
+#include "../Headers/statistiques.h"
+#include "../Headers/displaywindow.h"
 //possible variable
 char caracte[26] = {'x','y','z','a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w'};
 

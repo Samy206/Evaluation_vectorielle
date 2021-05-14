@@ -1,4 +1,4 @@
-#include "datawindow.h"
+#include "../Headers/datawindow.h"
 #include "ui_datawindow.h"
 
 datawindow::datawindow(QWidget *parent) :

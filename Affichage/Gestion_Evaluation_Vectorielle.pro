@@ -25,19 +25,19 @@ SOURCES += \
     Sources/vecteurs.c
 
 HEADERS += \
-    Headers/addfunctwindow.h \
-    Headers/addvectwindow.h \
-    Headers/display_4d.h \
-    Headers/displaywindow.h \
-    Headers/executewindow.h \
-    Headers/gestion_ES.h \
-    Headers/liste_vecteurs.h \
-    Headers/loadwindow.h \
-    Headers/mainwindow.h \
-    Headers/savewindow.h \
-    Headers/statistiques.h \
-    Headers/tinyexpr.h \
-    Headers/vecteurs.h
+    ../Headers/addfunctwindow.h \
+    ../Headers/addvectwindow.h \
+    ../Headers/display_4d.h \
+    ../Headers/displaywindow.h \
+    ../Headers/executewindow.h \
+    ../Headers/gestion_ES.h \
+    ../Headers/liste_vecteurs.h \
+    ../Headers/loadwindow.h \
+    ../Headers/mainwindow.h \
+    ../Headers/savewindow.h \
+    ../Headers/statistiques.h \
+    ../Headers/tinyexpr.h \
+    ../Headers/vecteurs.h
 
 FORMS += \
     Forms/addfunctwindow.ui \

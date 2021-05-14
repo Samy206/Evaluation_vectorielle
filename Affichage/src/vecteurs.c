@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "Headers/vecteurs.h"
+#include "../Headers/vecteurs.h"
 
 // Initialisation d'un vecteur :
 int vector_init(Vector* v, size_t dimension)

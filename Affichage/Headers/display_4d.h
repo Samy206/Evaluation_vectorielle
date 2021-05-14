@@ -1,7 +1,7 @@
 #ifndef DISPLAY_4D_H
 #define DISPLAY_4D_H
-#include "Headers/displaywindow.h"
-#include "Headers/statistiques.h"
+#include "../Headers/displaywindow.h"
+#include "../Headers/statistiques.h"
 #include <QDialog>
 
 namespace Ui {

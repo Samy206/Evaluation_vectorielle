@@ -1,4 +1,4 @@
-#include "Headers/addvectwindow.h"
+#include "../Headers/addvectwindow.h"
 #include "ui_addvectwindow.h"
 #include "iostream"
 #include "QMessageBox"

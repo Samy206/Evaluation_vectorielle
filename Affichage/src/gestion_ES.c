@@ -6,9 +6,11 @@
 #ifdef WINDOWS
 #include <direct.h>
 #define GetCurrentDir _getcwd
+#define OS 0
 #else
 #include <unistd.h>
 #define GetCurrentDir getcwd
+#define OS 1
 #endif
 #include "../Headers/gestion_ES.h"
 
@@ -189,14 +191,19 @@ int generation_script_gnuplot(Gestion_ES * gestionnaire, char* filename)
 
     //Lancement du script sur un autre processeur
     pthread_t thread;
-    pthread_create(&thread,NULL,launch_gnup_script,filename);
+
+    if(OS == 1)
+        pthread_create(&thread,NULL,launch_gnup_script_darwin,filename);
+
+    /*else
+        pthread_create(&thread,NULL,launch_gnup_script_windows,filename);*/
 
     fclose(file);
     return 0;
 }
 
-/*Lancement du script_gnuplot*/
-void * launch_gnup_script(void * filename)
+/*Lancement du script_gnuplot sur linux et MAC*/
+void * launch_gnup_script_darwin(void * filename)
 {
     char * name = (char *) (filename);
     char cmd[50];
@@ -204,6 +211,11 @@ void * launch_gnup_script(void * filename)
     system(cmd);                                        //Lancement de celle-ci
     pthread_exit(NULL);
 }
+
+/*Lancement du script_gnuplot sur linux et MAC
+void * launch_gnup_script_windows(void * filename)*/
+
+
 
 /*Dessine une case du tableau sous format postscript sur une longueur de 500 et une largeur dépendant du nombre
  de statistiques à afficher*/

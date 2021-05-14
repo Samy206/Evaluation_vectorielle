@@ -8,8 +8,8 @@ extern "C" {
 #endif
 
 
-#include "Headers/vecteurs.h"
-#include "Headers/tinyexpr.h"
+#include "../Headers/vecteurs.h"
+#include "../Headers/tinyexpr.h"
 
 typedef struct element        //Brique de la liste appelée "element" : Un vecteur et un pointeur vers le suivant
 {
