@@ -1,4 +1,4 @@
-#include "../Headers/addvectwindow.h"
+#include "Headers/addvectwindow.h"
 #include "ui_addvectwindow.h"
 #include "iostream"
 #include "QMessageBox"
@@ -31,7 +31,11 @@ void addvectwindow::Validate()
 
                  return;
             }
-       vect_init.push_back(ui->tableWidget_vect->item(i,0)->text().toDouble()); //recuperation des données saisies dans l'objet addvectwindow
+       std::cout << temp << std::endl;
+       //temp.replace(temp.begin(), temp.end(), ',', '.');
+
+       vect_init.push_back(std::stod(temp)); //recuperation des données saisies dans l'objet addvectwindow
+
     }
 
    if(ui->lineEdit_name->text().isEmpty())
