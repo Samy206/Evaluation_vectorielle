@@ -1,10 +1,10 @@
-#include "../Headers/savewindow.h"
+#include "Headers/savewindow.h"
 #include "ui_savewindow.h"
 #include <QMessageBox>
 extern "C" {
-#include "../Headers/liste_vecteurs.h"
-#include "../Headers/statistiques.h"
-#include "../Headers/gestion_ES.h"
+#include "Headers/liste_vecteurs.h"
+#include "Headers/statistiques.h"
+#include "Headers/gestion_ES.h"
 }
 
 
@@ -129,6 +129,16 @@ void savewindow::Validate()
             break;
         }
     }
+    if(nbr_dim_vect > nbr_dim_funct)
+    {
+        function.pop_back();
+        for (int i = nbr_dim_funct; i < nbr_dim_vect; i++ ) {
+          function.append(";");
+          function.push_back(carcact[i]);
+          nbr_dim_funct++;
+        }
+        function.push_back(')');
+    }
     char funct[function.length()+1];
     strcpy(funct, function.c_str());
     std::cout << funct << std::endl;
@@ -180,6 +190,7 @@ void savewindow::Validate()
         dep+=temp;
         dep.push_back(')');
     }
+    std::cout << "vecteur departure : " << departur << std::endl;
 
     Liste_vecteur *list = fonction_principale(funct,vecteurinitial,nbr_dim_vect,nbr_dim_funct,nbr_vect,variable); // Appel de la fonction de calcul de liste de vecteur avec le nombre de vecteur, le vecteur initial et la fonction
     afficherListe(list);
