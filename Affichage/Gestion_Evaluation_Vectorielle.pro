@@ -1,4 +1,4 @@
-QT       += core gui
+QT       += core gui charts
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -11,6 +11,8 @@ CONFIG += c++11
 SOURCES += \
     Sources/addfunctwindow.cpp \
     Sources/addvectwindow.cpp \
+    Sources/chargement_fichier.cpp \
+    Sources/chartview.cpp \
     Sources/display_4d.cpp \
     Sources/displaywindow.cpp \
     Sources/executewindow.cpp \
@@ -27,6 +29,8 @@ SOURCES += \
 HEADERS += \
     Headers/addfunctwindow.h \
     Headers/addvectwindow.h \
+    Headers/chargement_fichier.h \
+    Headers/chartview.h \
     Headers/display_4d.h \
     Headers/displaywindow.h \
     Headers/executewindow.h \
@@ -40,14 +44,14 @@ HEADERS += \
     Headers/vecteurs.h
 
 FORMS += \
-    Sources/addfunctwindow.ui \
-    Sources/addvectwindow.ui \
-    Sources/display_4d.ui \
-    Sources/displaywindow.ui \
-    Sources/executewindow.ui \
-    Sources/loadwindow.ui \
-    Sources/mainwindow.ui \
-    Sources/savewindow.ui
+    Forms/addfunctwindow.ui \
+    Forms/addvectwindow.ui \
+    Forms/display_4d.ui \
+    Forms/displaywindow.ui \
+    Forms/executewindow.ui \
+    Forms/loadwindow.ui \
+    Forms/mainwindow.ui \
+    Forms/savewindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

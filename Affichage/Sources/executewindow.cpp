@@ -194,25 +194,31 @@ void executewindow::Validate()
 
 
     /*//Creation de la nouvelle fenetre bloquante avec comme paramettre un objet contenant les infos
-    displaywindow secwind(this);
-    secwind.setModal(true);
-    secwind.exec();*/
+ */
 
     if(nbr_dim_vecteur <= 2)
     {
-        //appel fonction antoine
+        displaywindow secwind(this);
+        secwind.setModal(true);
+        secwind.exec();
+
+        close();
     }
     if(nbr_dim_vecteur == 3)
     {
         //appel fonction chloe
+
+        display_4D secwind(this);
+        secwind.setModal(true);
+        secwind.exec();
     }
     else
     {
 
+        /*display_4D secwind(this);
+        secwind.setModal(true);
+        secwind.exec();*/
     }
-    display_4D secwind(this);
-    secwind.setModal(true);
-    secwind.exec();
 
     state = 1;
     close();
