@@ -31,10 +31,10 @@ void addvectwindow::Validate()
        size = temp.length();
        for (int j = 0; j < size; j++)
        {
-           if (isdigit(temp[j]) != true && temp[j] !=',' && temp[j] != '.')
+           if (isdigit(temp[j]) != true && temp[j] != '.')
            {
                QMessageBox::critical(this, "Entry error", "The number can only contain integer");
-
+               vect_init.clear();
                return;
            }
        }

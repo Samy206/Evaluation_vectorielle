@@ -1,13 +1,13 @@
-#include "../Headers/executewindow.h"
+#include "Headers/executewindow.h"
 #include "ui_executewindow.h"
-#include "../Headers/displaywindow.h"
-#include "../Headers/mainwindow.h"
+#include "Headers/displaywindow.h"
+#include "Headers/mainwindow.h"
 #include "QMessageBox"
-#include "../Headers/display_4d.h"
+#include "Headers/display_4d.h"
 
 extern "C" {
-#include "../Headers/liste_vecteurs.h"
-#include "../Headers/statistiques.h"
+#include "Headers/liste_vecteurs.h"
+#include "Headers/statistiques.h"
 }
 
 //possible variable
@@ -108,7 +108,12 @@ void executewindow::Validate()
     }
     if(ui->checkBox_v0->isChecked())
     {
-        string dep = "(0,0)";
+        string dep = "(";
+        for (int i = 0; i < nbr_dim_vect; i++) {
+            dep+="0,";
+        }
+        dep.pop_back();
+        dep.push_back(')');
         departur = dep;
     }
     if(!ui->LineEdit_Name->text().isEmpty())
@@ -193,6 +198,18 @@ void executewindow::Validate()
     secwind.setModal(true);
     secwind.exec();*/
 
+    if(nbr_dim_vecteur <= 2)
+    {
+        //appel fonction antoine
+    }
+    if(nbr_dim_vecteur == 3)
+    {
+        //appel fonction chloe
+    }
+    else
+    {
+
+    }
     display_4D secwind(this);
     secwind.setModal(true);
     secwind.exec();

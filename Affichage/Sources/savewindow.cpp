@@ -1,10 +1,10 @@
-#include "../Headers/savewindow.h"
+#include "Headers/savewindow.h"
 #include "ui_savewindow.h"
 #include <QMessageBox>
 extern "C" {
-#include "../Headers/liste_vecteurs.h"
-#include "../Headers/statistiques.h"
-#include "../Headers/gestion_ES.h"
+#include "Headers/liste_vecteurs.h"
+#include "Headers/statistiques.h"
+#include "Headers/gestion_ES.h"
 }
 
 
@@ -161,7 +161,12 @@ void savewindow::Validate()
     }
     if(ui->checkBox_v0->isChecked())
     {
-        string dep = "(0,0)";
+        string dep = "(";
+        for (int i = 0; i < nbr_dim_vect; i++) {
+            dep+="0,";
+        }
+        dep.pop_back();
+        dep.push_back(')');
         departur = new char [dep.size()+1];
         strcpy(departur, dep.c_str() );
     }
