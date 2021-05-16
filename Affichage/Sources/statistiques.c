@@ -3,6 +3,11 @@
 statistiques init_statistiques(size_t nb_dim, int* statistiques_demandes)
 {
     statistiques stat;
+    stat.min_n = 0;
+	stat.max_n = 0;
+	stat.moy_n = 0;
+	stat.var_n = 0;
+	stat.ect_n = 0;
     stat.statistiques_demandees = malloc(6*sizeof(int));
 
     for(int i=0;i<6;i++)
@@ -10,27 +15,27 @@ statistiques init_statistiques(size_t nb_dim, int* statistiques_demandes)
         stat.statistiques_demandees[i] = statistiques_demandes[i];
     }
 
-    stat.min_d = malloc(nb_dim* sizeof(double));
-    stat.max_d = malloc(nb_dim* sizeof(double));
+    stat.min_d = calloc(nb_dim, sizeof(double));
+    stat.max_d = calloc(nb_dim, sizeof(double));
 
     if(statistiques_demandes[2] || statistiques_demandes[3] || statistiques_demandes[4] || statistiques_demandes[5])
-        stat.moy_d = malloc(nb_dim* sizeof(double));
+        stat.moy_d = calloc(nb_dim, sizeof(double));
     else
         stat.moy_d = NULL;
 
 
     if(statistiques_demandes[3] || statistiques_demandes[4] || statistiques_demandes[5])
-        stat.var_d = malloc(nb_dim* sizeof(double));
+        stat.var_d = calloc(nb_dim, sizeof(double));
     else
         stat.var_d = NULL;
 
     if(statistiques_demandes[4] || statistiques_demandes[5])
-        stat.ect_d = malloc(nb_dim* sizeof(double));
+        stat.ect_d = calloc(nb_dim, sizeof(double));
     else
         stat.ect_d = NULL;
 
     if(statistiques_demandes[5])
-        stat.atc_d = malloc(nb_dim* sizeof(double));
+        stat.atc_d = calloc(nb_dim, sizeof(double));
     else
         stat.atc_d = NULL;
 
