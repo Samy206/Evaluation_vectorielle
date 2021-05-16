@@ -1,4 +1,3 @@
-
 #include "../Headers/chartview.h"
 
 using namespace QtCharts;

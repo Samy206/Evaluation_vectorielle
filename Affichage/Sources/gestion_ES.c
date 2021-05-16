@@ -223,7 +223,6 @@ void * launch_gnup_script_windows(void * filename)
 }
 
 
-
 /*Dessine une case du tableau sous format postscript sur une longueur de 500 et une largeur dépendant du nombre
  de statistiques à afficher*/
 int draw_table_postscript(FILE * file,int x, int y, int largeur)
@@ -304,6 +303,16 @@ char index_to_char(int index)
     }
 }
 
+int get_pow(double number)
+{
+    int cmp = 0;
+    while(pow(10,cmp) < number )
+    {
+        cmp++;
+    }
+    return cmp;
+}
+
 /*Fonction principale écrivant les statistiques et faisant appel aux fonctions précédentes afin de former un premier
  fichier postscript qui est transformé via une commande système en un fichier pdf*/
 int generation_fic_postscript(Gestion_ES * gestionnaire, char * filename)
@@ -355,7 +364,7 @@ int generation_fic_postscript(Gestion_ES * gestionnaire, char * filename)
     int dimension = gestionnaire->liste->premier->vecteur.taille;
     int x,y,largeur;
     x = 100 ; y = 600;
-
+    int power;
     int vrai_nb_stats = 0 ;
 
     for(int i = 0 ; i < 2; i++)
@@ -381,10 +390,10 @@ int generation_fic_postscript(Gestion_ES * gestionnaire, char * filename)
                     {
                         for(int k = 0 ; k < dimension ; k++)
                         {
-                            fprintf(file , "%d %d moveto\n"
-                                           "(%s_%c) show\n"
-                                           "%d %d moveto\n"
-                                           "(%.16f) show\n",
+                            fprintf(file, "%d %d moveto\n"
+                                          "(%s_%c) show\n"
+                                          "%d %d moveto\n"
+                                          "(%.16f) show\n",
                                     x, y,
                                     tableau_string[j], index_to_char(k),
                                     x + 250, y,
@@ -395,136 +404,271 @@ int generation_fic_postscript(Gestion_ES * gestionnaire, char * filename)
                     }
                     else if(strcmp(tableau_string[j],"Maximum") == 0)
                     {
-                        fprintf(file , "%d %d moveto\n"
-                                       "(Maximum_n) show\n"
-                                       "%d %d moveto\n"
-                                       "(%.16f) show\n",
-                                x, y,
-                                x + 250, y,
-                                gestionnaire->stats->max_n
-                        );
+                        power = get_pow(gestionnaire->stats->max_n);
+                        if(power < 7) {
+                            fprintf(file, "%d %d moveto\n"
+                                          "(Maximum_n) show\n"
+                                          "%d %d moveto\n"
+                                          "(%.16f) show\n",
+                                    x, y,
+                                    x + 250, y,
+                                    gestionnaire->stats->max_n
+                            );
+                        }
+                        else
+                        {
+                            fprintf(file, "%d %d moveto\n"
+                                          "(Maximum_n) show\n"
+                                          "%d %d moveto\n"
+                                          "(%.1f x 10^%d) show\n",
+                                    x, y,
+                                    x + 250, y,
+                                    gestionnaire->stats->max_n/pow(10,power-1),power-1
+                            );
+                        }
                         y = y - largeur;
                         for(int k = 0 ; k < dimension ; k++)
                         {
-                            fprintf(file , "%d %d moveto\n"
-                                           "(%s_%c) show\n"
-                                           "%d %d moveto\n"
-                                           "(%.16f) show\n",
-                                    x, y,
-                                    tableau_string[j], index_to_char(k),
-                                    x + 250, y,
-                                    gestionnaire->stats->max_d[k]
-                            );
+                            power = get_pow(gestionnaire->stats->max_d[k]);
+                            if(power < 7) {
+                                fprintf(file, "%d %d moveto\n"
+                                              "(Maximum_%c) show\n"
+                                              "%d %d moveto\n"
+                                              "(%.16f) show\n",
+                                        x, y,
+                                        index_to_char(k),
+                                        x + 250, y,
+                                        gestionnaire->stats->max_d[k]
+                                );
+                            }
+                            else
+                            {
+                                fprintf(file, "%d %d moveto\n"
+                                              "(Maximum_%c) show\n"
+                                              "%d %d moveto\n"
+                                              "(%.1f x 10^%d) show\n",
+                                        x, y,
+                                        index_to_char(k),
+                                        x + 250, y,
+                                        gestionnaire->stats->max_d[k]/pow(10,power-1),power-1
+                                );
+                            }
                             y = y - largeur;
                         }
                     }
-
-                    else if(strcmp(tableau_string[j],"Minimum") == 0)
-                    {
-                        fprintf(file , "%d %d moveto\n"
-                                       "(%s_n) show\n"
-                                       "%d %d moveto\n"
-                                       "(%.16f) show\n",
-                                x, y,
-                                tableau_string[j],
-                                x + 250, y,
-                                gestionnaire->stats->min_n
-                        );
-                        y = y - largeur;
-                        for(int k = 0 ; k < dimension ; k++)
-                        {
-                            fprintf(file , "%d %d moveto\n"
-                                           "(%s_%c) show\n"
-                                           "%d %d moveto\n"
-                                           "(%.16f) show\n",
+                    else if(strcmp(tableau_string[j],"Minimum") == 0) {
+                        power = get_pow(gestionnaire->stats->min_n);
+                        if (power < 7) {
+                            fprintf(file, "%d %d moveto\n"
+                                          "(Minimum_n) show\n"
+                                          "%d %d moveto\n"
+                                          "(%.16f) show\n",
                                     x, y,
-                                    tableau_string[j], index_to_char(k),
                                     x + 250, y,
-                                    gestionnaire->stats->min_d[k]
+                                    gestionnaire->stats->min_n
                             );
-                            y = y - largeur;
+                        } else {
+                            fprintf(file, "%d %d moveto\n"
+                                          "(Minimum_n) show\n"
+                                          "%d %d moveto\n"
+                                          "(%.1f x 10^%d) show\n",
+                                    x, y,
+                                    x + 250, y,
+                                    gestionnaire->stats->min_n/pow(10,power-1), power-1
+                            );
                         }
-                    }
-                    else if(strcmp(tableau_string[j],"Variance") == 0)
-                    {
-                        fprintf(file , "%d %d moveto\n"
-                                       "(%s_n) show\n"
-                                       "%d %d moveto\n"
-                                       "(%.16f) show\n",
-                                x, y,
-                                tableau_string[j],
-                                x + 250, y,
-                                gestionnaire->stats->var_n
-                        );
                         y = y - largeur;
-                        for(int k = 0 ; k < dimension ; k++)
-                        {
-                            fprintf(file , "%d %d moveto\n"
-                                           "(%s_%c) show\n"
-                                           "%d %d moveto\n"
-                                           "(%.16f) show\n",
-                                    x, y,
-                                    tableau_string[j], index_to_char(k),
-                                    x + 250, y,
-                                    gestionnaire->stats->var_d[k]
-                            );
-                            y = y - largeur;
-                        }
-                    }
-                    else if(strcmp(tableau_string[j],"Standard deviation") == 0)
-                    {
-                        fprintf(file , "%d %d moveto\n"
-                                       "(%s_n) show\n"
-                                       "%d %d moveto\n"
-                                       "(%.16f) show\n",
-                                x, y,
-                                tableau_string[j],
-                                x + 250, y,
-                                gestionnaire->stats->ect_n
-                        );
-                        y = y - largeur;
-                        for(int k = 0 ; k < dimension ; k++)
-                        {
-                            fprintf(file , "%d %d moveto\n"
-                                           "(%s_%c) show\n"
-                                           "%d %d moveto\n"
-                                           "(%.16f) show\n",
-                                    x, y,
-                                    tableau_string[j], index_to_char(k),
-                                    x + 250, y,
-                                    gestionnaire->stats->ect_d[k]
-                            );
+                        for (int k = 0; k < dimension; k++) {
+                            power = get_pow(gestionnaire->stats->min_d[k]);
+                            if (power < 7) {
+                                fprintf(file, "%d %d moveto\n"
+                                              "(Minimum_%c) show\n"
+                                              "%d %d moveto\n"
+                                              "(%.16f) show\n",
+                                        x, y,
+                                        index_to_char(k),
+                                        x + 250, y,
+                                        gestionnaire->stats->min_d[k]
+                                );
+                            } else {
+                                fprintf(file, "%d %d moveto\n"
+                                              "(Minimum_%c) show\n"
+                                              "%d %d moveto\n"
+                                              "(%.1f x 10^%d) show\n",
+                                        x, y,
+                                        index_to_char(k),
+                                        x + 250, y,
+                                        gestionnaire->stats->min_d[k]/pow(10,power-1), power-1
+                                );
+                            }
                             y = y - largeur;
                         }
                     }
                     else if(strcmp(tableau_string[j],"Average") == 0)
                     {
-                        fprintf(file , "%d %d moveto\n"
-                                       "(%s_n) show\n"
-                                       "%d %d moveto\n"
-                                       "(%.16f) show\n",
-                                x, y,
-                                tableau_string[j],
-                                x + 250, y,
-                                gestionnaire->stats->moy_n
-                        );
+                        power = get_pow(gestionnaire->stats->moy_n);
+                        if(power < 7) {
+                            fprintf(file, "%d %d moveto\n"
+                                          "(Average_n) show\n"
+                                          "%d %d moveto\n"
+                                          "(%.16f) show\n",
+                                    x, y,
+                                    x + 250, y,
+                                    gestionnaire->stats->moy_n
+                            );
+                        }
+                        else
+                        {
+                            fprintf(file, "%d %d moveto\n"
+                                          "(Average_n) show\n"
+                                          "%d %d moveto\n"
+                                          "(%.1f x 10^%d) show\n",
+                                    x, y,
+                                    x + 250, y,
+                                    gestionnaire->stats->moy_n/pow(10,power-1),power-1
+                            );
+                        }
                         y = y - largeur;
                         for(int k = 0 ; k < dimension ; k++)
                         {
-                            fprintf(file , "%d %d moveto\n"
-                                           "(%s_%c) show\n"
-                                           "%d %d moveto\n"
-                                           "(%.16f) show\n",
-                                    x, y,
-                                    tableau_string[j], index_to_char(k),
-                                    x + 250, y,
-                                    gestionnaire->stats->moy_d[k]
-                            );
+                            power = get_pow(gestionnaire->stats->moy_d[k]);
+                            if(power < 7) {
+                                fprintf(file, "%d %d moveto\n"
+                                              "(Average_%c) show\n"
+                                              "%d %d moveto\n"
+                                              "(%.16f) show\n",
+                                        x, y,
+                                        index_to_char(k),
+                                        x + 250, y,
+                                        gestionnaire->stats->moy_d[k]
+                                );
+                            }
+                            else
+                            {
+                                fprintf(file, "%d %d moveto\n"
+                                              "(Average_%c) show\n"
+                                              "%d %d moveto\n"
+                                              "(%.1f x 10^%d) show\n",
+                                        x, y,
+                                        index_to_char(k),
+                                        x + 250, y,
+                                        gestionnaire->stats->moy_d[k]/pow(10,power-1),power-1
+                                );
+                            }
                             y = y - largeur;
                         }
                     }
+                    else if(strcmp(tableau_string[j],"Variance") == 0)
+                    {
+                        power = get_pow(gestionnaire->stats->var_n);
+                        if(power < 7) {
+                            fprintf(file, "%d %d moveto\n"
+                                          "(Variance_n) show\n"
+                                          "%d %d moveto\n"
+                                          "(%.16f) show\n",
+                                    x, y,
+                                    x + 250, y,
+                                    gestionnaire->stats->var_n
+                            );
+                        }
+                        else
+                        {
+                            fprintf(file, "%d %d moveto\n"
+                                          "(Variance_n) show\n"
+                                          "%d %d moveto\n"
+                                          "(%.1f x 10^%d) show\n",
+                                    x, y,
+                                    x + 250, y,
+                                    gestionnaire->stats->var_n/pow(10,power-1),power-1
+                            );
+                        }
+                        y = y - largeur;
+                        for(int k = 0 ; k < dimension ; k++)
+                        {
+                            power = get_pow(gestionnaire->stats->var_d[k]);
+                            if(power < 7) {
+                                fprintf(file, "%d %d moveto\n"
+                                              "(Variance_%c) show\n"
+                                              "%d %d moveto\n"
+                                              "(%.16f) show\n",
+                                        x, y,
+                                        index_to_char(k),
+                                        x + 250, y,
+                                        gestionnaire->stats->var_d[k]
+                                );
+                            }
+                            else
+                            {
+                                fprintf(file, "%d %d moveto\n"
+                                              "(Variance_%c) show\n"
+                                              "%d %d moveto\n"
+                                              "(%.1f x 10^%d) show\n",
+                                        x, y,
+                                        index_to_char(k),
+                                        x + 250, y,
+                                        gestionnaire->stats->var_d[k]/pow(10,power-1),power-1
+                                );
+                            }
+                            y = y - largeur;
+                        }
+                    }
+                    else if(strcmp(tableau_string[j],"Standard deviation") == 0)
+                    {
+                        power = get_pow(gestionnaire->stats->ect_n);
+                        if(power < 7) {
+                            fprintf(file, "%d %d moveto\n"
+                                          "(Standart deviation_n) show\n"
+                                          "%d %d moveto\n"
+                                          "(%.16f) show\n",
+                                    x, y,
+                                    x + 250, y,
+                                    gestionnaire->stats->ect_n
+                            );
+                        }
+                        else
+                        {
+                            fprintf(file, "%d %d moveto\n"
+                                          "(Standart deviation_n) show\n"
+                                          "%d %d moveto\n"
+                                          "(%.1f x 10^%d) show\n",
+                                    x, y,
+                                    x + 250, y,
+                                    gestionnaire->stats->ect_n/pow(10,power-1),power-1
+                            );
+                        }
+                        y = y - largeur;
+                        for(int k = 0 ; k < dimension ; k++)
+                        {
+                            power = get_pow(gestionnaire->stats->ect_d[k]);
+                            if(power < 7) {
+                                fprintf(file, "%d %d moveto\n"
+                                              "(Standart deviation_%c) show\n"
+                                              "%d %d moveto\n"
+                                              "(%.16f) show\n",
+                                        x, y,
+                                        index_to_char(k),
+                                        x + 250, y,
+                                        gestionnaire->stats->ect_d[k]
+                                );
+                            }
+                            else
+                            {
+                                fprintf(file, "%d %d moveto\n"
+                                              "(Standart deviation_%c) show\n"
+                                              "%d %d moveto\n"
+                                              "(%.1f x 10^%d) show\n",
+                                        x, y,
+                                        index_to_char(k),
+                                        x + 250, y,
+                                        gestionnaire->stats->ect_d[k]/pow(10,power-1),power-1
+                                );
+                            }
+                            y = y - largeur;
+                        }
+                    }
+            }
 
-                }
+
             }
 
         /*Calcul de la largeur en fonction du nombre de case à dessiner*/

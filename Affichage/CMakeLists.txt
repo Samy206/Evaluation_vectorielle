@@ -2,8 +2,7 @@ cmake_minimum_required(VERSION 3.19)
 project(Evalutation_vectorielle)
 
 
-find_package(Qt5 5.0.1 REQUIRED COMPONENTS
-            Core Gui Widgets
+find_package(Qt5 REQUIRED COMPONENTS Core Gui Widgets Charts
             )
 
 set(CMAKE_AUTOUIC ON)
@@ -14,7 +13,7 @@ set(CMAKE_AUTORCC ON)
 
 include_directories(Affichage/Headers)
 
-add_executable(Evalutation_vectorielle
+add_executable(
         Sources/addfunctwindow.ui
         Sources/addvectwindow.ui
         Sources/datawindow.ui
@@ -26,6 +25,7 @@ add_executable(Evalutation_vectorielle
         Sources/savewindow.ui
         Headers/addfunctwindow.h
         Headers/addvectwindow.h
+        Headers/chartview.h
         Headers/datawindow.h
         Headers/display_4d.h
         Headers/displaywindow.h
@@ -40,6 +40,7 @@ add_executable(Evalutation_vectorielle
         Headers/vecteurs.h
         Sources/addfunctwindow.cpp
         Sources/addvectwindow.cpp
+        Sources/chartview.cpp
         Sources/datawindow.cpp
         Sources/display_4d.cpp
         Sources/displaywindow.cpp
@@ -55,7 +56,8 @@ add_executable(Evalutation_vectorielle
         Sources/vecteurs.c)
 
 target_link_libraries(${PROJECT_NAME}
-
-        Qt5::Core Qt5::Gui Qt5::Widgets
-
-        )
+        PUBLIC
+        Qt5::Core
+        Qt5::Gui
+        Qt5::Widgets
+        Qt5::Charts)

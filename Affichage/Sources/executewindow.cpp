@@ -1,13 +1,13 @@
-#include "Headers/executewindow.h"
+#include "../Headers/executewindow.h"
 #include "ui_executewindow.h"
-#include "Headers/displaywindow.h"
-#include "Headers/mainwindow.h"
+#include "../Headers/displaywindow.h"
+#include "../Headers/mainwindow.h"
 #include "QMessageBox"
-#include "Headers/display_4d.h"
+#include "../Headers/display_4d.h"
 
 extern "C" {
-#include "Headers/liste_vecteurs.h"
-#include "Headers/statistiques.h"
+#include "../Headers/liste_vecteurs.h"
+#include "../Headers/statistiques.h"
 }
 
 //possible variable

@@ -1,5 +1,3 @@
-
-
 #ifndef CHARTVIEW_H
 #define CHARTVIEW_H
 

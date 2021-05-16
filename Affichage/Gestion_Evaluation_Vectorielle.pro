@@ -11,7 +11,6 @@ CONFIG += c++11
 SOURCES += \
     Sources/addfunctwindow.cpp \
     Sources/addvectwindow.cpp \
-    Sources/chargement_fichier.cpp \
     Sources/chartview.cpp \
     Sources/display_4d.cpp \
     Sources/displaywindow.cpp \
@@ -29,7 +28,6 @@ SOURCES += \
 HEADERS += \
     Headers/addfunctwindow.h \
     Headers/addvectwindow.h \
-    Headers/chargement_fichier.h \
     Headers/chartview.h \
     Headers/display_4d.h \
     Headers/displaywindow.h \
@@ -44,14 +42,14 @@ HEADERS += \
     Headers/vecteurs.h
 
 FORMS += \
-    Forms/addfunctwindow.ui \
-    Forms/addvectwindow.ui \
-    Forms/display_4d.ui \
-    Forms/displaywindow.ui \
-    Forms/executewindow.ui \
-    Forms/loadwindow.ui \
-    Forms/mainwindow.ui \
-    Forms/savewindow.ui
+    Sources/addfunctwindow.ui \
+    Sources/addvectwindow.ui \
+    Sources/display_4d.ui \
+    Sources/displaywindow.ui \
+    Sources/executewindow.ui \
+    Sources/loadwindow.ui \
+    Sources/mainwindow.ui \
+    Sources/savewindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
