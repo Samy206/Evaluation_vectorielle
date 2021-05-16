@@ -13,7 +13,7 @@ set(CMAKE_AUTORCC ON)
 
 include_directories(Affichage/Headers)
 
-add_executable(
+add_executable(Evalutation_vectorielle
         Sources/addfunctwindow.ui
         Sources/addvectwindow.ui
         Sources/datawindow.ui
