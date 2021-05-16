@@ -1,4 +1,0 @@
-/Users/samyboumali/Documents/L3/Projet_IN608/Evalutation_vectorielle/Affichage/CMakeFiles/rebuild_cache.dir
-/Users/samyboumali/Documents/L3/Projet_IN608/Evalutation_vectorielle/Affichage/CMakeFiles/edit_cache.dir
-/Users/samyboumali/Documents/L3/Projet_IN608/Evalutation_vectorielle/Affichage/CMakeFiles/Evalutation_vectorielle.dir
-/Users/samyboumali/Documents/L3/Projet_IN608/Evalutation_vectorielle/Affichage/CMakeFiles/Evalutation_vectorielle_autogen.dir
