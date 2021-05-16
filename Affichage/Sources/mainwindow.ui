@@ -103,7 +103,7 @@
     </item>
     <item>
      <property name="text">
-      <string>W(x,y) = (5*x+1;pow(y,2))</string>
+      <string>W(x,y) = (5*x+1;y/pi)</string>
      </property>
     </item>
     <item>

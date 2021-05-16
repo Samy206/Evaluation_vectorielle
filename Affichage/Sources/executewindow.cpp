@@ -1,13 +1,13 @@
-#include "../Headers/executewindow.h"
+#include "Headers/executewindow.h"
 #include "ui_executewindow.h"
-#include "../Headers/displaywindow.h"
-#include "../Headers/mainwindow.h"
+#include "Headers/displaywindow.h"
+#include "Headers/mainwindow.h"
 #include "QMessageBox"
-#include "../Headers/display_4d.h"
+#include "Headers/display_4d.h"
 
 extern "C" {
-#include "../Headers/liste_vecteurs.h"
-#include "../Headers/statistiques.h"
+#include "Headers/liste_vecteurs.h"
+#include "Headers/statistiques.h"
 }
 
 //possible variable
@@ -208,17 +208,17 @@ void executewindow::Validate()
     {
         //appel fonction chloe
 
-        display_4D secwind(this);
+        /*display_4D secwind(this);
         secwind.setModal(true);
-        secwind.exec();
+        secwind.exec();*/
     }
-    else
-    {
 
-        display_4D secwind(this);
-        secwind.setModal(true);
-        secwind.exec();
-    }
+
+
+   display_4D secwind(this);
+   secwind.setModal(true);
+   secwind.exec();
+
 
     state = 1;
     close();

@@ -1,10 +1,10 @@
-#include "../Headers/mainwindow.h"
+#include "Headers/mainwindow.h"
 #include "ui_mainwindow.h"
-#include "../Headers/loadwindow.h"
-#include "../Headers/savewindow.h"
-#include "../Headers/addfunctwindow.h"
-#include "../Headers/addvectwindow.h"
-#include "../Headers/executewindow.h"
+#include "Headers/loadwindow.h"
+#include "Headers/savewindow.h"
+#include "Headers/addfunctwindow.h"
+#include "Headers/addvectwindow.h"
+#include "Headers/executewindow.h"
 #include "QMessageBox"
 
 //possible variable
@@ -44,6 +44,9 @@ void MainWindow::makeload()
     string vect = secwind.vecteur;
     string funct = secwind.funct;
     //Recuperation du contenu de l'objet loadwindow pour actualiser les listes
+
+    ui->listWidget_vect->addItem(QString::fromStdString(vect));
+    ui->listWidget_funct->addItem(QString::fromStdString(funct));
 }
 
 void MainWindow::makeadd_vect()
