@@ -1,15 +1,16 @@
-cmake_minimum_required(VERSION 3.19)
+cmake_minimum_required(VERSION 3.0)
 project(Evalutation_vectorielle)
 
 
 find_package(Qt5 REQUIRED COMPONENTS Core Gui Widgets Charts
             )
+find_package(Threads REQUIRED)
 
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
-
+set(THREADS_PREFER_PTHREAD_FLAG ON)
 
 include_directories(Affichage/Headers)
 
@@ -60,4 +61,5 @@ target_link_libraries(${PROJECT_NAME}
         Qt5::Core
         Qt5::Gui
         Qt5::Widgets
-        Qt5::Charts)
+        Qt5::Charts
+        PRIVATE Threads::Threads)

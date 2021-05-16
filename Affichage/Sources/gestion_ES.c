@@ -79,7 +79,7 @@ int generation_fic_gnuplot(Gestion_ES * gestionnaire, char * filename)
     if(taille_liste > 1)
     {
         for (i = 0; i < taille_vec; i++)
-            fprintf(file, "%.16f ",0.0);
+            fprintf(file, "%lf ",0.0);
 
         for (i = 0; i < taille_liste - 1; i++)
         {
@@ -87,7 +87,7 @@ int generation_fic_gnuplot(Gestion_ES * gestionnaire, char * filename)
             {
                 for (j = 0; j < taille_vec; j++)
                 {
-                    fprintf(file, "%.16f ", tmp->vecteur.tableau[j]);
+                    fprintf(file, "%lf ", tmp->vecteur.tableau[j]);
                 }
             }
             else if (i == 1)
@@ -95,10 +95,10 @@ int generation_fic_gnuplot(Gestion_ES * gestionnaire, char * filename)
                 fprintf(file, "\n");
 
                 for (j = 0; j < taille_vec; j++)
-                    fprintf(file, "%.16f ", tableau_tmp3[j]);
+                    fprintf(file, "%lf ", tableau_tmp3[j]);
 
                 for (j = 0; j < taille_vec; j++)
-                    fprintf(file, "%.16f ", tmp->vecteur.tableau[j]);
+                    fprintf(file, "%lf ", tmp->vecteur.tableau[j]);
 
 
             }
@@ -107,10 +107,10 @@ int generation_fic_gnuplot(Gestion_ES * gestionnaire, char * filename)
                 fprintf(file,"\n");
 
                 for (j = 0; j < taille_vec; j++)
-                    fprintf(file, "%.16f ", tableau_tmp3[j]);
+                    fprintf(file, "%lf ", tableau_tmp3[j]);
 
                 for (j = 0; j < taille_vec; j++)
-                    fprintf(file, "%.16f ", tmp->vecteur.tableau[j]);
+                    fprintf(file, "%lf ", tmp->vecteur.tableau[j]);
 
             }
 
@@ -124,10 +124,10 @@ int generation_fic_gnuplot(Gestion_ES * gestionnaire, char * filename)
 
 
     for(i = 0 ; i < taille_vec ; i++)
-        fprintf(file,"%.16f ",tableau_tmp3[i]);
+        fprintf(file,"%lf ",tableau_tmp3[i]);
 
     for(i = 0 ; i < taille_vec ; i++)
-        fprintf(file,"%.16f ",tmp->vecteur.tableau[i]);
+        fprintf(file,"%lf ",tmp->vecteur.tableau[i]);
 
     for(i = 0 ; i < taille_vec ; i++)
         tableau_tmp3[i] += tmp->vecteur.tableau[i];
@@ -135,10 +135,10 @@ int generation_fic_gnuplot(Gestion_ES * gestionnaire, char * filename)
     fprintf(file,"\n");
 
     for(i = 0 ; i < taille_vec ; i++)
-        fprintf(file,"%.16f ",tableau_tmp3[i]);
+        fprintf(file,"%lf ",tableau_tmp3[i]);
 
     for(i = 0 ; i < taille_vec ; i++)
-        fprintf(file,"%.16f ",0.0);
+        fprintf(file,"%lf ",0.0);
 
 
     //Écriture de la fonction
@@ -379,7 +379,7 @@ int generation_fic_postscript(Gestion_ES * gestionnaire, char * filename)
                             fprintf(file, "%d %d moveto\n"
                                           "(%s_%c) show\n"
                                           "%d %d moveto\n"
-                                          "(%.16f) show\n",
+                                          "(%lf) show\n",
                                     x, y,
                                     tableau_string[j], index_to_char(k),
                                     x + 250, y,
@@ -395,7 +395,7 @@ int generation_fic_postscript(Gestion_ES * gestionnaire, char * filename)
                             fprintf(file, "%d %d moveto\n"
                                           "(Maximum_n) show\n"
                                           "%d %d moveto\n"
-                                          "(%.16f) show\n",
+                                          "(%lf) show\n",
                                     x, y,
                                     x + 250, y,
                                     gestionnaire->stats->max_n
@@ -420,7 +420,7 @@ int generation_fic_postscript(Gestion_ES * gestionnaire, char * filename)
                                 fprintf(file, "%d %d moveto\n"
                                               "(Maximum_%c) show\n"
                                               "%d %d moveto\n"
-                                              "(%.16f) show\n",
+                                              "(%lf) show\n",
                                         x, y,
                                         index_to_char(k),
                                         x + 250, y,
@@ -448,7 +448,7 @@ int generation_fic_postscript(Gestion_ES * gestionnaire, char * filename)
                             fprintf(file, "%d %d moveto\n"
                                           "(Minimum_n) show\n"
                                           "%d %d moveto\n"
-                                          "(%.16f) show\n",
+                                          "(%lf) show\n",
                                     x, y,
                                     x + 250, y,
                                     gestionnaire->stats->min_n
@@ -470,7 +470,7 @@ int generation_fic_postscript(Gestion_ES * gestionnaire, char * filename)
                                 fprintf(file, "%d %d moveto\n"
                                               "(Minimum_%c) show\n"
                                               "%d %d moveto\n"
-                                              "(%.16f) show\n",
+                                              "(%lf) show\n",
                                         x, y,
                                         index_to_char(k),
                                         x + 250, y,
@@ -497,7 +497,7 @@ int generation_fic_postscript(Gestion_ES * gestionnaire, char * filename)
                             fprintf(file, "%d %d moveto\n"
                                           "(Average_n) show\n"
                                           "%d %d moveto\n"
-                                          "(%.16f) show\n",
+                                          "(%lf) show\n",
                                     x, y,
                                     x + 250, y,
                                     gestionnaire->stats->moy_n
@@ -522,7 +522,7 @@ int generation_fic_postscript(Gestion_ES * gestionnaire, char * filename)
                                 fprintf(file, "%d %d moveto\n"
                                               "(Average_%c) show\n"
                                               "%d %d moveto\n"
-                                              "(%.16f) show\n",
+                                              "(%lf) show\n",
                                         x, y,
                                         index_to_char(k),
                                         x + 250, y,
@@ -551,7 +551,7 @@ int generation_fic_postscript(Gestion_ES * gestionnaire, char * filename)
                             fprintf(file, "%d %d moveto\n"
                                           "(Variance_n) show\n"
                                           "%d %d moveto\n"
-                                          "(%.16f) show\n",
+                                          "(%lf) show\n",
                                     x, y,
                                     x + 250, y,
                                     gestionnaire->stats->var_n
@@ -576,7 +576,7 @@ int generation_fic_postscript(Gestion_ES * gestionnaire, char * filename)
                                 fprintf(file, "%d %d moveto\n"
                                               "(Variance_%c) show\n"
                                               "%d %d moveto\n"
-                                              "(%.16f) show\n",
+                                              "(%lf) show\n",
                                         x, y,
                                         index_to_char(k),
                                         x + 250, y,
@@ -605,7 +605,7 @@ int generation_fic_postscript(Gestion_ES * gestionnaire, char * filename)
                             fprintf(file, "%d %d moveto\n"
                                           "(Standart deviation_n) show\n"
                                           "%d %d moveto\n"
-                                          "(%.16f) show\n",
+                                          "(%lf) show\n",
                                     x, y,
                                     x + 250, y,
                                     gestionnaire->stats->ect_n
@@ -630,7 +630,7 @@ int generation_fic_postscript(Gestion_ES * gestionnaire, char * filename)
                                 fprintf(file, "%d %d moveto\n"
                                               "(Standart deviation_%c) show\n"
                                               "%d %d moveto\n"
-                                              "(%.16f) show\n",
+                                              "(%lf) show\n",
                                         x, y,
                                         index_to_char(k),
                                         x + 250, y,
