@@ -6,11 +6,9 @@
 #ifdef WINDOWS
 #include <direct.h>
 #define GetCurrentDir _getcwd
-#define OS 0
 #else
 #include <unistd.h>
 #define GetCurrentDir getcwd
-#define OS 1
 #endif
 #include "../Headers/gestion_ES.h"
 
@@ -176,7 +174,7 @@ int generation_script_gnuplot(Gestion_ES * gestionnaire, char* filename)
     //Écriture du script
     fprintf(file,"set terminal png\n");
     fprintf(file,"set output %cressources/%s.png%c\n",'"',filename,'"');
-    fprintf(file,"Graph = %c%s%c\n",'"',gestionnaire->fic_gnup,'"');
+    fprintf(file,"Graph = %cressources/%s.txt%c\n",'"',filename,'"');
 
     if (dimension == 2)
     {
@@ -191,12 +189,7 @@ int generation_script_gnuplot(Gestion_ES * gestionnaire, char* filename)
 
     //Lancement du script sur un autre processeur
     pthread_t thread;
-
-    if(OS == 1)
-        pthread_create(&thread,NULL,launch_gnup_script_darwin,filename);
-
-    else
-        pthread_create(&thread,NULL,launch_gnup_script_windows,filename);
+    pthread_create(&thread,NULL,launch_gnup_script_darwin,filename);
 
     fclose(file);
     return 0;
@@ -211,17 +204,6 @@ void * launch_gnup_script_darwin(void * filename)
     system(cmd);                                        //Lancement de celle-ci
     pthread_exit(NULL);
 }
-
-//Lancement du script_gnuplot sur Windows
-void * launch_gnup_script_windows(void * filename)
-{
-	char * name = (char *) (filename);
-    char cmd[50];
-    sprintf(cmd,"start ./Gnuplot/gnuplot.exe -c ressources/%s.p",name);     //Écriture de la commande système dans un char *
-    system(cmd);                                        //Lancement de celle-ci
-    pthread_exit(NULL);
-}
-
 
 /*Dessine une case du tableau sous format postscript sur une longueur de 500 et une largeur dépendant du nombre
  de statistiques à afficher*/
@@ -306,9 +288,13 @@ char index_to_char(int index)
 int get_pow(double number)
 {
     int cmp = 0;
-    while(pow(10,cmp) < number )
-    {
+    if(number < 0)
+        number *= (-1);
+
+    double tmp = pow(10,cmp);
+    while (tmp < number) {
         cmp++;
+        tmp = pow(10,cmp);
     }
     return cmp;
 }
@@ -405,7 +391,7 @@ int generation_fic_postscript(Gestion_ES * gestionnaire, char * filename)
                     else if(strcmp(tableau_string[j],"Maximum") == 0)
                     {
                         power = get_pow(gestionnaire->stats->max_n);
-                        if(power < 7) {
+                        if(power >= (-6) && power < 7) {
                             fprintf(file, "%d %d moveto\n"
                                           "(Maximum_n) show\n"
                                           "%d %d moveto\n"
@@ -430,7 +416,7 @@ int generation_fic_postscript(Gestion_ES * gestionnaire, char * filename)
                         for(int k = 0 ; k < dimension ; k++)
                         {
                             power = get_pow(gestionnaire->stats->max_d[k]);
-                            if(power < 7) {
+                            if(power >= (-6) && power < 7) {
                                 fprintf(file, "%d %d moveto\n"
                                               "(Maximum_%c) show\n"
                                               "%d %d moveto\n"
@@ -458,7 +444,7 @@ int generation_fic_postscript(Gestion_ES * gestionnaire, char * filename)
                     }
                     else if(strcmp(tableau_string[j],"Minimum") == 0) {
                         power = get_pow(gestionnaire->stats->min_n);
-                        if (power < 7) {
+                        if(power >= (-6) && power < 7) {
                             fprintf(file, "%d %d moveto\n"
                                           "(Minimum_n) show\n"
                                           "%d %d moveto\n"
@@ -480,7 +466,7 @@ int generation_fic_postscript(Gestion_ES * gestionnaire, char * filename)
                         y = y - largeur;
                         for (int k = 0; k < dimension; k++) {
                             power = get_pow(gestionnaire->stats->min_d[k]);
-                            if (power < 7) {
+                            if(power >= (-6) && power < 7) {
                                 fprintf(file, "%d %d moveto\n"
                                               "(Minimum_%c) show\n"
                                               "%d %d moveto\n"
@@ -507,7 +493,7 @@ int generation_fic_postscript(Gestion_ES * gestionnaire, char * filename)
                     else if(strcmp(tableau_string[j],"Average") == 0)
                     {
                         power = get_pow(gestionnaire->stats->moy_n);
-                        if(power < 7) {
+                        if(power >= (-6) && power < 7) {
                             fprintf(file, "%d %d moveto\n"
                                           "(Average_n) show\n"
                                           "%d %d moveto\n"
@@ -532,7 +518,7 @@ int generation_fic_postscript(Gestion_ES * gestionnaire, char * filename)
                         for(int k = 0 ; k < dimension ; k++)
                         {
                             power = get_pow(gestionnaire->stats->moy_d[k]);
-                            if(power < 7) {
+                            if(power >= (-6) && power < 7) {
                                 fprintf(file, "%d %d moveto\n"
                                               "(Average_%c) show\n"
                                               "%d %d moveto\n"
@@ -561,7 +547,7 @@ int generation_fic_postscript(Gestion_ES * gestionnaire, char * filename)
                     else if(strcmp(tableau_string[j],"Variance") == 0)
                     {
                         power = get_pow(gestionnaire->stats->var_n);
-                        if(power < 7) {
+                        if(power >= (-6) && power < 7) {
                             fprintf(file, "%d %d moveto\n"
                                           "(Variance_n) show\n"
                                           "%d %d moveto\n"
@@ -586,7 +572,7 @@ int generation_fic_postscript(Gestion_ES * gestionnaire, char * filename)
                         for(int k = 0 ; k < dimension ; k++)
                         {
                             power = get_pow(gestionnaire->stats->var_d[k]);
-                            if(power < 7) {
+                            if(power >= (-6) && power < 7) {
                                 fprintf(file, "%d %d moveto\n"
                                               "(Variance_%c) show\n"
                                               "%d %d moveto\n"
@@ -615,7 +601,7 @@ int generation_fic_postscript(Gestion_ES * gestionnaire, char * filename)
                     else if(strcmp(tableau_string[j],"Standard deviation") == 0)
                     {
                         power = get_pow(gestionnaire->stats->ect_n);
-                        if(power < 7) {
+                        if(power >= (-6) && power < 7) {
                             fprintf(file, "%d %d moveto\n"
                                           "(Standart deviation_n) show\n"
                                           "%d %d moveto\n"
@@ -640,7 +626,7 @@ int generation_fic_postscript(Gestion_ES * gestionnaire, char * filename)
                         for(int k = 0 ; k < dimension ; k++)
                         {
                             power = get_pow(gestionnaire->stats->ect_d[k]);
-                            if(power < 7) {
+                            if(power >= (-6) && power < 7) {
                                 fprintf(file, "%d %d moveto\n"
                                               "(Standart deviation_%c) show\n"
                                               "%d %d moveto\n"
