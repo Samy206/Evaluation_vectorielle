@@ -215,9 +215,9 @@ void executewindow::Validate()
     else
     {
 
-        /*display_4D secwind(this);
+        display_4D secwind(this);
         secwind.setModal(true);
-        secwind.exec();*/
+        secwind.exec();
     }
 
     state = 1;

@@ -2,6 +2,7 @@
 #define DISPLAY_4D_H
 #include "../Headers/displaywindow.h"
 #include "../Headers/statistiques.h"
+#include <sstream>
 #include <QDialog>
 
 namespace Ui {

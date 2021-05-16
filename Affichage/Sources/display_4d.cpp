@@ -84,20 +84,24 @@ display_4D::display_4D(executewindow *wind, QWidget *parent) :
     int j = 0;
     while (actuel != NULL)
     {
-        char toto[50];
-        char v[50];
-        strcpy(toto,"");
-        strcpy(v,"");
-        sprintf(toto,"U%d (",j);
+        string toto;
+        string v;
+        toto+="U";
+        toto+= std::to_string(j);
+        toto+=" (";
         for(int i=0; (size_t)i<actuel->vecteur.taille; ++i)
         {
-            sprintf(v+strlen(v),"%f  ", actuel->vecteur.tableau[i]);
+            std::ostringstream streamObj;   //Add double to stream
+            streamObj << actuel->vecteur.tableau[i];    // Get string from output string stream
+            std::string strObj = streamObj.str();
+            v+= strObj;
+            v+="    ";
         }
-        strcat(toto,v);
-        strcat(toto,")");
+        toto.append(v);
+        toto+=")";
         ui->listWidget->addItem(QString::fromStdString(toto));
-        strcpy(toto,"");
-        strcpy(v,"");
+        toto.clear();
+        v.clear();
         j++;
         actuel = actuel->suivant;
     }

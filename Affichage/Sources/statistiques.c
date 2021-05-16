@@ -275,43 +275,43 @@ void affichage(statistiques stat, size_t n)
 {
     if(stat.statistiques_demandees[0])
     {
-        printf("Norme minimal:%.16f \n", stat.min_n);
+        printf("Norme minimal:%lf \n", stat.min_n);
         for(int i=0; i<(int)n; i++)
-            printf("Minimal sur dim%d :%.16f |",i, stat.min_d[i]);
+            printf("Minimal sur dim%d :%lf |",i, stat.min_d[i]);
         printf("\n");
     }
     if(stat.statistiques_demandees[1])
     {
-        printf("Norme max:%.16f \n", stat.max_n);
+        printf("Norme max:%lf \n", stat.max_n);
         for(int i=0; i<(int)n; i++)
-            printf("Max sur dim%d :%.16f |",i, stat.max_d[i]);
+            printf("Max sur dim%d :%lf |",i, stat.max_d[i]);
         printf("\n");
     }
     if(stat.statistiques_demandees[2])
     {
-        printf("Norme moy:%.16f \n", stat.moy_n);
+        printf("Norme moy:%lf \n", stat.moy_n);
         for(int i=0; i<(int)n; i++)
-            printf("Moyenne sur dim%d :%.16f |",i, stat.moy_d[i]);
+            printf("Moyenne sur dim%d :%lf |",i, stat.moy_d[i]);
         printf("\n");
     }
     if(stat.statistiques_demandees[3])
     {
         printf("Variance Norme:%lf \n", stat.var_n);
         for(int i=0; i<(int)n; i++)
-            printf("Variance sur dim%d :%.16f |",i, stat.var_d[i]);
+            printf("Variance sur dim%d :%lf |",i, stat.var_d[i]);
         printf("\n");
     }
     if(stat.statistiques_demandees[4])
     {
-        printf("Ecart-type Norme:%.16f \n", stat.ect_n);
+        printf("Ecart-type Norme:%lf \n", stat.ect_n);
         for(int i=0; i<(int)n; i++)
-            printf("Ecart-type sur dim%d :%.16f |",i, stat.ect_d[i]);
+            printf("Ecart-type sur dim%d :%lf |",i, stat.ect_d[i]);
         printf("\n");
     }
     if(stat.statistiques_demandees[5])
     {
         for(int i=0; i<(int)n; i++)
-            printf("Auto-correlation sur dim%d :%.16f |",i, stat.atc_d[i]);
+            printf("Auto-correlation sur dim%d :%lf |",i, stat.atc_d[i]);
         printf("\n");
 
     }
