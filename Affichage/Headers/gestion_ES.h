@@ -26,7 +26,7 @@ void initialisation_ES(Gestion_ES * gestionnaire,char * fct, Liste_vecteur * lis
 int generation_fic_gnuplot(Gestion_ES * gestionnaire, char *file_name);    //Génération fichier de coordonnées gnup
 
 int generation_script_gnuplot(Gestion_ES * gestionnaire, char* file_name); //Génération script lancement de gnuplot
-void * launch_gnup_script_darwin(void * filename); /*Lancement du script gnuplot afin de générer un graphe sous format png sur linux et MAC*/
+void * launch_gnup_script(void * filename); /*Lancement du script gnuplot afin de générer un graphe sous format png sur linux et MAC*/
 
 int generation_fic_postscript(Gestion_ES * gestionnaire, char * filename); //génération fichier postscript ( écriture statistiques )
 int draw_table_postscript(FILE * file,int x, int y, int largeur);          //Dessin de chaque partie du tableau
@@ -34,8 +34,9 @@ int stat_string_parser(char * string,char ** tableau);                     //Ré
 char index_to_char(int index);                                             //Transforme un 0 par un X, un 1 par un Y etc
 int get_pow(double number);                                                //Nous donne l'ordre de grandeur d'un nombre
 
-Liste_vecteur * chargement_fichier(char * fichier);       //Lecture de coordonnées des vecteurs en chargement
-double * string_parser(char * entiers);                   //Transformation des lignes lues en tableau de double
+int chargement_fic_gnup(Vector * vecteur, char * funct, char * filename); //Chargement fichier gnuplot
+int string_into_double(Vector * vecteur, char * line, int size); //Parser et convertisseurs des lignes en double
+
 
 void free_gestionnaire_es(Gestion_ES * gestionnaire);      //Libération de la mémoire
 
