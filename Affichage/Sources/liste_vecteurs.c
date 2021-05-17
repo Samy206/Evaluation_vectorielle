@@ -27,6 +27,7 @@ int nb_fonctions;
 int *T1;		// tableau contenant le nombre d'inconnues par fonction
 char **T2;		// tableau contenant chaque inconnue pour chaque fonction
 char *nom_composantes;
+int moteur_calcul = 1;
 
 
 // initialisation
@@ -319,8 +320,9 @@ Vector calcul_vecteur(Vector v_precedent, char **chaine)
 		}
 		else
 		{
-			 printf("Evaluating:\n\t%s\n", chaine[i]);		// si erreur de fonction
-			printf("\t%*s^\nError near here", err2-1, "");
+             //printf("Evaluating:\n\t%s\n", chaine[i]);		// si erreur de fonction
+            //printf("\t%*s^\nError near here", err2-1, "");
+            moteur_calcul = 0;
 		}
 	}
 	return v_suivant;
@@ -329,11 +331,12 @@ Vector calcul_vecteur(Vector v_precedent, char **chaine)
 // calcul suite de vecteur :
 void calcul_suite_vecteurs(Liste_vecteur * liste, char **chaine, int taille_liste_max)
 {
-	while(liste->taille < taille_liste_max)
+    while(liste->taille < taille_liste_max && moteur_calcul == 1)
 	{
 		push_liste(liste, calcul_vecteur(top_liste(liste), chaine));		// ajout nouveau vecteur
 		calcul_suite_vecteurs(liste, chaine, taille_liste_max);				// on passe au vecteur suivant
 	}
+    if(!moteur_calcul) liste->taille = -1;
 }
 
 Vector consultation_liste(Liste_vecteur * liste, int indice)

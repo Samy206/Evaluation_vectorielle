@@ -187,6 +187,11 @@ void executewindow::Validate()
     std::cout << variable << std::endl;
 
     list = fonction_principale(funct,vecteurinitial,nbr_dim_vect,nbr_dim_funct,nbr_vect,variable); // Appel de la fonction de calcul de liste de vecteur avec le nombre de vecteur, le vecteur initial et la fonction
+    if(list->taille == -1)
+    {
+        QMessageBox::critical(this, "Entry error", "Error in your function");
+        return;
+    }
     afficherListe(list);
 
     std::cout << "fin" << std::endl;
