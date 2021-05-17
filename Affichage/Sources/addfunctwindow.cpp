@@ -100,12 +100,12 @@ void addfunctwindow::mod()
     std::string expr;
     if(ui->tableWidget_funct->item(pos,0)->text().isEmpty())
     {
-        expr = "mod()";
+        expr = "%";
     }
     else
     {
         expr = ui->tableWidget_funct->item(pos,0)->text().toStdString();
-        expr.operator+=("mod()");
+        expr.operator+=("%");
     }
     ui->tableWidget_funct->setItem(pos,0,new QTableWidgetItem(QString::fromStdString(expr)));
 }
