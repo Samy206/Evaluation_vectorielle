@@ -1,10 +1,10 @@
-#include "Headers/mainwindow.h"
+#include "../Headers/mainwindow.h"
 #include "ui_mainwindow.h"
-#include "Headers/loadwindow.h"
-#include "Headers/savewindow.h"
-#include "Headers/addfunctwindow.h"
-#include "Headers/addvectwindow.h"
-#include "Headers/executewindow.h"
+#include "../Headers/loadwindow.h"
+#include "../Headers/savewindow.h"
+#include "../Headers/addfunctwindow.h"
+#include "../Headers/addvectwindow.h"
+#include "../Headers/executewindow.h"
 #include "QMessageBox"
 
 //possible variable

@@ -1,8 +1,8 @@
-#include "Headers/addfunctwindow.h"
+#include "../Headers/addfunctwindow.h"
 #include "ui_addfunctwindow.h"
 #include "iostream"
 #include "QMessageBox"
-#include "Headers/liste_vecteurs.h"
+#include "../Headers/liste_vecteurs.h"
 
 double TT[25] = {0};
 te_variable varss[] = { {"x", &TT[0]}, {"y", &TT[1]}, {"z", &TT[2]}, {"a", &TT[3]},

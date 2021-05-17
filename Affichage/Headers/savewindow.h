@@ -3,7 +3,7 @@
 
 #include <QDialog>
 #include "iostream"
-#include "Headers/mainwindow.h"
+#include "../Headers/mainwindow.h"
 using namespace std;
 
 namespace Ui {

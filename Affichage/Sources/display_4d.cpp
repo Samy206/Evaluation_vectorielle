@@ -1,7 +1,7 @@
-#include "Headers/display_4d.h"
+#include "../Headers/display_4d.h"
 #include "ui_display_4d.h"
-#include "Headers/statistiques.h"
-#include "Headers/displaywindow.h"
+#include "../Headers/statistiques.h"
+#include "../Headers/displaywindow.h"
 #include <sstream>
 
 display_4D::display_4D(executewindow *wind, QWidget *parent) :
