@@ -12,7 +12,6 @@
 #endif
 #include "../Headers/gestion_ES.h"
 
-
 void initialisation_ES(Gestion_ES * gestionnaire,char * fct, Liste_vecteur * liste, statistiques * stats)
 {
     if(fct != NULL)
@@ -37,7 +36,6 @@ void initialisation_ES(Gestion_ES * gestionnaire,char * fct, Liste_vecteur * lis
     strcat(gestionnaire->script_gnup,"/ressources/");
 
 };
-
 
 /*Écriture des coordonnées des vecteurs dans un fichier qui sera lu par le script gnuplot*/
 int generation_fic_gnuplot(Gestion_ES * gestionnaire, char * filename)
@@ -542,6 +540,107 @@ int generation_fic_postscript(Gestion_ES * gestionnaire, char * filename)
     return 0;
 
 };
+
+/*Chargement d'un fichier gnuplot*/
+int chargement_fic_gnup(Vector * vecteur, char * funct, char * filename)
+{
+    FILE * file = fopen(filename,"r");
+    if(!file)
+    {
+        printf("Can't open load file\n");
+        return 1;
+    }
+    char line[255];
+
+    int i = 0, j;
+    int cmp = 0;
+    int size;
+
+    //Lecture ligne par ligne
+    while( fgets(line, sizeof(line), file) != NULL )
+    {
+        size = strlen(line);
+        //Récupération de la dimension et des coordonnées du premier vecteur à partir de la première ligne
+        if(i == 0 && line[0] != '#')
+        {
+            //Compte du nombre de dimensions
+            for(j = 0 ; j < size ; j++)
+            {
+                if(line[j] == ' ')
+                    cmp++;
+            }
+
+            //Vérification de la valeur obtenue
+            if(cmp % 2 != 0)
+            {
+                printf("cmp : %d ; The file has not the good format\n",cmp);
+                return 2;
+            }
+
+            //Initialisation du vecteur avec le bom nombre de dimensions
+            vector_init(vecteur,cmp/2);
+
+            //Récupération des coordonnées
+            string_into_double(vecteur,line,cmp);
+        }
+
+        else if(line[0] == '#')
+        {
+            //Lecture et copie de la fonction
+            for(j = 1 ; j < size ; j++)
+            {
+                funct[j-1] = line[j];
+            }
+            funct[j] = '\0';
+        }
+        i++;
+    }
+    fclose(file);
+    return 0;
+}
+
+
+/*Récupération des coordonnées d'un vecteur à partir d'une char * */
+int string_into_double(Vector * vecteur, char * line, int size)
+{
+    //Tableau qui contiendra les entiers
+    char numbers[size][50];
+    double tmp;
+    int cmp = 0;
+    int j = 0;
+    int ascii;
+    int length = strlen(line);
+
+    for(int i = 0 ; i <length ; i++)
+    {
+        ascii = (int) (line[i]);
+        //Les deux premières valeurs (0.0000, 0.0000) ne sont pas comptabilisés
+        if( line[i] == ' ' && cmp < (size/2))
+        {
+            numbers[cmp][j] = '\0';
+            cmp++;
+            j = 0;
+        }
+
+        //Conversion des valeurs qui nous intéressent
+        else if( (line[i] == ' ') && cmp >= (size/2) )
+        {
+            numbers[cmp][j] = '\0';
+            tmp = atof(numbers[cmp]);
+            vector_push_back(vecteur,tmp);
+            cmp++;
+            j = 0;
+        }
+
+        //Copie des valeurs dans un char * avant leur conversion
+        else if( (ascii >= 48 && ascii <= 57) || (ascii == 46) )
+        {
+            numbers[cmp][j] = line[i];
+            j++;
+        }
+    }
+    return 0;
+}
 
 void free_gestionnaire_es(Gestion_ES * gestionnaire)
 {
