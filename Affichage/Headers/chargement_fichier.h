@@ -20,6 +20,7 @@ typedef struct donnee
     float * valeur;
     char * fonction;
     int nombre;
+    int erreur;
 }donnee;
 
 donnee init_struct_d(donnee d);

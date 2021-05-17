@@ -1,6 +1,7 @@
 #include "Headers/loadwindow.h"
 #include "ui_loadwindow.h"
 #include "iostream"
+#include "QMessageBox"
 #ifdef WINDOWS
 #include <direct.h>
 #define GetCurrentDir _getcwd
@@ -43,15 +44,24 @@ void loadwindow::Validate()
     test = init_struct_d(test);
     test = chargement_fic_gnup(chemin,test,t);
 
+    if(test.erreur == 2)
+    {
+        QMessageBox::critical(this, "File error", "The file canno't be open !");
+        return;
+    }
 
-
-    std::cout << "vecteur init :" << test.valeur[0] << "   fucntion:" << test.fonction << std::endl;
+    if(test.erreur == 1)
+    {
+        QMessageBox::critical(this, "File error", "The file is not writen with the good format !");
+        return;
+    }
     //free_struct_d(test,test.nombre);
 
+
+    //mettre sous forme de fonction
     funct = test.fonction;
     funct.pop_back();
     funct.erase(0,1);
-    //mettre sous forme de fonction
 
 
     //mettre sous forme de vecteur

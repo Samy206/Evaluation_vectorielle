@@ -109,8 +109,13 @@ void executewindow::Validate()
     if(ui->checkBox_v0->isChecked())
     {
         string dep = "(";
-        for (int i = 0; i < nbr_dim_vect; i++) {
-            dep+="0,";
+        if(nbr_dim_vect == 1 || nbr_dim_vect == 2)
+            dep = "(0,0)";
+        else
+        {
+            for (int i = 0; i < nbr_dim_vect; i++) {
+                dep+="0,";
+            }
         }
         dep.pop_back();
         dep.push_back(')');

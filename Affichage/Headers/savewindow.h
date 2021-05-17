@@ -3,7 +3,7 @@
 
 #include <QDialog>
 #include "iostream"
-#include "../Headers/mainwindow.h"
+#include "Headers/mainwindow.h"
 using namespace std;
 
 namespace Ui {
@@ -19,7 +19,7 @@ public:
     ~savewindow();
     int state; //To know if the window end with the validate button(1) or cancel button(0)
     string vect_init;
-    string funct;
+    string funct_string;
     int nbr_vect;
 
 public slots:

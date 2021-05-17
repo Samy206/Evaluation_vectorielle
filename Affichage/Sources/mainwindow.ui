@@ -52,12 +52,17 @@
     </property>
     <item>
      <property name="text">
-      <string>V0 = (5.00000,2.00000)</string>
+      <string>V0 = (5.00000)</string>
      </property>
     </item>
     <item>
      <property name="text">
-      <string>U = (14.00000,3.33450)</string>
+      <string>L = (5.0000,2.00000)</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>U = (14.00000,3.33450,-5.0000)</string>
      </property>
     </item>
     <item>

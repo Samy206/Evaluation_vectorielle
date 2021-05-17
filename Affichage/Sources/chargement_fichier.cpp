@@ -47,6 +47,12 @@ taille calc_taille(taille t, char *nom)
     int k = 0;
     FILE *fichier = NULL;
     fichier = fopen(nom,"r");
+    if(!fichier)
+    {
+        printf("le fichier n'a pas pu être ouvert");
+        //d.erreur = 2;
+        return t;
+    }
     while(k != 1)
     {
         curseur = fgetc(fichier);
@@ -94,6 +100,14 @@ donnee val(donnee d, int i)
 donnee chargement_fic_gnup(char *nom, donnee d, taille t)
 {
     t = calc_taille(t,nom);
+    FILE * fichier = NULL;
+    fichier = fopen(nom,"r");
+    if(!fichier)
+    {
+        printf("le fichier n'a pas pu être ouvert");
+        d.erreur = 2;
+        return d;
+    }
     d.entier = (char**)malloc((t.nb_val+1) * sizeof(char*));
     d.fonction = (char*)malloc(sizeof(char));
     for(int i = 0; i < t.nb_val; i++)
@@ -101,38 +115,56 @@ donnee chargement_fic_gnup(char *nom, donnee d, taille t)
         d.entier[i] = (char*)malloc((t.t_val[i]+1) * sizeof(char));
     }
     int c = 0;
-    FILE * fichier = NULL;
-    fichier = fopen(nom,"r");
     int i = 0;
     int j = 0;
     while(c != '\n')
     {
-            c = fgetc(fichier);
-            if(c != 32)
-            {
-                d.entier[i][j] = c;
-                j = j+1;
-            }
-            else
-            {
-                i = i+1;
-                j = 0;
-            }
+        if(c < 48 && c > 57 && c != 32 && c != 45)
+        {
+            printf("le fichier n'est pas valide, les caractères de la première ligne ne sont pas que des chiffres ou des espaces");
+            break;
+            d.erreur = 1;
+        }
+        c = fgetc(fichier);
+        if(c != 32)
+        {
+            d.entier[i][j] = c;
+            j = j+1;
+        }
+        else
+        {
+            i = i+1;
+            j = 0;
+        }
     }
     while(c != 35)
     {
         c = fgetc(fichier);
+        if(c == EOF)
+        {
+            printf("le fichier n'est pas valide il n'y a pas de # devant la fonction");
+            d.erreur = 1;
+            break;
+        }
     }
 
-    c = fgetc(fichier);
-    c = fgetc(fichier);
+    if(d.erreur == 0)
+    {
+        c = fgetc(fichier);
+        c = fgetc(fichier);
+    }
     i = 1;
     while (c != EOF)
     {
         i = i + 1;
-        d.fonction =  (char*)realloc(d.fonction,i*sizeof(char));
+               d.fonction =  (char*)realloc(d.fonction,i*sizeof(char));
         d.fonction[i-1] = c;
         c = fgetc(fichier);
+    }
+    if(!t.nb_val%2)
+    {
+        printf("le nombre de vecteur de la première ligne n'est pas valide");
+        d.erreur = 1;
     }
     d = val(d,t.nb_val);
     fclose(fichier);

@@ -44,10 +44,10 @@ displaywindow::displaywindow(executewindow *toto, QWidget *parent) :
 
     //A modifier quand toto->departur renverra le bon String
 
-/** QString manipulation = QString::fromStdString(toto->departur); **/
+    QString manipulation = QString::fromStdString(toto->departur);
 
     //On initialise manipulation qui va nous permettre le troncage de departure
-    QString manipulation = "(0,0)";
+    //QString manipulation = "(0,0)";
 
     //On initialise v_pos qui est un compteur pour trouver la position de la virgule
     int v_pos = 0;

@@ -1,10 +1,10 @@
-#include "../Headers/savewindow.h"
+#include "Headers/savewindow.h"
 #include "ui_savewindow.h"
 #include <QMessageBox>
 extern "C" {
-#include "../Headers/liste_vecteurs.h"
-#include "../Headers/statistiques.h"
-#include "../Headers/gestion_ES.h"
+#include "Headers/liste_vecteurs.h"
+#include "Headers/statistiques.h"
+#include "Headers/gestion_ES.h"
 }
 
 
@@ -22,7 +22,7 @@ savewindow::savewindow(MainWindow *dad,QWidget *parent) :
 
     //Retrieving the selection of the vector and the function
     nbr_vect = dad->nbr_vect;
-    funct = dad->funct;
+    funct_string = dad->funct;
     vect_init = dad->vect_init;
 }
 
@@ -108,8 +108,8 @@ void savewindow::Validate()
     //get the number of dimension of the selected function
     int nbr_dim_funct = 0;
     int i =0;
-    while (funct[i] != '=') {
-        if(funct[i] == ',')
+    while (funct_string[i] != '=') {
+        if(funct_string[i] == ',')
             nbr_dim_funct++;
         i++;
     }
@@ -117,13 +117,13 @@ void savewindow::Validate()
 
     //get the functon in the good shape and type
     string function = "";
-    for (int i = 0; i < (int)funct.length() ; i++ ) {
-        if(funct[i] == '=')
+    for (int i = 0; i < (int)funct_string.length() ; i++ ) {
+        if(funct_string[i] == '=')
         {
             i = i+2;
-            while(i < (int)funct.length())
+            while(i < (int)funct_string.length())
             {
-                function += funct[i];
+                function += funct_string[i];
                 i++;
             }
             break;
@@ -206,8 +206,10 @@ void savewindow::Validate()
 
 
     //Appel de la fonction save du module GES
+    char function_char[function.length()+1];
+    strcpy(function_char, funct_string.c_str());
     Gestion_ES ges ;
-    initialisation_ES(&ges,funct,list,&statist);
+    initialisation_ES(&ges,function_char,list,&statist);
 
     generation_fic_gnuplot(&ges,name);
 
