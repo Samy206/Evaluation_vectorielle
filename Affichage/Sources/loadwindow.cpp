@@ -37,21 +37,26 @@ void loadwindow::Validate()
     char chemin[path.length()+1];
     strcpy(chemin, path.c_str());
     strcat(chemin,".txt");
-    std::cout << chemin << std::endl;
     Vector vecteur1;
     char function[50];
 
     int check = chargement_fic_gnup(&vecteur1,function,chemin);
 
-    if(check == 2)
+    if(check == 1)
     {
-        QMessageBox::critical(this, "File error", "The file cannot be open !");
+        QString error = "The file ";
+        error.append(chemin);
+        error+= " cannot be open !";
+        QMessageBox::critical(this, "File error", error);
         return;
     }
 
-    if(check == 1)
+    if(check == 2)
     {
-        QMessageBox::critical(this, "File error", "The file is not writen with the good format !");
+        QString error = "The file ";
+        error.append(chemin);
+        error+= " is not writen with the good format !";
+        QMessageBox::critical(this, "File error", error);
         return;
     }
 
@@ -64,10 +69,9 @@ void loadwindow::Validate()
 
     //mettre sous forme de vecteur
     vecteur = "U = (";
-    for (int i = 0; i < vecteur1.taille ; i++)
+    for (int i = 0; i < (int)vecteur1.taille ; i++)
     {
         std::string tmp = std::to_string(vecteur1.tableau[i]);
-        std::cout << vecteur1.tableau[i] << std::endl;
         vecteur += tmp;
         vecteur += ",";
     }
