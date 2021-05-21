@@ -1,4 +1,0 @@
-/home/user/Bureau/Projet S6/Affichage/Evalutation_vectorielle/Affichage/CMakeFiles/rebuild_cache.dir
-/home/user/Bureau/Projet S6/Affichage/Evalutation_vectorielle/Affichage/CMakeFiles/edit_cache.dir
-/home/user/Bureau/Projet S6/Affichage/Evalutation_vectorielle/Affichage/CMakeFiles/Evalutation_vectorielle.dir
-/home/user/Bureau/Projet S6/Affichage/Evalutation_vectorielle/Affichage/CMakeFiles/Evalutation_vectorielle_autogen.dir
