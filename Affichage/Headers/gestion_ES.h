@@ -27,6 +27,7 @@ int generation_fic_gnuplot(Gestion_ES * gestionnaire, char *file_name);    //Gé
 
 int generation_script_gnuplot(Gestion_ES * gestionnaire, char* file_name); //Génération script lancement de gnuplot
 void * launch_gnup_script(void * filename); /*Lancement du script gnuplot afin de générer un graphe sous format png sur linux et MAC*/
+void * launch_gnup_script_WIN(void * filename);
 
 int generation_fic_postscript(Gestion_ES * gestionnaire, char * filename); //génération fichier postscript ( écriture statistiques )
 int draw_table_postscript(FILE * file,int x, int y, int largeur);          //Dessin de chaque partie du tableau

@@ -3,10 +3,12 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <pthread.h>
-#ifdef WINDOWS
+#ifdef _WIN32
 #include <direct.h>
+#define OS 0
 #define GetCurrentDir _getcwd
 #else
+#define OS 1
 #include <unistd.h>
 #define GetCurrentDir getcwd
 #endif
@@ -171,6 +173,8 @@ int generation_script_gnuplot(Gestion_ES * gestionnaire, char* filename)
 
     //Écriture du script
     fprintf(file,"set terminal png\n");
+    if(!OS)
+        sprintf(gestionnaire->fic_gnup,"ressources/%s.txt",filename);
     fprintf(file,"set output %cressources/%s.png%c\n",'"',filename,'"');
     fprintf(file,"Graph = %c%s%c\n",'"',gestionnaire->fic_gnup,'"');
 
@@ -187,7 +191,10 @@ int generation_script_gnuplot(Gestion_ES * gestionnaire, char* filename)
 
     //Lancement du script sur un autre processeur
     pthread_t thread;
-    pthread_create(&thread,NULL,launch_gnup_script,filename);
+    if(OS)
+        pthread_create(&thread,NULL,launch_gnup_script,filename);
+    else
+        pthread_create(&thread,NULL,launch_gnup_script_WIN,filename);
 
     fclose(file);
     return 0;
@@ -199,6 +206,15 @@ void * launch_gnup_script(void * filename)
     char * name = (char *) (filename);
     char cmd[50];
     sprintf(cmd,"gnuplot -c ressources/%s.p",name);     //Écriture de la commande système dans un char *
+    system(cmd);                                        //Lancement de celle-ci
+    pthread_exit(NULL);
+}
+
+void * launch_gnup_script_WIN(void * filename)
+{
+    char * name = (char *) (filename);
+    char cmd[50];
+    sprintf(cmd,"start Gnuplot_call.bat ressources/%s.p",name);     //Écriture de la commande système dans un char *
     system(cmd);                                        //Lancement de celle-ci
     pthread_exit(NULL);
 }
@@ -534,7 +550,10 @@ int generation_fic_postscript(Gestion_ES * gestionnaire, char * filename)
 
     //Conversion ps to pdf via commande système
     char command[100];
-    sprintf(command,"ps2pdf ressources/%s.ps ressources/%s.pdf",filename,filename);
+    if(OS)
+        sprintf(command,"ps2pdf ressources/%s.ps ressources/%s.pdf",filename,filename);
+    else
+        sprintf(command,"start Postscript_call.bat ressources/%s.ps ressources/%s.pdf",filename,filename);
     system(command);
 
     return 0;
