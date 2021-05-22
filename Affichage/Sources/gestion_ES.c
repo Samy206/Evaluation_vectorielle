@@ -361,7 +361,7 @@ int generation_fic_postscript(Gestion_ES * gestionnaire, char * filename)
              norme et les différentes dimensions) */
             if(i == 0)
             {
-                if (strcmp(tableau_string[j], "Autocorrelaton") == 0)
+                if (strcmp(tableau_string[j], "Standard deviation") == 0)
                     vrai_nb_stats += (dimension);
 
                 else
@@ -379,7 +379,7 @@ int generation_fic_postscript(Gestion_ES * gestionnaire, char * filename)
                             fprintf(file , "%d %d moveto\n"
                                            "(%s_%c) show\n"
                                            "%d %d moveto\n"
-                                           "(%.16f) show\n",
+                                           "(%g) show\n",
                                     x, y,
                                     tableau_string[j], index_to_char(k),
                                     x + 250, y,
@@ -393,7 +393,7 @@ int generation_fic_postscript(Gestion_ES * gestionnaire, char * filename)
                         fprintf(file , "%d %d moveto\n"
                                        "(Maximum_n) show\n"
                                        "%d %d moveto\n"
-                                       "(%.16f) show\n",
+                                       "(%g) show\n",
                                 x, y,
                                 x + 250, y,
                                 gestionnaire->stats->max_n
@@ -404,7 +404,7 @@ int generation_fic_postscript(Gestion_ES * gestionnaire, char * filename)
                             fprintf(file , "%d %d moveto\n"
                                            "(%s_%c) show\n"
                                            "%d %d moveto\n"
-                                           "(%.16f) show\n",
+                                           "(%g) show\n",
                                     x, y,
                                     tableau_string[j], index_to_char(k),
                                     x + 250, y,
@@ -419,7 +419,7 @@ int generation_fic_postscript(Gestion_ES * gestionnaire, char * filename)
                         fprintf(file , "%d %d moveto\n"
                                        "(%s_n) show\n"
                                        "%d %d moveto\n"
-                                       "(%.16f) show\n",
+                                       "(%g) show\n",
                                 x, y,
                                 tableau_string[j],
                                 x + 250, y,
@@ -431,7 +431,7 @@ int generation_fic_postscript(Gestion_ES * gestionnaire, char * filename)
                             fprintf(file , "%d %d moveto\n"
                                            "(%s_%c) show\n"
                                            "%d %d moveto\n"
-                                           "(%.16f) show\n",
+                                           "(%g) show\n",
                                     x, y,
                                     tableau_string[j], index_to_char(k),
                                     x + 250, y,
@@ -445,7 +445,7 @@ int generation_fic_postscript(Gestion_ES * gestionnaire, char * filename)
                         fprintf(file , "%d %d moveto\n"
                                        "(%s_n) show\n"
                                        "%d %d moveto\n"
-                                       "(%.16f) show\n",
+                                       "(%g) show\n",
                                 x, y,
                                 tableau_string[j],
                                 x + 250, y,
@@ -457,7 +457,7 @@ int generation_fic_postscript(Gestion_ES * gestionnaire, char * filename)
                             fprintf(file , "%d %d moveto\n"
                                            "(%s_%c) show\n"
                                            "%d %d moveto\n"
-                                           "(%.16f) show\n",
+                                           "(%g) show\n",
                                     x, y,
                                     tableau_string[j], index_to_char(k),
                                     x + 250, y,
@@ -471,7 +471,7 @@ int generation_fic_postscript(Gestion_ES * gestionnaire, char * filename)
                         fprintf(file , "%d %d moveto\n"
                                        "(%s_n) show\n"
                                        "%d %d moveto\n"
-                                       "(%.16f) show\n",
+                                       "(%g) show\n",
                                 x, y,
                                 tableau_string[j],
                                 x + 250, y,
@@ -483,7 +483,7 @@ int generation_fic_postscript(Gestion_ES * gestionnaire, char * filename)
                             fprintf(file , "%d %d moveto\n"
                                            "(%s_%c) show\n"
                                            "%d %d moveto\n"
-                                           "(%.16f) show\n",
+                                           "(%g) show\n",
                                     x, y,
                                     tableau_string[j], index_to_char(k),
                                     x + 250, y,
@@ -497,7 +497,7 @@ int generation_fic_postscript(Gestion_ES * gestionnaire, char * filename)
                         fprintf(file , "%d %d moveto\n"
                                        "(%s_n) show\n"
                                        "%d %d moveto\n"
-                                       "(%.16f) show\n",
+                                       "(%g) show\n",
                                 x, y,
                                 tableau_string[j],
                                 x + 250, y,
@@ -509,7 +509,7 @@ int generation_fic_postscript(Gestion_ES * gestionnaire, char * filename)
                             fprintf(file , "%d %d moveto\n"
                                            "(%s_%c) show\n"
                                            "%d %d moveto\n"
-                                           "(%.16f) show\n",
+                                           "(%g) show\n",
                                     x, y,
                                     tableau_string[j], index_to_char(k),
                                     x + 250, y,
@@ -524,8 +524,13 @@ int generation_fic_postscript(Gestion_ES * gestionnaire, char * filename)
 
         /*Calcul de la largeur en fonction du nombre de case à dessiner*/
         largeur = 600 / vrai_nb_stats;
-        fprintf(file,"/Helvetica 15 selectfont\n");
-        y = y - (largeur/ 2);
+
+        if(largeur > 20)
+            fprintf(file,"/Helvetica 15 selectfont\n");
+        else
+            fprintf(file,"/Helvetica 10 selectfont\n");
+
+        y = y - ((3*largeur)/4);
     }
 
     //Dessin des cases du tableau
@@ -549,12 +554,20 @@ int generation_fic_postscript(Gestion_ES * gestionnaire, char * filename)
     free(string);
 
     //Conversion ps to pdf via commande système
-    char command[100];
-    if(OS)
-        sprintf(command,"ps2pdf ressources/%s.ps ressources/%s.pdf",filename,filename);
-    else
-        sprintf(command,"start Postscript_call.bat ressources/%s.ps ressources/%s.pdf",filename,filename);
-    system(command);
+    char command1[100];
+    //Suppression du fichier .ps après la conversion en pdf
+    char command2[100];
+    if(OS) {
+        sprintf(command1, "ps2pdf ressources/%s.ps ressources/%s.pdf", filename, filename);
+        sprintf(command2, "rm ressources/%s.ps", filename);
+    }
+    else {
+        sprintf(command1, "start Postscript_call.bat ressources/%s.ps ressources/%s.pdf", filename, filename);
+        sprintf(command2, "del ressources/%s.ps", filename);
+    }
+
+    system(command1);
+    system(command2);
 
     return 0;
 
