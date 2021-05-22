@@ -1,0 +1,19 @@
+min x 863786
+max x 7678678
+min y 5737378
+max y 0
+min z -1
+max z -20
+min x 863786
+max x 7678678
+min y 5737378
+max y 0
+min z -1
+max z -20
+
+min x 863786
+max x 7678678
+min y 5737378
+max y 0
+min z -1
+max z -20

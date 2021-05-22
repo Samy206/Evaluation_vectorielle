@@ -10,6 +10,21 @@ extern "C" {
 #include "../Headers/statistiques.h"
 }
 
+#define SHELLSCRIPT "\
+#/bin/bash \n\
+echo \"begining affichage3D, currently in\" \n\
+ls \n\
+cd Affichage3D \n\
+echo \"now in\" \n\
+ls \n\
+cmake . \n\
+make \n\
+./test \n\
+cd .. \n\
+echo \"now in\" \n\
+ls \n\
+"
+
 //possible variable
 char carc[26] = {'x','y','z','a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w'};
 
@@ -217,18 +232,18 @@ void executewindow::Validate()
     if(nbr_dim_vecteur == 3)
     {
         //appel fonction chloe
-
+        system(SHELLSCRIPT);
         /*display_4D secwind(this);
         secwind.setModal(true);
         secwind.exec();*/
+    }else{
+
+
+
+       display_4D secwind(this);
+       secwind.setModal(true);
+       secwind.exec();
     }
-
-
-
-   display_4D secwind(this);
-   secwind.setModal(true);
-   secwind.exec();
-
 
     state = 1;
     close();
