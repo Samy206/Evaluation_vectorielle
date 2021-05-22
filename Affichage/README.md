@@ -5,10 +5,11 @@ Alexis Laplanche, Antoine Leuridan, Baptiste Devylder, Chloé Helain, Gwennael C
 Pierre-Louis Chardon, Samy Boumali
 
 ## Sommaire
-###But du projet
-###Éléments / applications nécessaires
-###Portabilité
-###Lancement de l'application
+### But du projet
+### Éléments / applications nécessaires
+### Portabilité
+### Lancement de l'application
+### Language de la machine
 
 ## But du projet :
 Le projet qui a été réalisé est conforme à ce qui a été demandé dans le sujet, c'est-à-dire l'étude d'une fonction 
@@ -27,7 +28,7 @@ correspondante à l'OS.<br />
 <b>Librairies Pyhton</b> : Une API est utilisée dans notre programme.<br />
 
 
-##Portabilité :
+## Portabilité :
 Ce point est directement relié au précédent dans la mesure où selon votre machine il faudra peut-être installer les
 applications que nous avons cité.<br />
 Pour <b>Linux</b> et <b>Mac</b> il faudra vérifier que les commandes `ps2pdf` et `gnuplot -c` sont bien reconnues par
@@ -43,19 +44,22 @@ d'avoir la commande `ps2pdf`) , voici comment les obtenir soit via terminal soit
 ## Lancement de l'application :
 L'application peut-être lancée de trois manières différentes :<br />
 
-###cmake :
+### cmake :
 Pour utiliser le cmake il vous faudra les chemins des libraires Qt, Pyhton et Pthread de disponibles. Si c'est le cas
 il suffira d'entrer la commande `cmake CMakeLists.txt` qui générera un Makefile qu'il faudra logiquement lancer lui aussi
 avec `make` afin de finalement obtenir un éxecutable qui se nommera <b>Evaluation_vectorielle</b>. <br />
 
-###qmake :
+### qmake :
 Pour utiliser le qmake il suffira d'appeler la commande `qmake ; make` et suivant l'OS de votre machine l'éxecutable peut
 se retrouver dans deux endroits différents : <br />
 <b>Linux</b> : Sous cet OS il se trouvera sûrement dans votre dossier courant. <br />
 <b>Mac</b> : L'éxecutable sera au chemin suivant `Gestion_Evaluation_Vectorielle.app/Contents/MacOS/Gestion_Evaluation_Vectorielle`.
 <br />
 
-###IDE QtCreator :
+### IDE QtCreator :
 Encore plus simple, il vous suffira d'ouvrir le fichier `Gestion_Evaluation_Vectorielle.pro` avec QtCreator et de lancer
 le programme depuis le bouton correspondant (flèche verte en bas à gauche de la fenêtre).<br />
+
+## Language de la machine :
+En dernier point il faut que dans l'environnement de la machine le language soit à l'anglais car notre application effectue des conversions en double, l'écriture angloplohne des chiffres décimaux doit être choisie (exemple : 1.111 au lieu de 1,111).
     
