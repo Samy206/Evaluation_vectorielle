@@ -1,4 +1,4 @@
-#Gestion d'évaluation vectorielle
+# Gestion d'évaluation vectorielle
 
 <h2>Groupe</h2>
 Alexis Laplanche, Antoine Leuridan, Baptiste Devylder, Chloé Helain, Gwennael Cannenpasse, Nicolas Dias, 
