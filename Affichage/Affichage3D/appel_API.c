@@ -1,6 +1,6 @@
 #define PY_SSIZE_T_CLEAN
 
-#include "../Headers/appel_API.h"
+#include "appel_API.h"
 /*
 // afficher les vecteurs de la liste :
 void afficherListe(Liste_vecteur * liste)
