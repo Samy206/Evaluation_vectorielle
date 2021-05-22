@@ -22,10 +22,11 @@ setx GNUPLOT_PATH "%Gnuplot_Location%"
 setx QT_PATH "%QT_location%"
 setx GHOSTSCRIPT_PATH "%GhostScript_Location%"
 setx PYTHON_PATH "%Python_Location%"
+pause
 set PATH="%Python_Location%";"%PATH%"
 python -m pip install -U pip
 python -m pip install -U matplotlib
-pip install PyQt5
+python -m pip install PyQt5
 echo.
 echo Installation completed.
 pause
