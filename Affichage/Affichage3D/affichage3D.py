@@ -1,12 +1,9 @@
-#'pathex': [os.path.join(ntpath.dirname(PyQt5.__file__), 'Qt', 'bin')],
 import PyQt5
 import sys
 import matplotlib
 matplotlib.use('Qt5Agg')
 from matplotlib.figure import Figure
-#import matplotlib.pyplot as plt
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
-#from matplotlib.figure import Figure
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import * 
 from PyQt5.QtGui import * 
@@ -163,9 +160,9 @@ class Affichage3D_fenetre(QMainWindow):
         # boucle de remplissage des valeurs du plot
         for i in range (0,len(liste_vecteurs)):
             if i%3==0:
-                array_x[int(i/3)] = float(liste_vecteurs[i]) - float(liste_vecteurs[0])
-                array_y[int(i/3)] = float(liste_vecteurs[i+1]) - float(liste_vecteurs[1])
-                array_z[int(i/3)] = float(liste_vecteurs[i+2]) - float(liste_vecteurs[2])
+                array_x[int(i/3)] = float(liste_vecteurs[i]) 
+                array_y[int(i/3)] = float(liste_vecteurs[i+1]) 
+                array_z[int(i/3)] = float(liste_vecteurs[i+2]) 
         
         self.axes.plot(array_x, array_y, array_z)
 
@@ -215,11 +212,10 @@ class Affichage3D_fenetre(QMainWindow):
         list_widget.setGeometry(10, 20,200, 270)
 
         # boucle pour l'ajout des vecteurs dans la liste d'affichage
-        for i in range(0, len(liste_vecteurs)):
-            #print(liste_vecteurs[i])
+        for i in range(3, len(liste_vecteurs)):
             if i%3==0:
                 # conversion de la valeur de la liste en item QListWidgetItem
-                item_temp = QListWidgetItem("X: "+liste_vecteurs[i].replace('\n','')+" Y: "+liste_vecteurs[i+1].replace('\n','')+" Z: "+liste_vecteurs[i+2].replace('\n',''))
+                item_temp = QListWidgetItem("v"+str(int(i/3)-1)+": X: "+liste_vecteurs[i].replace('\n','')+" Y: "+liste_vecteurs[i+1].replace('\n','')+" Z: "+liste_vecteurs[i+2].replace('\n',''))
                 # ajout de l'item dans la liste
                 list_widget.addItem(item_temp)
 

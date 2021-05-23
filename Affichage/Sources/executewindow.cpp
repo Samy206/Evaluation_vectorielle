@@ -10,6 +10,7 @@
 #include "../Headers/mainwindow.h"
 #include "QMessageBox"
 #include "../Headers/display_4d.h"
+#include "../Headers/transfert_fichiers_affichage3D.h"
 
 extern "C" {
 #include "../Headers/liste_vecteurs.h"
@@ -212,8 +213,13 @@ void executewindow::Validate()
         close();
     }
 
-    if (nbr_dim_vecteur == 3) {
+    else{if (nbr_dim_vecteur == 3) {
         //appel fonction chloe
+        transfert_fonction("Transfert_equations.txt", this->funct);
+        transfert_vecteurs("Transfert_liste_vecteurs.txt", this->list);
+        transfert_stat(3, "Transfert_donnees_statistiques_API.txt", this->statist);
+        
+        //choix de l'OS
         if (OSexecute)
             system("./Affichage3D/run3D.sh");
         else {
@@ -225,7 +231,7 @@ void executewindow::Validate()
         display_4D secwind(this);
         secwind.setModal(true);
         secwind.exec();
-    }
+    }}
 
 
     state = 1;
