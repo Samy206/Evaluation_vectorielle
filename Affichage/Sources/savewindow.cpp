@@ -95,7 +95,6 @@ void savewindow::Validate()
     vect_init2.push_back(')');
     char vecteurinitial[vect_init2.length()+1];
     strcpy(vecteurinitial, vect_init2.c_str());
-    std::cout << vecteurinitial << std::endl;
 
     //get the number of dimension of the selected vector
     int nbr_dim_vect = 0;
@@ -141,7 +140,6 @@ void savewindow::Validate()
     }
     char funct[function.length()+1];
     strcpy(funct, function.c_str());
-    std::cout << funct << std::endl;
 
     //Get the name of all the variable
     string variablestring = "";
@@ -150,59 +148,13 @@ void savewindow::Validate()
     }
     char variable[variablestring.length()+1];
     strcpy(variable, variablestring.c_str());
-    std::cout << variable << std::endl;
-
-    //Departure choice
-    char *departur;
-    if((ui->checkBox_v0->isChecked() && !ui->LineEdit_Name_2->text().isEmpty()) || (!ui->checkBox_v0->isChecked() && ui->LineEdit_Name_2->text().isEmpty()))
-    {
-        QMessageBox::critical(this, "Entry error", "You must choose only one departure.");
-        return;
-    }
-    if(ui->checkBox_v0->isChecked())
-    {
-        string dep = "(";
-        for (int i = 0; i < nbr_dim_vect; i++) {
-            dep+="0,";
-        }
-        dep.pop_back();
-        dep.push_back(')');
-        departur = new char [dep.size()+1];
-        strcpy(departur, dep.c_str() );
-    }
-    if(!ui->LineEdit_Name_2->text().isEmpty())
-    {
-        //tester si c'est bien ecrit + l'ajouter dans une varible char*
-        std::string temp = ui->LineEdit_Name_2->text().toStdString();
-        for (int i = 0; i < (int)temp.length(); i++)
-             if (isdigit(temp[i]) == false && temp[i] != ',' && temp[i] != '-')
-             {
-                  QMessageBox::critical(this, "Entry error", "The number can only containe integer");
-                  return;
-             }
-        int nbr_dim_vecteur = 0;
-        for (int i = 0; i < (int)temp.size(); i++) {
-            if(temp[i] == ',')
-                nbr_dim_vecteur++;
-        }
-        nbr_dim_vecteur++;
-        if(nbr_dim_vecteur < nbr_dim_vect)
-        {
-            QMessageBox::critical(this, "Entry error", "The departure vector cannot have less dimension than the initial vector.");
-            return;
-        }
-        string dep = "(";
-        dep+=temp;
-        dep.push_back(')');
-    }
-    std::cout << "vecteur departure : " << departur << std::endl;
 
     Liste_vecteur *list = fonction_principale(funct,vecteurinitial,nbr_dim_vect,nbr_dim_funct,nbr_vect,variable); // Appel de la fonction de calcul de liste de vecteur avec le nombre de vecteur, le vecteur initial et la fonction
-    afficherListe(list);
+    //afficherListe(list);
 
 
     statistiques statist = calcul_des_statistiques(statistic,list);  //Appel de la fonction de calcul des statistiques avec le tableau de int
-    affichage(statist,nbr_dim_vect);
+    //affichage(statist,nbr_dim_vect);
 
 
     //Appel de la fonction save du module GES
@@ -219,7 +171,6 @@ void savewindow::Validate()
 
     free_gestionnaire_es(&ges);
 
-    std::cout << "fin" << std::endl;
     close();
 }
 

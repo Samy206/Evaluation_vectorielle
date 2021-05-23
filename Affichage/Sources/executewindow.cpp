@@ -96,7 +96,6 @@ void executewindow::Validate()
     }
     vect_init2.push_back(')');
     const char * vecteurinitial = vect_init2.c_str();
-    std::cout << vecteurinitial << std::endl;
 
     //get the number of dimension of the selected vector
     int nbr_dim_vect = 0;
@@ -164,7 +163,6 @@ void executewindow::Validate()
         dep.push_back(')');
         departur = dep;
     }
-    std::cout << "vecteur departure : " << departur << std::endl;
 
     //get the functon in the good shape and type
     string function = "";
@@ -192,7 +190,6 @@ void executewindow::Validate()
     }
     char funct[function.length()+1];
     strcpy(funct, function.c_str());
-    std::cout << funct << std::endl;
 
     //Get the name of all the variable
     string variablestring = "";
@@ -201,7 +198,6 @@ void executewindow::Validate()
     }
     char variable[variablestring.length()+1];
     strcpy(variable, variablestring.c_str());
-    std::cout << variable << std::endl;
 
     list = fonction_principale(funct,vecteurinitial,nbr_dim_vect,nbr_dim_funct,nbr_vect,variable); // Appel de la fonction de calcul de liste de vecteur avec le nombre de vecteur, le vecteur initial et la fonction
     if(list->taille == -1)
@@ -209,15 +205,10 @@ void executewindow::Validate()
         QMessageBox::critical(this, "Entry error", "Error in your function");
         return;
     }
-    afficherListe(list);
-
-    std::cout << "fin" << std::endl;
+    //afficherListe(list);
 
     statist = calcul_des_statistiques(statistic,list);  //Appel de la fonction de calcul des statistiques avec le tableau de int
-    affichage(statist,nbr_dim_vect);
-
-    std::cout << "" << std::endl;
-
+    //affichage(statist,nbr_dim_vect);
 
 
     /*//Creation de la nouvelle fenetre bloquante avec comme paramettre un objet contenant les infos

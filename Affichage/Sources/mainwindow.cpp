@@ -155,9 +155,6 @@ void MainWindow::makesave()
     savewindow secwind(this);
     secwind.setModal(true);
     secwind.exec();
-
-
-    cout << "end" << endl;
 }
 
 void MainWindow::makeexecute()
