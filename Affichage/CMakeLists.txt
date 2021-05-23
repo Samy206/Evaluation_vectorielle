@@ -39,6 +39,7 @@ add_executable(Evalutation_vectorielle
         Headers/statistiques.h
         Headers/tinyexpr.h
         Headers/vecteurs.h
+        Headers/transfert_fichiers_affichage3D.h
         Sources/addfunctwindow.cpp
         Sources/addvectwindow.cpp
         Sources/chartview.cpp
@@ -54,7 +55,8 @@ add_executable(Evalutation_vectorielle
         Sources/savewindow.cpp
         Sources/statistiques.c
         Sources/tinyexpr.c
-        Sources/vecteurs.c)
+        Sources/vecteurs.c
+        Sources/transfert_fichiers_affichage3D)
 
 target_link_libraries(${PROJECT_NAME}
         PUBLIC
