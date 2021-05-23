@@ -1,9 +1,9 @@
 cmake_minimum_required(VERSION 3.0)
 project(Affichage3D)
 
-find_package(PythonInterp 3.8 EXACT)
-find_package(PythonLibs 3.8 EXACT)
-find_package(Python 3.8 COMPONENTS Interpreter Development EXACT)
+find_package(PythonInterp 3.8 REQUIRED)
+find_package(PythonLibs 3.8 REQUIRED)
+find_package(Python 3.8 COMPONENTS Interpreter Development REQUIRED)
 include_directories(${PYTHON_INCLUDE_DIRS})
 include_directories(Affichage/Headers ${PYTHON_INCLUDE_DIRS})
 
@@ -26,4 +26,4 @@ target_link_libraries(${PROJECT_NAME}
         Threads::Threads
         ${SOURCE_FILES}
         ${PYTHON_LIBRARIES}
-        rt)
+        )
