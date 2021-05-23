@@ -12,17 +12,19 @@ extern "C" {
 
 #define SHELLSCRIPT "\
 #/bin/bash \n\
-echo \"begining affichage3D, currently in\" \n\
-ls \n\
+echo \"begining affichage3D, currently in $PWD\" \n\
 cd Affichage3D \n\
-echo \"now in\" \n\
-ls \n\
+echo \"now in $PWD\" \n\
+sudo apt-get install python3.8 -y \n\
+sudo apt-get install python3.8-dev -y \n\
+sudo apt install python3-pip -y \n\
+pip install pyqt5 \n\
+pip install matplotlib \n\
 cmake . \n\
 make \n\
 ./test \n\
 cd .. \n\
-echo \"now in\" \n\
-ls \n\
+echo \"now back in $PWD\" \n\
 "
 
 //possible variable

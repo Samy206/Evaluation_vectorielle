@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.20)
+cmake_minimum_required(VERSION 3.0)
 project(test)
 
 find_package(PythonInterp 3.8 EXACT)
@@ -10,10 +10,8 @@ include_directories(Affichage/Headers ${PYTHON_INCLUDE_DIRS})
 find_package(Threads REQUIRED)
 
 
-set(CMAKE_AUTOUIC ON)
+
 set(CMAKE_CXX_STANDARD 14)
-set(CMAKE_AUTOMOC ON)
-set(CMAKE_AUTORCC ON)
 set(THREADS_PREFER_PTHREAD_FLAG ON)
 
 
