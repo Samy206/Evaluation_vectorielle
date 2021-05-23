@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0)
-project(Evalutation_vectorielle)
+project(Gestion_evaluation_vectorielle)
 
 
 find_package(Qt5 REQUIRED COMPONENTS Core Gui Widgets Charts
@@ -14,7 +14,7 @@ set(THREADS_PREFER_PTHREAD_FLAG ON)
 
 include_directories(Affichage/Headers)
 
-add_executable(Evalutation_vectorielle
+add_executable(Gestion_evaluation_vectorielle
         Sources/addfunctwindow.ui
         Sources/addvectwindow.ui
         Sources/datawindow.ui
