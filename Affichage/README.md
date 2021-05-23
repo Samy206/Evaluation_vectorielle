@@ -21,11 +21,13 @@ l'autocorrelation, ainsi que la possibilité de garder une trace de ce qui a ét
 un fichier pdf contenant les statistiques évoquées précédemment. 
 
 ## Éléments / applications nécessaires :
-Notre application fait appel à deux trois externes qu'il faut impérativement avoir :<br />
+Notre application fait appel à quatre programmes,librairies et commandes terminal tierces qu'il faut impérativement 
+avoir :<br />
 <b>Gnuplot</b> : Utilisée afin de générer l'image du graphique. <br />
-<b>Postscript / ps2pdf</b> : Utilisée afin de générer un script qui sera converti par la suite avec la commande système 
-correspondante à l'OS.<br />
-<b>Librairies Pyhton</b> : Une API est utilisée dans notre programme.<br />
+<b>Commande système ps2pdf</b> : Utilisée afin de générer un script qui sera converti par la suite en pdf
+(qui vient avec Ghostscript sur windows et qui est installable via le terminale sur Linux et Mac). <br />
+<b>Librairies Python</b> : Une API est utilisée dans notre programme.<br />
+<b>Librairie Tinyexpr</b> : Évaluatueur de fonctions mathématiques.<br />
 
 
 ## Portabilité :
@@ -42,26 +44,14 @@ d'avoir la commande `ps2pdf`) , voici comment les obtenir soit via terminal soit
 
 
 ## Lancement de l'application :
-L'application peut-être lancée de trois manières différentes :<br />
-Dans tout les cas dans un premier temps utiliser la commande:
-`./configure.sh`
-
-### cmake :
-Pour utiliser le cmake il vous faudra les chemins des libraires Qt, Pyhton et Pthread de disponibles. Si c'est le cas
-il suffira d'entrer la commande `cmake CMakeLists.txt` qui générera un Makefile qu'il faudra logiquement lancer lui aussi
-avec `make` afin de finalement obtenir un éxecutable qui se nommera <b>Evaluation_vectorielle</b>. <br />
-
-### qmake :
-Pour utiliser le qmake il suffira d'appeler la commande `qmake ; make` et suivant l'OS de votre machine l'éxecutable peut
-se retrouver dans deux endroits différents : <br />
-<b>Linux</b> : Sous cet OS il se trouvera sûrement dans votre dossier courant. <br />
-<b>Mac</b> : L'éxecutable sera au chemin suivant `Gestion_Evaluation_Vectorielle.app/Contents/MacOS/Gestion_Evaluation_Vectorielle`.
-<br />
-
-### IDE QtCreator :
-Encore plus simple, il vous suffira d'ouvrir le fichier `Gestion_Evaluation_Vectorielle.pro` avec QtCreator et de lancer
-le programme depuis le bouton correspondant (flèche verte en bas à gauche de la fenêtre).<br />
-
+### Premier lancement :
+Dans le cas d'un premier lancement de l'application effectuer les configurations suivantes :<br />
+`./configure.sh` sous Linux. <br />
+`./configure_mac.sh` sous Mac. <br />
+Appuyer sur le script exécutable `WINDOWS_installer.bat` contenu dans le répertoire <b>WINDOWS</b> sous Windows.<br />
+### Lancements suivants : 
+Sous Mac et Linux il suffit d'appeler l'éxécutable <b>Gestion_evaluation_vectorielle</b>, et sous Windows il faut faire
+de  même mais avec le script <b>Run.bat</b> ( toujours contenu dans le répertoire WINDOWS ).
 ## Language de la machine :
 En dernier point il faut que dans l'environnement de la machine le language soit à l'anglais car notre application effectue des conversions en double, l'écriture angloplohne des chiffres décimaux doit être choisie (exemple : 1.111 au lieu de 1,111).
     

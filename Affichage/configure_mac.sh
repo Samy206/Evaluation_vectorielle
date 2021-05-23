@@ -1,3 +1,4 @@
+mkdir ressources
 cd Affichage3D
 cmake .
 make
