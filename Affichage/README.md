@@ -43,6 +43,8 @@ d'avoir la commande `ps2pdf`) , voici comment les obtenir soit via terminal soit
 
 ## Lancement de l'application :
 L'application peut-être lancée de trois manières différentes :<br />
+Dans tout les cas dans un premier temps utiliser la commande:
+`./configure.sh`
 
 ### cmake :
 Pour utiliser le cmake il vous faudra les chemins des libraires Qt, Pyhton et Pthread de disponibles. Si c'est le cas

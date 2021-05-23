@@ -1,3 +1,9 @@
+#ifdef WIN32
+#define OSexecute 0
+#else
+#define OSexecute 1
+#endif
+
 #include "../Headers/executewindow.h"
 #include "ui_executewindow.h"
 #include "../Headers/displaywindow.h"
@@ -9,23 +15,6 @@ extern "C" {
 #include "../Headers/liste_vecteurs.h"
 #include "../Headers/statistiques.h"
 }
-
-#define SHELLSCRIPT "\
-#/bin/bash \n\
-echo \"begining affichage3D, currently in $PWD\" \n\
-cd Affichage3D \n\
-echo \"now in $PWD\" \n\
-sudo apt-get install python3.8 -y \n\
-sudo apt-get install python3.8-dev -y \n\
-sudo apt install python3-pip -y \n\
-pip install pyqt5 \n\
-pip install matplotlib \n\
-cmake . \n\
-make \n\
-./test \n\
-cd .. \n\
-echo \"now back in $PWD\" \n\
-"
 
 //possible variable
 char carc[26] = {'x','y','z','a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w'};
@@ -225,7 +214,10 @@ void executewindow::Validate()
     if(nbr_dim_vecteur == 3)
     {
         //appel fonction chloe
-        system(SHELLSCRIPT);
+        if(OSexecute)
+            system("./Affichage3D/run3D.sh");
+        else
+            system("start 3D_run.bat");
         /*display_4D secwind(this);
         secwind.setModal(true);
         secwind.exec();*/

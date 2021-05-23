@@ -238,3 +238,5 @@ app = QApplication(sys.argv)
 form = Affichage3D_fenetre()
 form.show()
 app.exec_()
+
+print("pouic")

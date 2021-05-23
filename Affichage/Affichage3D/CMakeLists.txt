@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0)
-project(test)
+project(Affichage3D)
 
 find_package(PythonInterp 3.8 EXACT)
 find_package(PythonLibs 3.8 EXACT)
