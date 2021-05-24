@@ -64,7 +64,7 @@ displaywindow::displaywindow(executewindow *toto, QWidget *parent) :
     x.truncate(v_pos);
 
     //y est égal a departure coupé apres la virgule. y est une variable de l'objet pour les memes raison que x.
-    y = manipulation.right(v_pos);
+    y = manipulation.right(manipulation.size()-v_pos-1);
 
     ///***************************************************************
     ///Création du graphique 1|2D
