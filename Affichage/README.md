@@ -21,9 +21,9 @@ l'autocorrelation, ainsi que la possibilité de garder une trace de ce qui a ét
 un fichier pdf contenant les statistiques évoquées précédemment. 
 
 ## Éléments / applications nécessaires :
-Notre application fait appel à quatre programmes,librairies et commandes terminal tierces qu'il faut impérativement 
+Notre application fait appel à quatre librairies et commandes terminal tierces qu'il faut impérativement 
 avoir :<br />
-<b>Gnuplot</b> : Utilisée afin de générer l'image du graphique. <br />
+<b>Commande système gnuplot</b> : Utilisée afin de générer l'image du graphique. <br />
 <b>Commande système ps2pdf</b> : Utilisée afin de générer un script qui sera converti par la suite en pdf
 (qui vient avec Ghostscript sur windows et qui est installable via le terminale sur Linux et Mac). <br />
 <b>Librairies Python</b> : Une API est utilisée dans notre programme.<br />
@@ -36,7 +36,7 @@ applications que nous avons cité.<br />
 Pour <b>Linux</b> et <b>Mac</b> il faudra vérifier que les commandes `ps2pdf` et `gnuplot -c` sont bien reconnues par
 votre terminal. Et pour <b>Windows</b> il faudra avoir les versions portables de Gnuplot et Ghostscript ( permet aussi
 d'avoir la commande `ps2pdf`) , voici comment les obtenir soit via terminal soit via télécharement internet : <br />
-`python -m pip install -U pip`<br />
+<b>Librairies Python : </b>`python -m pip install -U pip`<br />
 `python -m pip install -U matplotlib`<br />
 `python pip install PyQt5`<br />
 <b>ps2pdf : </b> `https://www.ghostscript.com/download/gsdnld.html` <br />
@@ -53,5 +53,5 @@ Appuyer sur le script exécutable `WINDOWS_installer.bat` contenu dans le réper
 Sous Mac et Linux il suffit d'appeler l'éxécutable <b>Gestion_evaluation_vectorielle</b>, et sous Windows il faut faire
 de  même mais avec le script <b>Run.bat</b> ( toujours contenu dans le répertoire WINDOWS ).
 ## Language de la machine :
-En dernier point il faut que dans l'environnement de la machine le language soit à l'anglais car notre application effectue des conversions en double, l'écriture angloplohne des chiffres décimaux doit être choisie (exemple : 1.111 au lieu de 1,111).
+En dernier point il faut que dans l'environnement de la machine le language soit l'anglais car notre application effectue des conversions en double, l'écriture angloplohne des chiffres décimaux doit être choisie (exemple : 1.111 au lieu de 1,111).
     
