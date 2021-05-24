@@ -143,9 +143,9 @@ void executewindow::Validate()
                 nbr_dim_vecteur_departure++;
         }
         nbr_dim_vecteur_departure++;
-        if(nbr_dim_vecteur_departure < nbr_dim_vect)
+        if(nbr_dim_vecteur_departure != nbr_dim_vect)
         {
-            QMessageBox::critical(this, "Entry error", "The departure vector cannot have less dimension than the initial vector.");
+            QMessageBox::critical(this, "Entry error", "The departure vector must have the same dimension of the initial vector.");
             return;
         }
         string dep = "(";
@@ -195,7 +195,7 @@ void executewindow::Validate()
         QMessageBox::critical(this, "Entry error", "Error in your function");
         return;
     }
-    //afficherListe(list);
+    afficherListe(list);
 
     statist = calcul_des_statistiques(statistic,list);  //Appel de la fonction de calcul des statistiques avec le tableau de int
     //affichage(statist,nbr_dim_vect);
@@ -219,7 +219,7 @@ void executewindow::Validate()
         {
         //appel fonction chloe
             transfert_fonction("Transfert_equations.txt", this->funct);
-            transfert_vecteurs("Transfert_liste_vecteurs.txt", this->list);
+            transfert_vecteurs("Transfert_liste_vecteurs.txt", this->list,this->departur);
             transfert_stat(3, "Transfert_donnees_statistiques_API.txt", this->statist);
         
         //choix de l'OS
@@ -248,3 +248,4 @@ void executewindow::Cancel()
     state = 0;
     close(); //end of the window
 }
+
