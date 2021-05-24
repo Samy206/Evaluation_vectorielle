@@ -285,7 +285,7 @@ int stat_string_parser(char * string,char ** tableau)
 };
 
 /*Transformation d'un indice de tableau en son axe correspondant (x,y,z ...)*/
-char index_to_char(int index)
+char traduction_index_axe(int index)
 {
     switch (index) {
         case 0 :
@@ -381,7 +381,7 @@ int generation_fic_postscript(Gestion_ES * gestionnaire, char * filename)
                                            "%d %d moveto\n"
                                            "(%g) show\n",
                                     x, y,
-                                    tableau_string[j], index_to_char(k),
+                                    tableau_string[j], traduction_index_axe(k),
                                     x + 250, y,
                                     gestionnaire->stats->atc_d[k]
                             );
@@ -406,7 +406,7 @@ int generation_fic_postscript(Gestion_ES * gestionnaire, char * filename)
                                            "%d %d moveto\n"
                                            "(%g) show\n",
                                     x, y,
-                                    tableau_string[j], index_to_char(k),
+                                    tableau_string[j], traduction_index_axe(k),
                                     x + 250, y,
                                     gestionnaire->stats->max_d[k]
                             );
@@ -433,7 +433,7 @@ int generation_fic_postscript(Gestion_ES * gestionnaire, char * filename)
                                            "%d %d moveto\n"
                                            "(%g) show\n",
                                     x, y,
-                                    tableau_string[j], index_to_char(k),
+                                    tableau_string[j], traduction_index_axe(k),
                                     x + 250, y,
                                     gestionnaire->stats->min_d[k]
                             );
@@ -459,7 +459,7 @@ int generation_fic_postscript(Gestion_ES * gestionnaire, char * filename)
                                            "%d %d moveto\n"
                                            "(%g) show\n",
                                     x, y,
-                                    tableau_string[j], index_to_char(k),
+                                    tableau_string[j], traduction_index_axe(k),
                                     x + 250, y,
                                     gestionnaire->stats->var_d[k]
                             );
@@ -485,7 +485,7 @@ int generation_fic_postscript(Gestion_ES * gestionnaire, char * filename)
                                            "%d %d moveto\n"
                                            "(%g) show\n",
                                     x, y,
-                                    tableau_string[j], index_to_char(k),
+                                    tableau_string[j], traduction_index_axe(k),
                                     x + 250, y,
                                     gestionnaire->stats->ect_d[k]
                             );
@@ -511,7 +511,7 @@ int generation_fic_postscript(Gestion_ES * gestionnaire, char * filename)
                                            "%d %d moveto\n"
                                            "(%g) show\n",
                                     x, y,
-                                    tableau_string[j], index_to_char(k),
+                                    tableau_string[j], traduction_index_axe(k),
                                     x + 250, y,
                                     gestionnaire->stats->moy_d[k]
                             );
@@ -613,7 +613,7 @@ int chargement_fic_gnup(Vector * vecteur, char * funct, char * filename)
             vector_init(vecteur,cmp/2);
 
             //Récupération des coordonnées
-            string_into_double(vecteur,line,cmp);
+            string_parser(vecteur,line,cmp);
         }
 
         else if(line[0] == '#')
@@ -633,7 +633,7 @@ int chargement_fic_gnup(Vector * vecteur, char * funct, char * filename)
 
 
 /*Récupération des coordonnées d'un vecteur à partir d'une char * */
-int string_into_double(Vector * vecteur, char * line, int size)
+int string_parser(Vector * vecteur, char * line, int size)
 {
     //Tableau qui contiendra les entiers
     char numbers[size][50];
@@ -680,6 +680,9 @@ void free_gestionnaire_es(Gestion_ES * gestionnaire)
     {
         if(gestionnaire->fonction)
             free(gestionnaire->fonction);
+
+        if(gestionnaire->stats)
+            free_statistiques(*(gestionnaire->stats));
 
         if(gestionnaire->liste)
             free_liste(gestionnaire->liste);
