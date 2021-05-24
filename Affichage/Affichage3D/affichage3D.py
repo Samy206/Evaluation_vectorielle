@@ -8,6 +8,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import * 
 from PyQt5.QtGui import * 
 from PyQt5.QtCore import * 
+import math
 
 def Affichage3D_equations(self):
     # on crée un QListWidget et définissons sa géométrie
@@ -136,9 +137,14 @@ class Affichage3D_fenetre(QMainWindow):
 
         #lecture de la textbox et enregistrement des infos dans 'v_select'
         read_textbox = self.textbox_select.text().encode('utf-8')
-        self.data = [int(s) for s in read_textbox.split()]
-        v_select = self.data
         
+        # test d'erreur pour voir si l'entrée est un int
+        try: 
+            self.data = [int(s) for s in read_textbox.split()]
+            v_select = self.data
+        except ValueError:
+            v_select = [-1]*1 # va display une erreur
+     
         # nettoyage du plot 
         self.axes.clear()   
         # update de l'affichage ou non de la grille     
@@ -157,13 +163,22 @@ class Affichage3D_fenetre(QMainWindow):
         array_y = [None]*int(len(liste_vecteurs)/3)
         array_z = [None]*int(len(liste_vecteurs)/3)
         
+        #somme des vecteurs pour l'affichage
+        array_x[0] = somme_vect_x = float(liste_vecteurs[0])
+        array_y[0] = somme_vect_y = float(liste_vecteurs[1])
+        array_z[0] = somme_vect_z = float(liste_vecteurs[2])
+
         # boucle de remplissage des valeurs du plot
-        for i in range (0,len(liste_vecteurs)):
+        for i in range (3,len(liste_vecteurs)):
             if i%3==0:
-                array_x[int(i/3)] = float(liste_vecteurs[i]) 
-                array_y[int(i/3)] = float(liste_vecteurs[i+1]) 
-                array_z[int(i/3)] = float(liste_vecteurs[i+2]) 
-        
+                array_x[int(i/3)] = float(liste_vecteurs[i]) + somme_vect_x 
+                array_y[int(i/3)] = float(liste_vecteurs[i+1]) + somme_vect_y
+                array_z[int(i/3)] = float(liste_vecteurs[i+2]) + somme_vect_z
+
+                somme_vect_x += float(liste_vecteurs[i])
+                somme_vect_y += float(liste_vecteurs[i+1])
+                somme_vect_z += float(liste_vecteurs[i+2])
+
         self.axes.plot(array_x, array_y, array_z)
 
         # ajout des descriptions des axes
@@ -190,11 +205,15 @@ class Affichage3D_fenetre(QMainWindow):
             self.axes.plot(vecteur_select_x, vecteur_select_y, vecteur_select_z, color = 'r')
             
             # mise a jour du label avec les normes de vecteurs
-            string_vecteur_label = "Selected vector: "+str(v_select[0]) 
-            string_vecteur_label +="\nnorms:"
-            string_vecteur_label +="\nx: "+str(float((vecteur_select_x[1]) - vecteur_select_x[0]))  
-            string_vecteur_label +="\ny: "+str(float((vecteur_select_y[1]) - vecteur_select_y[0]))  
-            string_vecteur_label +="\nz: "+str(float((vecteur_select_z[1]) - vecteur_select_z[0]))  
+            string_vecteur_label = "Selected vector: v"+str(v_select[0]) 
+            norm = pow(float(liste_vecteurs[v_select[0]*3+3]),2) 
+            norm += pow(float(liste_vecteurs[v_select[0]*3+4]),2)
+            norm += pow(float(liste_vecteurs[v_select[0]*3+5]),2)
+            norm = math.sqrt(norm)
+            string_vecteur_label +="\nnorm: " +str(norm)
+            string_vecteur_label +="\ncoordinates x: ("+str(float(vecteur_select_x[0])) +", "+ str(float(vecteur_select_x[1]))+")" 
+            string_vecteur_label +="\ncoordinates y: ("+str(float(vecteur_select_y[0])) +", "+ str(float(vecteur_select_y[1]))+")"  
+            string_vecteur_label +="\ncoordinates z: ("+str(float(vecteur_select_z[0])) +", "+ str(float(vecteur_select_z[1]))+")"  
             self.label_vecteur.setText(string_vecteur_label)
         
         else :
