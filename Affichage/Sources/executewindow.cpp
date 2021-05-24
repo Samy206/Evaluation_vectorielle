@@ -213,25 +213,30 @@ void executewindow::Validate()
         close();
     }
 
-    else{if (nbr_dim_vecteur == 3) {
+    else
+    {
+        if (nbr_dim_vecteur == 3)
+        {
         //appel fonction chloe
-        transfert_fonction("Transfert_equations.txt", this->funct);
-        transfert_vecteurs("Transfert_liste_vecteurs.txt", this->list);
-        transfert_stat(3, "Transfert_donnees_statistiques_API.txt", this->statist);
+            transfert_fonction("Transfert_equations.txt", this->funct);
+            transfert_vecteurs("Transfert_liste_vecteurs.txt", this->list);
+            transfert_stat(3, "Transfert_donnees_statistiques_API.txt", this->statist);
         
         //choix de l'OS
-        if (OSexecute)
-            system("./Affichage3D/run3D.sh");
-        else {
-            system("start 3D_run.bat");
-            this->setModal(false);
+            if (OSexecute)
+                system("./Affichage3D/run3D.sh");
+            else
+            {
+                system("start 3D_run.bat");
+            }
         }
-    } else {
-
-        display_4D secwind(this);
-        secwind.setModal(true);
-        secwind.exec();
-    }}
+        else
+        {
+            display_4D secwind(this);
+            secwind.setModal(true);
+            secwind.exec();
+        }
+    }
 
 
     state = 1;

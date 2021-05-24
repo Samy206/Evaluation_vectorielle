@@ -1,10 +1,19 @@
+#ifdef WIN32
+#define OStrans 0
+#else
+#define OStran 1
+#endif
+
 #include "../Headers/transfert_fichiers_affichage3D.h"
 
 void transfert_stat(size_t nb_dim, std::string nom, statistiques stat)
 {
 	std::ofstream fichier;
 	//ouverture/création du ficher txt, trunc sert a être sûr de supprimer l'ancien
-	fichier.open("../Affichage/Affichage3D/"+nom, std::ofstream::out|std::ofstream::trunc);
+    if(OStrans)
+        fichier.open("./Affichage3D/"+nom, std::ofstream::out|std::ofstream::trunc);
+    else
+        fichier.open("./Sources_python/"+nom, std::ofstream::out|std::ofstream::trunc);
 
 	if(!fichier)
 	{
@@ -71,7 +80,10 @@ void transfert_vecteurs(std::string nom, Liste_vecteur *l)
 	size_t nb_dim = consultation_liste(l, 0).taille;
 	std::ofstream fichier;
 	//ouverture/création du ficher txt, trunc sert a être sûr de supprimer l'ancien
-	fichier.open("../Affichage/Affichage3D/"+nom, std::ofstream::out|std::ofstream::trunc);
+    if(OStrans)
+        fichier.open("./Affichage3D/"+nom, std::ofstream::out|std::ofstream::trunc);
+    else
+        fichier.open("./Sources_python/"+nom, std::ofstream::out|std::ofstream::trunc);
 	
 	if(!fichier)
 	{
@@ -102,7 +114,10 @@ void transfert_fonction(std::string nom, std::string equation)
 {
 	std::ofstream fichier;
 	//ouverture/création du ficher txt, trunc sert a être sûr de supprimer l'ancien
-	fichier.open("../Affichage/Affichage3D/"+nom, std::ofstream::out|std::ofstream::trunc);
+    if(OStrans)
+        fichier.open("./Affichage3D/"+nom, std::ofstream::out|std::ofstream::trunc);
+    else
+        fichier.open("./Sources_python/"+nom, std::ofstream::out|std::ofstream::trunc);
 	
 	if(!fichier)
 	{

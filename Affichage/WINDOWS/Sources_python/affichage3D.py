@@ -1,12 +1,9 @@
-#'pathex': [os.path.join(ntpath.dirname(PyQt5.__file__), 'Qt', 'bin')],
 import PyQt5
 import sys
 import matplotlib
 matplotlib.use('Qt5Agg')
 from matplotlib.figure import Figure
-#import matplotlib.pyplot as plt
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
-#from matplotlib.figure import Figure
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import * 
 from PyQt5.QtGui import * 
@@ -15,7 +12,7 @@ from PyQt5.QtCore import *
 def Affichage3D_equations(self):
     # on crée un QListWidget et définissons sa géométrie
     list_widget = QListWidget(self)
-    list_widget.setGeometry(230, 20,840, 60)
+    list_widget.setGeometry(230, 15,840, 20)
     
     # ouvrir et extraire les données 'Transfert_equations.txt'
     temp_filename = "Transfert_equations.txt"
@@ -38,7 +35,7 @@ def Affichage3D_equations(self):
     list_widget.setVerticalScrollBar(scroll_bar)
 
     # création d'un label et définission de sa géométrie
-    label = QLabel("équations: ", self)
+    label = QLabel("Equation: ", self)
     label.setGeometry(230, 5, 150, 10)
  
 def Affichage3D_donnees_statistiques(self):
@@ -66,14 +63,14 @@ def Affichage3D_donnees_statistiques(self):
     list_widget.setVerticalScrollBar(scroll_bar)
 
     # création d'un label et définission de sa géométrie
-    label = QLabel("Données statistiques: ", self)
+    label = QLabel("Statistic data: ", self)
     label.setGeometry(10, 335, 150, 10)
 
 class Affichage3D_fenetre(QMainWindow):
     def __init__(self, parent=None):
         # initialisation de la fenetre
         QMainWindow.__init__(self, parent)
-        self.setWindowTitle('Affichage 3D')
+        self.setWindowTitle('Display Window 3D')
         self.setGeometry(0,0,1280,720)
 
         # début main frame
@@ -163,9 +160,9 @@ class Affichage3D_fenetre(QMainWindow):
         # boucle de remplissage des valeurs du plot
         for i in range (0,len(liste_vecteurs)):
             if i%3==0:
-                array_x[int(i/3)] = float(liste_vecteurs[i]) - float(liste_vecteurs[0])
-                array_y[int(i/3)] = float(liste_vecteurs[i+1]) - float(liste_vecteurs[1])
-                array_z[int(i/3)] = float(liste_vecteurs[i+2]) - float(liste_vecteurs[2])
+                array_x[int(i/3)] = float(liste_vecteurs[i]) 
+                array_y[int(i/3)] = float(liste_vecteurs[i+1]) 
+                array_z[int(i/3)] = float(liste_vecteurs[i+2]) 
         
         self.axes.plot(array_x, array_y, array_z)
 
@@ -193,8 +190,8 @@ class Affichage3D_fenetre(QMainWindow):
             self.axes.plot(vecteur_select_x, vecteur_select_y, vecteur_select_z, color = 'r')
             
             # mise a jour du label avec les normes de vecteurs
-            string_vecteur_label = "vecteur selectioné: "+str(v_select[0]) 
-            string_vecteur_label +="\nnormes:"
+            string_vecteur_label = "Selected vector: "+str(v_select[0]) 
+            string_vecteur_label +="\nnorms:"
             string_vecteur_label +="\nx: "+str(float((vecteur_select_x[1]) - vecteur_select_x[0]))  
             string_vecteur_label +="\ny: "+str(float((vecteur_select_y[1]) - vecteur_select_y[0]))  
             string_vecteur_label +="\nz: "+str(float((vecteur_select_z[1]) - vecteur_select_z[0]))  
@@ -202,7 +199,7 @@ class Affichage3D_fenetre(QMainWindow):
         
         else :
             # message d'erreur dans l'affichage 3D
-            self.label_vecteur.setText("\n\nErreur: Le vecteur selectioné n'existe pas\n\n")
+            self.label_vecteur.setText("\n\nError: The selected vector doesn't exist!\n\n")
         
         # actualisaton du canevas
         self.canvas.draw()
@@ -215,11 +212,10 @@ class Affichage3D_fenetre(QMainWindow):
         list_widget.setGeometry(10, 20,200, 270)
 
         # boucle pour l'ajout des vecteurs dans la liste d'affichage
-        for i in range(0, len(liste_vecteurs)):
-            #print(liste_vecteurs[i])
+        for i in range(3, len(liste_vecteurs)):
             if i%3==0:
                 # conversion de la valeur de la liste en item QListWidgetItem
-                item_temp = QListWidgetItem("X: "+liste_vecteurs[i].replace('\n','')+" Y: "+liste_vecteurs[i+1].replace('\n','')+" Z: "+liste_vecteurs[i+2].replace('\n',''))
+                item_temp = QListWidgetItem("v"+str(int(i/3)-1)+": X: "+liste_vecteurs[i].replace('\n','')+" Y: "+liste_vecteurs[i+1].replace('\n','')+" Z: "+liste_vecteurs[i+2].replace('\n',''))
                 # ajout de l'item dans la liste
                 list_widget.addItem(item_temp)
 
@@ -231,12 +227,10 @@ class Affichage3D_fenetre(QMainWindow):
         list_widget.setVerticalScrollBar(scroll_bar)
 
         # création d'un label et définition de sa géométrie
-        label = QLabel("Liste des vecteurs: ", self)
+        label = QLabel("List of vectors: ", self)
         label.setGeometry(10, 5, 150, 10)
 
 app = QApplication(sys.argv)
 form = Affichage3D_fenetre()
 form.show()
 app.exec_()
-
-print("pouic")
