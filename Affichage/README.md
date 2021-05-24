@@ -1,10 +1,11 @@
 # Gestion d'évaluation vectorielle
 
-<h2>Groupe</h2>
+## Groupe
 Alexis Laplanche, Antoine Leuridan, Baptiste Devylder, Chloé Helain, Gwennael Cannenpasse, Nicolas Dias, 
 Pierre-Louis Chardon, Samy Boumali
 
 ## Sommaire
+
 ### But du projet
 ### Éléments / applications nécessaires
 ### Portabilité
@@ -21,13 +22,15 @@ l'autocorrelation, ainsi que la possibilité de garder une trace de ce qui a ét
 un fichier pdf contenant les statistiques évoquées précédemment. 
 
 ## Éléments / applications nécessaires :
-Notre application fait appel à quatre librairies et commandes terminal tierces qu'il faut impérativement 
+Notre application fait appel à six librairies et commandes terminal tierces qu'il faut impérativement 
 avoir :<br />
-<b>Commande système gnuplot</b> : Utilisée afin de générer l'image du graphique. <br />
-<b>Commande système ps2pdf</b> : Utilisée afin de générer un script qui sera converti par la suite en pdf
+<b>Commande système gnuplot :</b> Utilisée afin de générer l'image du graphique. <br />
+<b>Commande système ps2pdf :</b> Utilisée afin de générer un script qui sera converti par la suite en pdf
 (qui vient avec Ghostscript sur windows et qui est installable via le terminale sur Linux et Mac). <br />
-<b>Librairies Python</b> : Une API est utilisée dans notre programme.<br />
-<b>Librairie Tinyexpr</b> : Évaluatueur de fonctions mathématiques.<br />
+<b>Commande système cmake :</b> Utilisée pour gérer les dépendances du programme puis générer un makefile adéquat.<br />
+<b>Librairies Python :</b> Une API est utilisée dans notre programme.<br />
+<b>Librairie Tinyexpr :</b> Évaluatueur de fonctions mathématiques.<br />
+<b>Librairies Qt :</b> L'interface graphique implémentée se base essentiellement sur ce package.<br />
 
 
 ## Portabilité :
@@ -36,12 +39,25 @@ applications que nous avons cité.<br />
 Pour <b>Linux</b> et <b>Mac</b> il faudra vérifier que les commandes `ps2pdf` et `gnuplot -c` sont bien reconnues par
 votre terminal. Et pour <b>Windows</b> il faudra avoir les versions portables de Gnuplot et Ghostscript ( permet aussi
 d'avoir la commande `ps2pdf`) , voici comment les obtenir soit via terminal soit via télécharement internet : <br />
-<b>Librairies Python : </b>`python -m pip install -U pip`<br />
-`python -m pip install -U matplotlib`<br />
-`python pip install PyQt5`<br />
+
+Commandes linux : <br />
+<b>Librairies Python : </b>`sudo apt-get install cmake -y && sudo apt-get install build-essential -y && sudo apt-get install qt5-default -y && sudo apt-get install qtdeclarative5-dev -y && sudo apt install libqt5charts5-dev -y && sudo apt-get install python3.8 -y && sudo apt-get install python3.8-dev -y && sudo apt install python3-pip -y && pip install pyqt5 && pip install matplotlib`<br />
+<b>cmake : </b> `sudo apt-get install cmake ; sudo apt-get install build-essential` <br />
+<b>Qt :</b> `sudo apt-get install qt5-default ; sudo apt-get install qtdeclarative5-dev ; sudo apt install libqt5charts5-dev`
+<br /> <br />
+
+
+Commandes Mac : <br />
+<b>Librairies Python : </b>`brew install python ; pip3 install matplotlib ; pip3 install pyqt5`<br />
+<b>cmake : </b> `brew install cmake` <br />
+<b>Qt :</b> `brew install Qt`<br />
+<b>ps2pdf : </b>`brew install ghostscript`<br />
+<b>Gnuplot : </b>`brew install gnuplot`<br /> <br />
+
+
 <b>ps2pdf : </b> `https://www.ghostscript.com/download/gsdnld.html` <br />
 <b>Gnuplot : </b> `https://sourceforge.net/projects/gnuplot/files/gnuplot/5.4.1/gp541-win64-mingw.7z/download` <br />
-
+<b>Qt : </b> `https://www.qt.io/download`<br />
 
 ## Lancement de l'application :
 ### Premier lancement :
@@ -49,9 +65,11 @@ Dans le cas d'un premier lancement de l'application effectuer les configurations
 `./configure.sh` sous Linux. <br />
 `./configure_mac.sh` sous Mac. <br />
 Appuyer sur le script exécutable `WINDOWS_installer.bat` contenu dans le répertoire <b>WINDOWS</b> sous Windows.<br />
+
 ### Lancements suivants : 
 Sous Mac et Linux il suffit d'appeler l'éxécutable <b>Gestion_evaluation_vectorielle</b>, et sous Windows il faut faire
 de  même mais avec le script <b>Run.bat</b> ( toujours contenu dans le répertoire WINDOWS ).
+
 ## Language de la machine :
 En dernier point il faut que dans l'environnement de la machine le language soit l'anglais car notre application effectue des conversions en double, l'écriture angloplohne des chiffres décimaux doit être choisie (exemple : 1.111 au lieu de 1,111).
     
