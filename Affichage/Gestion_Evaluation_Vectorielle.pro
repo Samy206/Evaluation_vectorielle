@@ -23,7 +23,8 @@ SOURCES += \
     Sources/savewindow.cpp \
     Sources/statistiques.c \
     Sources/tinyexpr.c \
-    Sources/vecteurs.c
+    Sources/vecteurs.c \
+    Sources/\transfert_fichiers_affichage3D.cpp \
 
 HEADERS += \
     Headers/addfunctwindow.h \
@@ -39,7 +40,8 @@ HEADERS += \
     Headers/savewindow.h \
     Headers/statistiques.h \
     Headers/tinyexpr.h \
-    Headers/vecteurs.h
+    Headers/vecteurs.h \
+    Headers/\transfert_fichiers_affichage3D.h
 
 FORMS += \
     Sources/addfunctwindow.ui \
