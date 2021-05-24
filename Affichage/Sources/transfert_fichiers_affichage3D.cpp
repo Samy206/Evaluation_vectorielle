@@ -1,7 +1,7 @@
 #ifdef WIN32
 #define OStrans 0
 #else
-#define OStrans 1
+#define OStran 1
 #endif
 
 #include "../Headers/transfert_fichiers_affichage3D.h"
@@ -75,7 +75,7 @@ void transfert_stat(size_t nb_dim, std::string nom, statistiques stat)
 }
 
 //fonction qui écrit les informations de la liste de vecteur dans un fichier texte
-void transfert_vecteurs(std::string nom, Liste_vecteur *l)
+void transfert_vecteurs(std::string nom, Liste_vecteur *l, std::string departur)
 {
 	size_t nb_dim = consultation_liste(l, 0).taille;
 	std::ofstream fichier;
@@ -92,16 +92,36 @@ void transfert_vecteurs(std::string nom, Liste_vecteur *l)
 	else
 	{
 		//ajout de l'origine (x,y,z) = (0,0,0)
-		fichier << "0" << std::endl;
-		fichier << "0" << std::endl;
-		fichier << "0" << std::endl;
+        std::string coord[3];
+		int i = 1;
+        while(departur[i]!=',' && i<departur.size() && departur[i]!='(')
+		{
+            coord[0].push_back(departur[i]);
+			i++;
+		}
+		i++;
+		while(departur[i]!=',' && i<departur.size())
+		{
+            coord[1].push_back(departur[i]);
+			i++;
+		}
+        i++;
+        while(departur[i]!=','&& departur[i]!=')' && i<departur.size())
+		{
+            coord[2].push_back(departur[i]);
+			i++;
+		}
+
+        fichier << coord[0] << std::endl;
+        fichier << coord[1] << std::endl;
+        fichier << coord[2] << std::endl;
 
 		//ajput du reste des vecteurs
-		for(int i = 0; i < l->taille; i++)// boucle de taille de la liste 
+        for(int i = 0; i < l->taille; i++)// boucle de taille de la liste
 		{
 			for(int j = 0; j < nb_dim; j++)// boucle de taille nombre d'axes (3)
 			{
-				fichier << consultation_liste(l,i).tableau[j] << std::endl;
+                fichier << (consultation_liste(l,i).tableau[j]) << std::endl;
 			}
 		}
 	}

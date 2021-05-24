@@ -1,10 +1,10 @@
-#include "../Headers/displaywindow.h"
-#include "../Headers/ui_displaywindow.h"
-#include "../Headers/display_4d.h"
-#include "../Headers/chartview.h"
+#include "displaywindow.h"
+#include "ui_displaywindow.h"
+#include "display_4d.h"
+#include "chartview.h"
 extern "C" {
-#include "../Headers/liste_vecteurs.h"
-#include "../Headers/statistiques.h"
+#include "liste_vecteurs.h"
+#include "statistiques.h"
 }
 
 displaywindow::displaywindow(executewindow *toto, QWidget *parent) :
