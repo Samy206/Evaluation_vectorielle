@@ -1,19 +1,4 @@
-min x 863786
-max x 7678678
-min y 5737378
-max y 0
-min z -1
-max z -20
-min x 863786
-max x 7678678
-min y 5737378
-max y 0
-min z -1
-max z -20
-
-min x 863786
-max x 7678678
-min y 5737378
-max y 0
-min z -1
-max z -20
+minimum of norms: 15.2354
+minimum of x: 14
+minimum of y: -36.6655
+minimum of z: -5

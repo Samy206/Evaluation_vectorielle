@@ -1,5 +1,6 @@
 #include "../Headers/displaywindow.h"
-#include "ui_displaywindow.h"
+#include "../Headers/ui_displaywindow.h"
+#include "../Headers/display_4d.h"
 #include "../Headers/chartview.h"
 extern "C" {
 #include "../Headers/liste_vecteurs.h"
@@ -7,8 +8,8 @@ extern "C" {
 }
 
 displaywindow::displaywindow(executewindow *toto, QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::displaywindow)
+        QDialog(parent),
+        ui(new Ui::displaywindow)
 {
 
     ///*************************************************************
@@ -42,12 +43,8 @@ displaywindow::displaywindow(executewindow *toto, QWidget *parent) :
     ///**************************************************************
     ///Recupération de l'origine
 
-    //A modifier quand toto->departur renverra le bon String
-
-    QString manipulation = QString::fromStdString(toto->departur);
-
     //On initialise manipulation qui va nous permettre le troncage de departure
-    //QString manipulation = "(0,0)";
+    QString manipulation = QString::fromStdString(toto->departur);
 
     //On initialise v_pos qui est un compteur pour trouver la position de la virgule
     int v_pos = 0;
@@ -56,7 +53,7 @@ displaywindow::displaywindow(executewindow *toto, QWidget *parent) :
     manipulation.remove("(");
     manipulation.remove(")");
 
-    //Tant que le caractère à la position v_pos n'est pas une virgule, v_pos++ (ce qui nous permet d'avoir la position de la virgule)
+    //Tant que le caractère à la position v_pos n'est pas une virgule, v_pos++ (ce qui nous permet d'avoir la position du dernier car avant la virgule)
     while( manipulation.at(v_pos) != ',' ) v_pos++;
 
     //x est égal a departure coupé avant la virgule. x est une variable de l'objet pour pouvoir retrouver x de l'origine dans n'importe quelle méthode de la classe.
@@ -64,7 +61,7 @@ displaywindow::displaywindow(executewindow *toto, QWidget *parent) :
     x.truncate(v_pos);
 
     //y est égal a departure coupé apres la virgule. y est une variable de l'objet pour les memes raison que x.
-    y = manipulation.right(v_pos);
+    y = manipulation.right(manipulation.size() - v_pos-1);
 
     ///***************************************************************
     ///Création du graphique 1|2D
@@ -143,8 +140,8 @@ displaywindow::displaywindow(executewindow *toto, QWidget *parent) :
     ui->tableWidget->setFont(font);
 
     //On change la largeur des colonnes
-    ui->tableWidget->setColumnWidth(0,100);
-    if(toto->nbr_dim_vecteur == 2) ui->tableWidget->setColumnWidth(1,100);
+    if(toto->nbr_dim_vecteur == 1) ui->tableWidget->setColumnWidth(0,200);
+    else{ui->tableWidget->setColumnWidth(0,100); ui->tableWidget->setColumnWidth(1,100);}
 
     //Dans l'ordre, on enleve la possibiliter de modifier, on permet de selectionner que les lignes, et on autorise qu'une seule selection a la fois.
     ui->tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
@@ -346,7 +343,7 @@ void displaywindow::AddSelectVector()
         else n->append(buffer->vecteur.tableau[0] + x.toDouble() , buffer->vecteur.tableau[1] + y.toDouble());
     }
 
-    //Sinon le vecteur a afficher sera celui de la ligne selectionné-1 a la ligne selectionné
+        //Sinon le vecteur a afficher sera celui de la ligne selectionné-1 a la ligne selectionné
     else
     {
         //On initialise buffer a v0
@@ -383,7 +380,7 @@ void displaywindow::AddSelectVector()
     //Si le chart n'a jamais été modifié et ne comporte qu'une seule serie de point modif = 1
     if(!modif) modif = 1;
 
-    //Sinon on enleve la derniere serie ajouté au chart
+        //Sinon on enleve la derniere serie ajouté au chart
     else main_chart->removeSeries(last_serie);
 
     //last_serie est egal a la nouvelle serie
@@ -404,7 +401,7 @@ void displaywindow::AddSelectVector()
         axiesY->setLabelFormat("%.2g");
     }
 
-    //Sinon on les met en notation normale
+        //Sinon on les met en notation normale
     else if(scientific_notation == 0)
     {
 
@@ -419,6 +416,7 @@ void displaywindow::AddSelectVector()
 
     //on créé un nouveau chart view de main_chart avec le mode mode
     ChartView *chartView = new ChartView(main_chart,mode);
+    chartView->first_time = last_chartview->first_time;
     chartView->setRenderHint(QPainter::Antialiasing);
 
     //last_chartview prend la valeur du nouveau chart view
@@ -456,7 +454,7 @@ void displaywindow::Scientific_notation(int a)
         axiesY->setLabelFormat("%.2g");
     }
 
-    //sinon on met ces chiffres en notation normale
+        //sinon on met ces chiffres en notation normale
     else if(a == 0)
     {
         axiesX->setLabelFormat("%.2f");
@@ -465,6 +463,7 @@ void displaywindow::Scientific_notation(int a)
 
     //On créé un nouveau chart_view du main_chart avec mode mode et on applique de l'antialiasing sur la trajectoire
     ChartView *chartView = new ChartView(main_chart,mode);
+    chartView->first_time = last_chartview->first_time;
     chartView->setRenderHint(QPainter::Antialiasing);
 
     //Le last_chartview est egal au nouveau chart view
@@ -494,6 +493,7 @@ void displaywindow::Rubbermode()
 
     //on créé un nouveau chart view de main_chart avec mode mode et on applique de l'antialisaing sur la trajectoire
     ChartView *chartView = new ChartView(main_chart,mode);
+    chartView->first_time = last_chartview->first_time;
     chartView->setRenderHint(QPainter::Antialiasing);
 
     //Last chart view est egal au nouveau chartview
@@ -524,6 +524,7 @@ void displaywindow::Mousemode()
 
     //on créé un nouveau chart view de main_chart avec mode mode et on applique de l'antialisaing sur la trajectoire
     ChartView *chartView = new ChartView(main_chart,mode);
+    chartView->first_time = last_chartview->first_time;
     chartView->setRenderHint(QPainter::Antialiasing);
 
     //Last chart view est egal au nouveau chartview
@@ -533,7 +534,6 @@ void displaywindow::Mousemode()
     ui->Display_stat_3->setText("Using Mouse mode");
     ui->verticalLayout->addWidget(chartView);;
 }
-
 
 
 ///**************************************************************************************************

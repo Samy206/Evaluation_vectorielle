@@ -1,12 +1,12 @@
 #include "../Headers/chartview.h"
+#include "../Headers/displaywindow.h"
 
 using namespace QtCharts;
 
 ChartView::ChartView(QChart *chart,int mode, QWidget *parent) :
-    QChartView(chart, parent),
-    pressed(false) , first_time(true)
+        QChartView(chart, parent),
+        pressed(false) , first_time(true)
 {
-
     //On initialise m_coordX et m_coordY, ces variables vont nous permettre d'afficher la position de notre curseur
     m_coordX = new QGraphicsSimpleTextItem(chart);
     m_coordX->setPos(300, 30);
@@ -18,7 +18,7 @@ ChartView::ChartView(QChart *chart,int mode, QWidget *parent) :
     //Si le mode en argument = 0, on active le RubberBand et on stock le mode dans l'objet
     if(!mode) {setRubberBand(QChartView::RectangleRubberBand); this->mode = mode; }
 
-    //sinon on stock juste le mode dans l'objet
+        //sinon on stock juste le mode dans l'objet
     else this->mode = mode;
 
     //On active le suivi de la souris
@@ -31,42 +31,43 @@ ChartView::ChartView(QChart *chart,int mode, QWidget *parent) :
 
 void ChartView::chartreset()
 {
+
     //On reset le zoom donc on revient a la taille initiale du chart
     chart()->zoomReset();
 
     //on recupere la taille initiale du chart /0.5
-    QRectF rectangle = QRectF(chart()->plotArea().left(),chart()->plotArea().top(),chart()->plotArea().width()/0.5,chart()->plotArea().height()/0.5);
+    QRectF origin = QRectF(chart()->plotArea().left(),chart()->plotArea().top(),chart()->plotArea().width()/0.5,chart()->plotArea().height()/0.5);
 
     //on recupere le centre
     QPointF center = chart()->plotArea().center();
 
     //on se positionne au centre
-    rectangle.moveCenter(center);
+    origin.moveCenter(center);
 
     //On remet la taille initiale du chart
-    chart()->zoomIn(rectangle);
+    chart()->zoomIn(origin);
 
     //On indique que l'on a deja reset le chart. Ceci est necessaire car la premiere etape est de reset le chart
     //pour eviter de modifier la taille initiale du chart. Car si on se deplace sans zoomer cela va decaler la position initiale du chart.
     //Ici on dezoom une premiere fois avant toute methode ce qui nous permet une fois fini de faire zoomreset et de revenir a la posisition initiale.
-    first_time = false;
+    if(first_time) first_time = false;
+
 }
-
-
 
 ///************************************************************************************************
 /// mousePressEvent permet de savoir quand la souris est cliqué
 
 void ChartView::mousePressEvent(QMouseEvent *event)
 {
-        //Si le graphique n'a jamais été reset on le reset
-        if(first_time) chartreset();
+    //Si le graphique n'a jamais été reset on le reset
+    if(first_time) chartreset();
 
-        //On change la variable pressed de l'objet qui nous permet de savoir quand la souris est cliqué
-        pressed = true;
 
-        //Last point est egal au point ou nous avons cliqué sur la souris
-        lastpoint = mapFromGlobal(QCursor::pos());
+    //On change la variable pressed de l'objet qui nous permet de savoir quand la souris est cliqué
+    pressed = true;
+
+    //Last point est egal au point ou nous avons cliqué sur la souris
+    lastpoint = mapFromGlobal(QCursor::pos());
 
     QChartView::mousePressEvent(event);
 }
@@ -104,6 +105,8 @@ void ChartView::mouseMoveEvent(QMouseEvent *event)
 
     }
 
+    chart()->update();
+
     QChartView::mouseMoveEvent(event);
 }
 
@@ -116,6 +119,7 @@ void ChartView::mouseReleaseEvent(QMouseEvent *event)
 {
     //Si le graphique n'a jamais été reset on le reset
     if(first_time) chartreset();
+
 
     //On change la variable pressed de l'objet qui nous permet de savoir quand la souris est relaché
     pressed = false;
@@ -133,32 +137,37 @@ void ChartView::keyPressEvent(QKeyEvent *event)
     //Si le graphique n'a jamais été reset on le reset
     if(first_time) chartreset();
 
+    //Nous n'affichons rien car nous ne sommes pas capable de donner la valeur de la nouvelle position du curseur apres changement
+    m_coordX->setText(QString("X: "));
+    m_coordY->setText(QString("Y: "));
+
     switch (event->key()) {
-    case Qt::Key_Plus:
-        chart()->zoomIn(); //Si touche + on zoom
-        break;
-    case Qt::Key_Minus:
-        chart()->zoomOut(); //si touche - on dezoom
-        break;
-    case Qt::Key_Left:
-        chart()->scroll(10, 0); //si touche <- on va a gauche
-        break;
-    case Qt::Key_Right:
-        chart()->scroll(-10, 0); //si touche -> on va a droite
-        break;
-    case Qt::Key_Up:
-        chart()->scroll(0, -10); //si touche ^ on va en haut
-        break;
-    case Qt::Key_Down:
-        chart()->scroll(0, 10); // si touche v on va en bas
-        break;
-    case Qt::Key_Space: //si touche espace on reset le chart
-           chartreset();
-           break;
-    default:
-        QGraphicsView::keyPressEvent(event);
-        break;
+        case Qt::Key_Plus:
+            chart()->zoomIn(); //Si touche + on zoom
+            break;
+        case Qt::Key_Minus:
+            chart()->zoomOut(); //si touche - on dezoom
+            break;
+        case Qt::Key_Left:
+            chart()->scroll(-10, 0); //si touche <- on va a gauche
+            break;
+        case Qt::Key_Right:
+            chart()->scroll(10, 0); //si touche -> on va a droite
+            break;
+        case Qt::Key_Up:
+            chart()->scroll(0, 10); //si touche ^ on va en haut
+            break;
+        case Qt::Key_Down:
+            chart()->scroll(0, -10); // si touche v on va en bas
+            break;
+        case Qt::Key_Space: //si touche espace on reset le chart
+            chartreset();
+            break;
+        default:
+            QGraphicsView::keyPressEvent(event);
+            break;
     }
+    chart()->update();
 }
 
 
@@ -169,6 +178,7 @@ void ChartView::wheelEvent(QWheelEvent *event)
 {
     //Si le graphique n'a jamais été reset on le reset
     if(first_time) chartreset();
+
 
     //on initialise factor qui va nous permettre de zoomer ou dezoomer dans le graph
     qreal factor;
@@ -186,8 +196,12 @@ void ChartView::wheelEvent(QWheelEvent *event)
     rectangle.moveCenter(mousePos);
     chart()->zoomIn(rectangle);
 
+    chart()->update();
+
     //On se recentre ensuite sur le curseur
     QPointF delta = chart()->plotArea().center() -mousePos;
     chart()->scroll(delta.x(),-delta.y());
+
+    chart()->update();
 }
 

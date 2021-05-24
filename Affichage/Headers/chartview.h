@@ -1,3 +1,5 @@
+
+
 #ifndef CHARTVIEW_H
 #define CHARTVIEW_H
 
@@ -9,7 +11,6 @@
 #include <QtCharts/QLineSeries>
 #include <QtCharts/QValueAxis>
 #include <QtCharts/QChart>
-
 
 QT_CHARTS_USE_NAMESPACE
 
@@ -27,6 +28,7 @@ public:
     QGraphicsSimpleTextItem *m_coordX;  //Item qui permet l'affichage en temps réel de X
     QGraphicsSimpleTextItem *m_coordY;  //Item qui permet l'affichage en temps réel de Y
     int mode;   //permet de stocker le mode (mousemode ou Rubbermode)
+
 
 protected:
     void mousePressEvent(QMouseEvent *event); //permet de savoir quand la souris est cliquée

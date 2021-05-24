@@ -6,7 +6,7 @@
 #include "chartview.h"
 
 namespace Ui {
-class displaywindow;
+    class displaywindow;
 }
 
 class displaywindow : public QDialog
@@ -26,14 +26,15 @@ public:
     int mode;   //permet de stocker le choix du mode
     int modif;  //permet de stocker si main_chart a deja été modifié ou non
 
+
 public slots:
-    void AddSelectVector(); //permet d'afficher le vecteur selectionné dans la liste de vecteurs
+            void AddSelectVector(); //permet d'afficher le vecteur selectionné dans la liste de vecteurs
     void Scientific_notation(int a);    //permet de changer la notation des chiffres des axes
     void Rubbermode();  //permet de changer de mode
     void Mousemode();   //permet de changer de mode
 
 private:
-    Ui::displaywindow *ui; //destructeur
+    Ui::displaywindow *ui;
 };
 
 #endif // DISPLAYWINDOW_H
