@@ -13,7 +13,7 @@ import math
 def Affichage3D_equations(self):
     # on crée un QListWidget et définissons sa géométrie
     list_widget = QListWidget(self)
-    list_widget.setGeometry(230, 15,840, 20)
+    list_widget.setGeometry(230, 20,840, 20)
     
     # ouvrir et extraire les données 'Transfert_equations.txt'
     temp_filename = "Transfert_equations.txt"
@@ -38,6 +38,7 @@ def Affichage3D_equations(self):
     # création d'un label et définission de sa géométrie
     label = QLabel("Equation: ", self)
     label.setGeometry(230, 5, 150, 10)
+
  
 def Affichage3D_donnees_statistiques(self):
     # on crée un QListWidget et définissons sa géométrie
