@@ -35,7 +35,7 @@ int stat_string_parser(char * string,char ** tableau);                     //Ré
 char traduction_index_axe(int index);                                      //Transforme un 0 par un X, un 1 par un Y etc
 
 int chargement_fic_gnup(Vector * vecteur, char * funct, char * filename); //Chargement fichier gnuplot
-int string_into_double(Vector * vecteur, char * line, int size); //Parser et convertisseurs des lignes en double
+int string_parser(Vector * vecteur, char * line, int size); //Parser et convertisseurs des lignes en double
 
 
 void free_gestionnaire_es(Gestion_ES * gestionnaire);      //Libération de la mémoire
