@@ -14,6 +14,3 @@ void Affichage3D_API();
 #ifdef __cplusplus
 }
 #endif
-
-
-//#endif
