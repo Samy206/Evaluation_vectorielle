@@ -33,7 +33,6 @@ int generation_fic_postscript(Gestion_ES * gestionnaire, char * filename); //gé
 int draw_table_postscript(FILE * file,int x, int y, int largeur);          //Dessin de chaque partie du tableau
 int stat_string_parser(char * string,char ** tableau);                     //Récupération des stats à affichier
 char traduction_index_axe(int index);                                      //Transforme un 0 par un X, un 1 par un Y etc
-int get_pow(double number);                                                //Nous donne l'ordre de grandeur d'un nombre
 
 int chargement_fic_gnup(Vector * vecteur, char * funct, char * filename); //Chargement fichier gnuplot
 int string_into_double(Vector * vecteur, char * line, int size); //Parser et convertisseurs des lignes en double
