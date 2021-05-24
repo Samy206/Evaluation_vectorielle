@@ -1,7 +1,7 @@
 #ifdef WIN32
 #define OStrans 0
 #else
-#define OStran 1
+#define OStrans 1
 #endif
 
 #include "../Headers/transfert_fichiers_affichage3D.h"
