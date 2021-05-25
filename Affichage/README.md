@@ -41,9 +41,9 @@ votre terminal. Et pour <b>Windows</b> il faudra avoir les versions portables de
 d'avoir la commande `ps2pdf`) , voici comment les obtenir soit via terminal soit via télécharement internet : <br />
 
 Commandes linux : <br />
-<b>Librairies Python : </b>`sudo apt-get install cmake -y && sudo apt-get install build-essential -y && sudo apt-get install qt5-default -y && sudo apt-get install qtdeclarative5-dev -y && sudo apt install libqt5charts5-dev -y && sudo apt-get install python3.8 -y && sudo apt-get install python3.8-dev -y && sudo apt install python3-pip -y && pip install pyqt5 && pip install matplotlib`<br />
-<b>cmake : </b> `sudo apt-get install cmake ; sudo apt-get install build-essential` <br />
-<b>Qt :</b> `sudo apt-get install qt5-default ; sudo apt-get install qtdeclarative5-dev ; sudo apt install libqt5charts5-dev`
+<b>Librairies Python : </b>`sudo apt-get install python3.8 -y && sudo apt-get install python3.8-dev -y && sudo apt install python3-pip -y && pip install pyqt5 && pip install matplotlib`<br />
+<b>cmake : </b> `sudo apt-get install cmake -y && sudo apt-get install build-essential -y` <br />
+<b>Qt :</b> `sudo apt-get install qt5-default -y && sudo apt-get install qtdeclarative5-dev -y && sudo apt install libqt5charts5-dev -y`
 <br /> <br />
 
 
