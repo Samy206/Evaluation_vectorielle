@@ -44,11 +44,7 @@ int generation_fic_gnuplot(Gestion_ES * gestionnaire, char * filename)
 {
     //Récupération du nombre de dimensions et applications des vérifications dessus
     int taille_vec = gestionnaire->liste->premier->vecteur.taille;
-    if(taille_vec > 3 || taille_vec == 1)
-    {
-        printf("Les vecteurs n'ont pas un nombre de dimensions satifaisant les caractéristiques d'affichage gnuplot : une dimension ou plus de trois\n");
-        return taille_vec;
-    }
+    
     //Génération du chemin absolu du fichier de coordonnées
     strcat(gestionnaire->fic_gnup,filename);
     strcat(gestionnaire->fic_gnup,".txt");
