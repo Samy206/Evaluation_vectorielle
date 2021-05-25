@@ -187,9 +187,7 @@ void executewindow::Validate()
 
     //Get the name of all the variable
     string variablestring = "";
-    cout<<nbr_dim_vect<<endl;
     char variable[nbr_dim_vect+1];
-    cout << nbr_dim_vect << endl;
     for(int i = 0 ; i < nbr_dim_vect ; i++)
     {
         variable[i] = carc[i];

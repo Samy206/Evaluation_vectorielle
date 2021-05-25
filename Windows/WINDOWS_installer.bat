@@ -1,4 +1,5 @@
 @echo off
+mkdir ressources
 cls
 echo Install the following dependancies (All the link are also in the README):
 echo Python: https://www.python.org/ftp/python/3.9.5/python-3.9.5-amd64.exe
