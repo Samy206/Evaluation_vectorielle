@@ -575,7 +575,6 @@ int chargement_fic_gnup(Vector * vecteur, char * funct, char * filename)
     FILE * file = fopen(filename,"r");
     if(!file)
     {
-        printf("Can't open load file\n");
         return 1;
     }
     char line[255];
@@ -594,14 +593,13 @@ int chargement_fic_gnup(Vector * vecteur, char * funct, char * filename)
             //Compte du nombre de dimensions
             for(j = 0 ; j < size ; j++)
             {
-                if(line[j] == ' ')
+                if((line[j] == ' ' || line[j] == '\n'))
                     cmp++;
             }
 
             //Vérification de la valeur obtenue
             if(cmp % 2 != 0)
             {
-                printf("cmp : %d ; The file has not the good format\n",cmp);
                 return 2;
             }
 
@@ -651,7 +649,7 @@ int string_parser(Vector * vecteur, char * line, int size)
         }
 
         //Conversion des valeurs qui nous intéressent
-        else if( (line[i] == ' ') && cmp >= (size/2) )
+        else if( ((line[i] == ' ') || (line[i] == '\n') )&& cmp >= (size/2))
         {
             numbers[cmp][j] = '\0';
             tmp = atof(numbers[cmp]);

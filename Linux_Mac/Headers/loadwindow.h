@@ -16,6 +16,7 @@ public:
     ~loadwindow();
     std::string vecteur;
     std::string funct;
+    int state;
 
 public slots:
     void Validate(); //Button for validation

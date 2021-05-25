@@ -1,6 +1,5 @@
 @echo off
 cls
-mkdir ressources
 echo Install the following dependancies (All the link are also in the README):
 echo Python: https://www.python.org/ftp/python/3.9.5/python-3.9.5-amd64.exe
 echo Ghost Script/ps2pdf: https://ghostscript.com/pipermail/gs-devel/2009-April/008314.html

@@ -44,9 +44,11 @@ void MainWindow::makeload()
     string vect = secwind.vecteur;
     string funct = secwind.funct;
     //Recuperation du contenu de l'objet loadwindow pour actualiser les listes
-
-    ui->listWidget_vect->addItem(QString::fromStdString(vect));
-    ui->listWidget_funct->addItem(QString::fromStdString(funct));
+    if(secwind.state)
+    {
+        ui->listWidget_vect->addItem(QString::fromStdString(vect));
+        ui->listWidget_funct->addItem(QString::fromStdString(funct));
+    }
 }
 
 void MainWindow::makeadd_vect()
