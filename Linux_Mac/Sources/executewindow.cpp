@@ -18,7 +18,7 @@ extern "C" {
 }
 
 //possible variable
-char carc[26] = {'x','y','z','a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w'};
+char carc[25] = {'x','y','z','a','b','c','d','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w'};
 
 executewindow::executewindow(MainWindow *dad , QWidget *parent) :
     QDialog(parent),
@@ -187,12 +187,14 @@ void executewindow::Validate()
 
     //Get the name of all the variable
     string variablestring = "";
-    for (int i = 0; i < nbr_dim_vect; i++) {
-        variablestring[i] = carc[i];
+    cout<<nbr_dim_vect<<endl;
+    char variable[nbr_dim_vect+1];
+    cout << nbr_dim_vect << endl;
+    for(int i = 0 ; i < nbr_dim_vect ; i++)
+    {
+        variable[i] = carc[i];
     }
-    char variable[variablestring.length()+1];
-    strcpy(variable, variablestring.c_str());
-
+    variable[nbr_dim_vect] = '\0';
     list = fonction_principale(funct,vecteurinitial,nbr_dim_vect,nbr_dim_funct,nbr_vect,variable); // Appel de la fonction de calcul de liste de vecteur avec le nombre de vecteur, le vecteur initial et la fonction
     if(list->taille == -1)
     {
@@ -202,9 +204,7 @@ void executewindow::Validate()
 
     statist = calcul_des_statistiques(statistic,list);  //Appel de la fonction de calcul des statistiques avec le tableau de int
 
-
-    /*//Creation de la nouvelle fenetre bloquante avec comme paramettre un objet contenant les infos
- */
+    /*//Creation de la nouvelle fenetre bloquante avec comme paramettre un objet contenant les infos*/
 
     if(nbr_dim_vecteur <= 2)
     {
