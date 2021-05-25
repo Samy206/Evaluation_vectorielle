@@ -44,11 +44,6 @@ int generation_fic_gnuplot(Gestion_ES * gestionnaire, char * filename)
 {
     //Récupération du nombre de dimensions et applications des vérifications dessus
     int taille_vec = gestionnaire->liste->premier->vecteur.taille;
-    if(taille_vec > 3 || taille_vec == 1)
-    {
-        printf("Les vecteurs n'ont pas un nombre de dimensions satifaisant les caractéristiques d'affichage gnuplot : une dimension ou plus de trois\n");
-        return taille_vec;
-    }
     //Génération du chemin absolu du fichier de coordonnées
     strcat(gestionnaire->fic_gnup,filename);
     strcat(gestionnaire->fic_gnup,".txt");
@@ -579,7 +574,6 @@ int chargement_fic_gnup(Vector * vecteur, char * funct, char * filename)
     FILE * file = fopen(filename,"r");
     if(!file)
     {
-        printf("Can't open load file\n");
         return 1;
     }
     char line[255];
@@ -598,14 +592,13 @@ int chargement_fic_gnup(Vector * vecteur, char * funct, char * filename)
             //Compte du nombre de dimensions
             for(j = 0 ; j < size ; j++)
             {
-                if(line[j] == ' ')
+                if((line[j] == ' ' || line[j] == '\n'))
                     cmp++;
             }
 
             //Vérification de la valeur obtenue
             if(cmp % 2 != 0)
             {
-                printf("cmp : %d ; The file has not the good format\n",cmp);
                 return 2;
             }
 
@@ -655,7 +648,7 @@ int string_parser(Vector * vecteur, char * line, int size)
         }
 
         //Conversion des valeurs qui nous intéressent
-        else if( (line[i] == ' ') && cmp >= (size/2) )
+        else if( ((line[i] == ' ') || (line[i] == '\n') )&& cmp >= (size/2))
         {
             numbers[cmp][j] = '\0';
             tmp = atof(numbers[cmp]);

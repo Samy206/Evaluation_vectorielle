@@ -1,4 +1,0 @@
-minimum of norms: 15.2354
-minimum of x: 14
-minimum of y: -86.6655
-minimum of z: -5
