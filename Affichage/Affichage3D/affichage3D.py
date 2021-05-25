@@ -12,8 +12,8 @@ import math
 
 def Affichage3D_equations(self):
     # on crée un QListWidget et définissons sa géométrie
-    list_widget = QListWidget(self)
-    list_widget.setGeometry(230, 20,840, 20)
+    liste_widget = QListWidget(self)
+    liste_widget.setGeometry(230, 20,840, 20)
     
     # ouvrir et extraire les données 'Transfert_equations.txt'
     temp_filename = "Transfert_equations.txt"
@@ -25,15 +25,15 @@ def Affichage3D_equations(self):
         # conversion de la valeur de la liste en item QListWidgetItem
         item_temp = QListWidgetItem(liste_equations[i].replace('\n',''))
         # ajout de l'item dans la liste
-        list_widget.addItem(item_temp)
+        liste_widget.addItem(item_temp)
 
     
     # ajout d'une scroll bar et définition de son style
-    scroll_bar = QScrollBar(self)
-    scroll_bar.setStyleSheet("background : lightgreen;")
+    scroller_bar = QScrollBar(self)
+    scroller_bar.setStyleSheet("background : lightgreen;")
 
     # ajout d'une scroll bar verticale
-    list_widget.setVerticalScrollBar(scroll_bar)
+    liste_widget.setVerticalScrollBar(scroller_bar)
 
     # création d'un label et définission de sa géométrie
     label = QLabel("Equation: ", self)
@@ -42,8 +42,8 @@ def Affichage3D_equations(self):
  
 def Affichage3D_donnees_statistiques(self):
     # on crée un QListWidget et définissons sa géométrie
-    list_widget = QListWidget(self)
-    list_widget.setGeometry(10, 350,200, 270)
+    liste_widget = QListWidget(self)
+    liste_widget.setGeometry(10, 350,200, 270)
 
     # ouvrir et extraire les valeurs de 'Transfert_donnees_statistiques_API.txt'
     temp_filename = "Transfert_donnees_statistiques_API.txt"
@@ -55,14 +55,14 @@ def Affichage3D_donnees_statistiques(self):
         # conversion de la valeur de la liste en item QListWidgetItem
         item_temp = QListWidgetItem(liste_donnees_statistiques[i].replace('\n',''))
         # ajout de l'item dans la liste
-        list_widget.addItem(item_temp)
+        liste_widget.addItem(item_temp)
 
     # ajout d'une scroll bar et définition de son style
-    scroll_bar = QScrollBar(self)
-    scroll_bar.setStyleSheet("background : lightgreen;")
+    scroller_bar = QScrollBar(self)
+    scroller_bar.setStyleSheet("background : lightgreen;")
 
     # ajout d'une scroll bar verticale
-    list_widget.setVerticalScrollBar(scroll_bar)
+    liste_widget.setVerticalScrollBar(scroller_bar)
 
     # création d'un label et définission de sa géométrie
     label = QLabel("Statistic data: ", self)
@@ -73,33 +73,37 @@ class Affichage3D_fenetre(QMainWindow):
         # initialisation de la fenetre
         QMainWindow.__init__(self, parent)
         self.setWindowTitle('Display Window 3D')
-        self.setGeometry(0,0,1280,720)
+        dim_fenetre_A_x = 0
+        dim_fenetre_A_y = 0
+        dim_fenetre_B_x = 1280
+        dim_fenetre_B_y = 720
+        self.setGeometry(dim_fenetre_A_x,dim_fenetre_A_y,dim_fenetre_B_x,dim_fenetre_B_y)
 
-        # début main frame
-        self.main_frame = QWidget()
+        # début fenetre
+        self.fenetre = QWidget()
          
         # creation de la figure et du canevas, et de ses dimensions
         self.dpi = 100
         self.fig = Figure((12.0, 12.0), dpi=self.dpi)
         self.canvas = FigureCanvas(self.fig)
-        self.canvas.setParent(self.main_frame)
+        self.canvas.setParent(self.fenetre)
         
         # définition de la figure du plot, en version 3D
-        self.axes = self.fig.add_subplot(111, projection = '3d')
+        self.courbe_a_afficher = self.fig.add_subplot(111, projection = '3d')
 
         # contrôles de la barre en bas de l'écran
         # textbox pour choisir un vecteur en particulier
-        self.textbox_select = QLineEdit()
-        self.textbox_select.setMinimumWidth(200)
-        self.textbox_select.editingFinished.connect(self.Affichage3D_vecteurs)
+        self.entree_numerique = QLineEdit()
+        self.entree_numerique.setMinimumWidth(200)
+        self.entree_numerique.editingFinished.connect(self.Affichage3D_vecteurs)
         
         # label d'info pour la textbox
         self.label_info_select = QtWidgets.QLabel()
         self.label_info_select.setText("enter index of a vector\nto know more info\nabout it:")
 
         # boutton d'actualisation / entrer le nouveau vecteur
-        self.draw_button = QPushButton("&Apply changes")
-        self.draw_button.clicked.connect(self.Affichage3D_vecteurs)
+        self.bouton_entrer = QPushButton("&Apply changes")
+        self.bouton_entrer.clicked.connect(self.Affichage3D_vecteurs)
         
         # permet d'afficher ou enlever la grille
         self.grid_cb = QCheckBox("Show &Grid")
@@ -107,15 +111,15 @@ class Affichage3D_fenetre(QMainWindow):
         self.grid_cb.stateChanged.connect(self.Affichage3D_vecteurs)
         
         # label d'information pour afficher les info sur le vecteur selectionné
-        self.label_vecteur = QtWidgets.QLabel()
-        self.label_vecteur.setText("non updated")
+        self.msg_coord_vect_choisi = QtWidgets.QLabel()
+        self.msg_coord_vect_choisi.setText("non updated")
         #
         # Layout with box sizers
         # 
         hbox = QHBoxLayout()
         
         # ajout des nouveaux controles
-        for w in [  self.label_info_select, self.textbox_select, self.draw_button, self.grid_cb, self.label_vecteur]:
+        for w in [  self.label_info_select, self.entree_numerique, self.bouton_entrer, self.grid_cb, self.msg_coord_vect_choisi]:
             hbox.addWidget(w)
             hbox.setAlignment(w, Qt.AlignVCenter)
         
@@ -123,33 +127,33 @@ class Affichage3D_fenetre(QMainWindow):
         vbox.addWidget(self.canvas)
         vbox.addLayout(hbox)
         
-        self.main_frame.setLayout(vbox)
-        self.setCentralWidget(self.main_frame)
+        self.fenetre.setLayout(vbox)
+        self.setCentralWidget(self.fenetre)
 
         # fonctions d'affichage du module
         Affichage3D_donnees_statistiques(self)
         Affichage3D_equations(self)
-        # end main frame
 
-        self.textbox_select.setText('0')
+        # textbox de selection de vecteur assignée a 0
+        self.entree_numerique.setText('0')
         self.Affichage3D_vecteurs()
     
     def Affichage3D_vecteurs(self): # redéssine la figure / met a jour
 
-        #lecture de la textbox et enregistrement des infos dans 'v_select'
-        read_textbox = self.textbox_select.text().encode('utf-8')
+        #lecture de la textbox et enregistrement des infos dans 'num_vect_choisi'
+        read_textbox = self.entree_numerique.text().encode('utf-8')
         
         # test d'erreur pour voir si l'entrée est un int
         try: 
             self.data = [int(s) for s in read_textbox.split()]
-            v_select = self.data
+            num_vect_choisi = self.data
         except ValueError:
-            v_select = [-1]*1 # va display une erreur
+            num_vect_choisi = [-1]*1 # va display une erreur
      
         # nettoyage du plot 
-        self.axes.clear()   
+        self.courbe_a_afficher.clear()   
         # update de l'affichage ou non de la grille     
-        self.axes.grid(self.grid_cb.isChecked())
+        self.courbe_a_afficher.grid(self.grid_cb.isChecked())
 
         # ouverir et extraire les valeurs de 'Transfert_liste_vecteurs.txt'
         temp_filename = "Transfert_liste_vecteurs.txt"
@@ -180,56 +184,56 @@ class Affichage3D_fenetre(QMainWindow):
                 somme_vect_y += float(liste_vecteurs[i+1])
                 somme_vect_z += float(liste_vecteurs[i+2])
 
-        self.axes.plot(array_x, array_y, array_z)
+        self.courbe_a_afficher.plot(array_x, array_y, array_z)
 
         # ajout des descriptions des axes
-        self.axes.set_xlabel("x axis")
-        self.axes.set_ylabel("y axis")
-        self.axes.set_zlabel("z axis")
+        self.courbe_a_afficher.set_xlabel("x axis")
+        self.courbe_a_afficher.set_ylabel("y axis")
+        self.courbe_a_afficher.set_zlabel("z axis")
 
         # on surligne le vecteur selectioné
-        if v_select[0] < int(len(liste_vecteurs)/3)-1 and v_select[0] >= 0: 
+        if num_vect_choisi[0] < int(len(liste_vecteurs)/3)-1 and num_vect_choisi[0] >= 0: 
             # initialisation des array
             vecteur_select_x = [None]*2
             vecteur_select_y = [None]*2
             vecteur_select_z = [None]*2
             
             # passage des valeurs du vecteur selectionné depuis l'array principal
-            vecteur_select_x[0] = array_x[int(v_select[0])]
-            vecteur_select_y[0] = array_y[int(v_select[0])]
-            vecteur_select_z[0] = array_z[int(v_select[0])] 
-            vecteur_select_x[1] = array_x[int(v_select[0]+1)]
-            vecteur_select_y[1] = array_y[int(v_select[0]+1)]
-            vecteur_select_z[1] = array_z[int(v_select[0]+1)] 
+            vecteur_select_x[0] = array_x[int(num_vect_choisi[0])]
+            vecteur_select_y[0] = array_y[int(num_vect_choisi[0])]
+            vecteur_select_z[0] = array_z[int(num_vect_choisi[0])] 
+            vecteur_select_x[1] = array_x[int(num_vect_choisi[0]+1)]
+            vecteur_select_y[1] = array_y[int(num_vect_choisi[0]+1)]
+            vecteur_select_z[1] = array_z[int(num_vect_choisi[0]+1)] 
             
             # enregistrement des nouveaux arrays dans le plot avec une nouvelle couleur (rouge)
-            self.axes.plot(vecteur_select_x, vecteur_select_y, vecteur_select_z, color = 'r')
+            self.courbe_a_afficher.plot(vecteur_select_x, vecteur_select_y, vecteur_select_z, color = 'r')
             
-            # mise a jour du label avec les normes de vecteurs
-            string_vecteur_label = "Selected vector: v"+str(v_select[0]) 
-            norm = pow(float(liste_vecteurs[v_select[0]*3+3]),2) 
-            norm += pow(float(liste_vecteurs[v_select[0]*3+4]),2)
-            norm += pow(float(liste_vecteurs[v_select[0]*3+5]),2)
+            # mise a jour du label avec les normes et coordonnées de vecteurs
+            string_vecteur_label = "Selected vector: v"+str(num_vect_choisi[0]) 
+            norm = pow(float(liste_vecteurs[num_vect_choisi[0]*3+3]),2) 
+            norm += pow(float(liste_vecteurs[num_vect_choisi[0]*3+4]),2)
+            norm += pow(float(liste_vecteurs[num_vect_choisi[0]*3+5]),2)
             norm = math.sqrt(norm)
             string_vecteur_label +="\nnorm: " +str(norm)
             string_vecteur_label +="\ncoordinates x: ("+str(float(vecteur_select_x[0])) +", "+ str(float(vecteur_select_x[1]))+")" 
             string_vecteur_label +="\ncoordinates y: ("+str(float(vecteur_select_y[0])) +", "+ str(float(vecteur_select_y[1]))+")"  
             string_vecteur_label +="\ncoordinates z: ("+str(float(vecteur_select_z[0])) +", "+ str(float(vecteur_select_z[1]))+")"  
-            self.label_vecteur.setText(string_vecteur_label)
+            self.msg_coord_vect_choisi.setText(string_vecteur_label)
         
         else :
             # message d'erreur dans l'affichage 3D
-            self.label_vecteur.setText("\n\nError: The selected vector doesn't exist!\n\n")
+            self.msg_coord_vect_choisi.setText("\n\nError: The selected vector doesn't exist!\n\n")
         
         # actualisaton du canevas
         self.canvas.draw()
 
         # liste vecteurs
         # creating a QListWidget
-        list_widget = QListWidget(self)
+        liste_widget = QListWidget(self)
 
         # setting geometry to it
-        list_widget.setGeometry(10, 20,200, 270)
+        liste_widget.setGeometry(10, 20,200, 270)
 
         # boucle pour l'ajout des vecteurs dans la liste d'affichage
         for i in range(3, len(liste_vecteurs)):
@@ -237,20 +241,20 @@ class Affichage3D_fenetre(QMainWindow):
                 # conversion de la valeur de la liste en item QListWidgetItem
                 item_temp = QListWidgetItem("v"+str(int(i/3)-1)+": X: "+liste_vecteurs[i].replace('\n','')+" Y: "+liste_vecteurs[i+1].replace('\n','')+" Z: "+liste_vecteurs[i+2].replace('\n',''))
                 # ajout de l'item dans la liste
-                list_widget.addItem(item_temp)
+                liste_widget.addItem(item_temp)
 
         # ajout d'une scroll bar et définition de sa géométrie
-        scroll_bar = QScrollBar(self)
-        scroll_bar.setStyleSheet("background : lightgreen;")
+        scroller_bar = QScrollBar(self)
+        scroller_bar.setStyleSheet("background : lightgreen;")
 
         # ajout d'une scroll bar verticale
-        list_widget.setVerticalScrollBar(scroll_bar)
+        liste_widget.setVerticalScrollBar(scroller_bar)
 
         # création d'un label et définition de sa géométrie
         label = QLabel("List of vectors: ", self)
         label.setGeometry(10, 5, 150, 10)
 
-app = QApplication(sys.argv)
+application = QApplication(sys.argv)
 form = Affichage3D_fenetre()
 form.show()
-app.exec_()
+application.exec_()
