@@ -265,6 +265,7 @@ class Affichage3D_fenetre(QMainWindow):
     	try: 
         	self.data = [int(s) for s in read_textbox.split()]
         	self.entree_numerique.setText(str((self.data[0])+1))
+        	Affichage3D_vecteurs(self)
     	except ValueError:
     		pass
         
@@ -276,6 +277,7 @@ class Affichage3D_fenetre(QMainWindow):
     	try: 
         	self.data = [int(s) for s in read_textbox.split()]
         	self.entree_numerique.setText(str((self.data[0])-1))
+    		Affichage3D_vecteurs(self)
     	except ValueError:
         	pass
 
