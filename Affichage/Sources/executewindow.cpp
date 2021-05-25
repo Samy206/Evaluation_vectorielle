@@ -150,6 +150,10 @@ void executewindow::Validate()
         }
         string dep = "(";
         dep+=temp;
+        if(nbr_dim_vecteur_departure == 1)
+        {
+            dep += ",0";
+        }
         dep.push_back(')');
         departur = dep;
     }
