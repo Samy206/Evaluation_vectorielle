@@ -101,10 +101,14 @@ class Affichage3D_fenetre(QMainWindow):
         self.label_info_select = QtWidgets.QLabel()
         self.label_info_select.setText("enter index of a vector\nto know more info\nabout it:")
 
-        # boutton d'actualisation / entrer le nouveau vecteur
+		# boutton d'actualisation / entrer le nouveau vecteur
         self.bouton_entrer = QPushButton("&Apply changes")
         self.bouton_entrer.clicked.connect(self.Affichage3D_vecteurs)
-        
+        # pour incrementer/décrementer
+        self.bouton_moins = QPushButton("-")
+        self.bouton_moins.clicked.connect(self.clicked_moins)
+        self.bouton_plus = QPushButton("+")
+        self.bouton_plus.clicked.connect(self.clicked_plus)
         # permet d'afficher ou enlever la grille
         self.grid_cb = QCheckBox("Show &Grid")
         self.grid_cb.setChecked(False)
@@ -119,7 +123,7 @@ class Affichage3D_fenetre(QMainWindow):
         hbox = QHBoxLayout()
         
         # ajout des nouveaux controles
-        for w in [  self.label_info_select, self.entree_numerique, self.bouton_entrer, self.grid_cb, self.msg_coord_vect_choisi]:
+        for w in [  self.label_info_select, self.bouton_moins, self.entree_numerique, self.bouton_plus, self.bouton_entrer, self.grid_cb, self.msg_coord_vect_choisi]:
             hbox.addWidget(w)
             hbox.setAlignment(w, Qt.AlignVCenter)
         
@@ -253,6 +257,28 @@ class Affichage3D_fenetre(QMainWindow):
         # création d'un label et définition de sa géométrie
         label = QLabel("List of vectors: ", self)
         label.setGeometry(10, 5, 150, 10)
+
+    def clicked_plus(self):
+    	#lecture de la textbox et enregistrement des infos dans 'num_vect_choisi'
+    	read_textbox = self.entree_numerique.text().encode('utf-8')
+    	# test d'erreur pour voir si l'entrée est un int
+    	try: 
+        	self.data = [int(s) for s in read_textbox.split()]
+        	self.entree_numerique.setText(str((self.data[0])+1))
+    	except ValueError:
+    		pass
+        
+ 
+    def clicked_moins(self):
+    	#lecture de la textbox et enregistrement des infos dans 'num_vect_choisi'
+    	read_textbox = self.entree_numerique.text().encode('utf-8')
+    	# test d'erreur pour voir si l'entrée est un int
+    	try: 
+        	self.data = [int(s) for s in read_textbox.split()]
+        	self.entree_numerique.setText(str((self.data[0])-1))
+    	except ValueError:
+        	pass
+
 
 application = QApplication(sys.argv)
 form = Affichage3D_fenetre()
