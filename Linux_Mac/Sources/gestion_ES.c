@@ -44,6 +44,7 @@ int generation_fic_gnuplot(Gestion_ES * gestionnaire, char * filename)
 {
     //Récupération du nombre de dimensions et applications des vérifications dessus
     int taille_vec = gestionnaire->liste->premier->vecteur.taille;
+    
     //Génération du chemin absolu du fichier de coordonnées
     strcat(gestionnaire->fic_gnup,filename);
     strcat(gestionnaire->fic_gnup,".txt");
